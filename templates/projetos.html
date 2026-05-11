@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projetos - Daniel Mota</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #1a1a2e;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #2607f1;
+            padding: 15px;
+        }
+        nav a {
+            color: white;
+            margin: 15px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        h1 {
+            color: white;
+            font-size: 42px;
+            margin-top: 30px;
+        }
+        .projeto {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 15px;
+            color: white;
+        }
+        .projeto h2 {
+            color: #4CAF50;
+            font-size: 28px;
+        }
+        .projeto p {
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        .tag {
+            background-color: #2607f1;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+            font-size: 13px;
+        }
+        .botao {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .botao2 {
+            background-color: #2607f1;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Inicio</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/projetos">Projetos</a>
+        <a href="/contato">Contato</a>
+    </nav>
+
+    <h1>Meus Projetos</h1>
+
+    <div class="projeto">
+        <h2>Sistema do Studio da Lara</h2>
+        <p>Sistema completo de gestao para studios de beleza!</p>
+        <p>Cadastro de clientes, agendamentos, controle financeiro e relatorios!</p>
+        <br>
+        <span class="tag">Python</span>
+        <span class="tag">Sistema de Gestao</span>
+        <span class="tag">Banco de Dados</span>
+        <br><br>
+        <button class="botao" onclick="alert('Sistema de cadastro de clientes, agendamentos e controle financeiro para studios de beleza!')">ver detalhes</button>
+    </div>
+
+    <div class="projeto">
+        <h2>Sistema de Estoque</h2>
+        <p>Sistema profissional de controle de estoque para empresas!</p>
+        <p>Adicionar, remover, atualizar produtos e alertas de estoque baixo!</p>
+        <br>
+        <span class="tag">Python</span>
+        <span class="tag">Gestao de Estoque</span>
+        <span class="tag">Alertas Automaticos</span>
+        <br><br>
+        <button class="botao" onclick="alert('Sistema de controle de estoque com alertas automaticos de estoque baixo para empresas!')">ver detalhes</button>
+    </div>
+
+    <br>
+    <a href="/contato"><button class="botao2">solicitar um projeto</button></a>
+</body>
+</html>
