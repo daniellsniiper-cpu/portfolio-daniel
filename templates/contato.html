@@ -13,6 +13,9 @@
         nav {
             background-color: #2607f1;
             padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         nav a {
             color: white;
@@ -21,15 +24,17 @@
             font-size: 18px;
             font-weight: bold;
         }
-        h1 {
-            color: white;
-            font-size: 42px;
-            margin-top: 30px;
+        .bandeiras { margin-right: 15px; }
+        .bandeira {
+            width: 35px;
+            height: 25px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 3px;
+            border: 2px solid white;
         }
-        p {
-            color: #ccc;
-            font-size: 18px;
-        }
+        h1 { color: white; font-size: 42px; margin-top: 30px; }
+        p { color: #ccc; font-size: 18px; }
         .formulario {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 40px;
@@ -45,9 +50,7 @@
             border: none;
             font-size: 16px;
         }
-        textarea {
-            height: 120px;
-        }
+        textarea { height: 120px; }
         .botao {
             background-color: #2607f1;
             color: white;
@@ -62,23 +65,68 @@
 </head>
 <body>
     <nav>
-        <a href="/">Inicio</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/projetos">Projetos</a>
-        <a href="/contato">Contato</a>
+        <div>
+            <a href="/" id="nav-inicio">Inicio</a>
+            <a href="/sobre" id="nav-sobre">Sobre</a>
+            <a href="/projetos" id="nav-projetos">Projetos</a>
+            <a href="/contato" id="nav-contato">Contato</a>
+        </div>
+        <div class="bandeiras">
+            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira" title="Português">
+            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira" title="Español">
+            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira" title="English">
+        </div>
     </nav>
 
-    <h1>Entre em Contato!</h1>
-    <p>Tem um projeto em mente? Vamos conversar!!</p>
+    <h1 id="titulo-pagina">Entre em Contato!</h1>
+    <p id="subtitulo">Tem um projeto em mente? Vamos conversar!!</p>
 
     <div class="formulario">
         <form action="https://formspree.io/f/xojrgolb" method="POST">
-            <input type="text" name="nome" placeholder="Seu nome completo" required><br>
+            <input type="text" name="nome" id="placeholder-nome" placeholder="Seu nome completo" required><br>
             <input type="email" name="email" placeholder="Seu email" required><br>
-            <input type="text" name="empresa" placeholder="Sua empresa (opcional)"><br>
-            <textarea name="mensagem" placeholder="Descreva seu projeto..." required></textarea><br>
-            <button class="botao" type="submit">enviar mensagem</button>
+            <input type="text" name="empresa" id="placeholder-empresa" placeholder="Sua empresa (opcional)"><br>
+            <textarea name="mensagem" id="placeholder-mensagem" placeholder="Descreva seu projeto..."></textarea><br>
+            <button class="botao" type="submit" id="btn-enviar">Enviar mensagem</button>
         </form>
     </div>
+
+    <script>
+        var textos = {
+            pt: {
+                inicio: "Inicio", sobre: "Sobre", projetos: "Projetos", contato: "Contato",
+                tituloPagina: "Entre em Contato!",
+                subtitulo: "Tem um projeto em mente? Vamos conversar!!",
+                btnEnviar: "Enviar mensagem"
+            },
+            es: {
+                inicio: "Inicio", sobre: "Sobre mí", projetos: "Proyectos", contato: "Contacto",
+                tituloPagina: "Contactame!",
+                subtitulo: "Tienes un proyecto en mente? Hablemos!!",
+                btnEnviar: "Enviar mensaje"
+            },
+            en: {
+                inicio: "Home", sobre: "About", projetos: "Projects", contato: "Contact",
+                tituloPagina: "Get in Touch!",
+                subtitulo: "Have a project in mind? Lets talk!!",
+                btnEnviar: "Send message"
+            }
+        }
+
+        function aplicarIdioma(idioma) {
+            localStorage.setItem("idioma", idioma)
+            var t = textos[idioma]
+            document.getElementById("nav-inicio").innerText = t.inicio
+            document.getElementById("nav-sobre").innerText = t.sobre
+            document.getElementById("nav-projetos").innerText = t.projetos
+            document.getElementById("nav-contato").innerText = t.contato
+            document.getElementById("titulo-pagina").innerText = t.tituloPagina
+            document.getElementById("subtitulo").innerText = t.subtitulo
+            document.getElementById("btn-enviar").innerText = t.btnEnviar
+        }
+
+        var idiomaSalvo = localStorage.getItem("idioma") || "pt"
+        aplicarIdioma(idiomaSalvo)
+    </script>
 </body>
 </html>

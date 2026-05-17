@@ -13,6 +13,9 @@
         nav {
             background-color: #2607f1;
             padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         nav a {
             color: white;
@@ -21,11 +24,16 @@
             font-size: 18px;
             font-weight: bold;
         }
-        h1 {
-            color: white;
-            font-size: 42px;
-            margin-top: 30px;
+        .bandeiras { margin-right: 15px; }
+        .bandeira {
+            width: 35px;
+            height: 25px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 3px;
+            border: 2px solid white;
         }
+        h1 { color: white; font-size: 42px; margin-top: 30px; }
         .projeto {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 40px;
@@ -34,15 +42,8 @@
             border-radius: 15px;
             color: white;
         }
-        .projeto h2 {
-            color: #4CAF50;
-            font-size: 28px;
-        }
-        .projeto p {
-            color: #ccc;
-            font-size: 18px;
-            line-height: 1.8;
-        }
+        .projeto h2 { color: #4CAF50; font-size: 28px; }
+        .projeto p { color: #ccc; font-size: 18px; line-height: 1.8; }
         .tag {
             background-color: #2607f1;
             color: white;
@@ -76,39 +77,119 @@
 </head>
 <body>
     <nav>
-        <a href="/">Inicio</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/projetos">Projetos</a>
-        <a href="/contato">Contato</a>
+        <div>
+            <a href="/" id="nav-inicio">Inicio</a>
+            <a href="/sobre" id="nav-sobre">Sobre</a>
+            <a href="/projetos" id="nav-projetos">Projetos</a>
+            <a href="/contato" id="nav-contato">Contato</a>
+        </div>
+        <div class="bandeiras">
+            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira" title="Português">
+            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira" title="Español">
+            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira" title="English">
+        </div>
     </nav>
 
-    <h1>Meus Projetos</h1>
+    <h1 id="titulo-pagina">Meus Projetos</h1>
 
     <div class="projeto">
-        <h2>Sistema do Studio da Lara</h2>
-        <p>Sistema completo de gestao para studios de beleza!</p>
-        <p>Cadastro de clientes, agendamentos, controle financeiro e relatorios!</p>
+        <h2 id="proj1-titulo">Sistema de Studio</h2>
+        <p id="proj1-desc1">Sistema completo de gestao para studios de beleza!</p>
+        <p id="proj1-desc2">Cadastro de clientes, agendamentos e controle financeiro!</p>
         <br>
         <span class="tag">Python</span>
         <span class="tag">Sistema de Gestao</span>
         <span class="tag">Banco de Dados</span>
         <br><br>
-        <button class="botao" onclick="alert('Sistema de cadastro de clientes, agendamentos e controle financeiro para studios de beleza!')">ver detalhes</button>
+        <button class="botao" id="btn-detalhes1" onclick="alert(document.getElementById('proj1-alert').innerText)">Ver detalhes</button>
+        <span id="proj1-alert" style="display:none">Sistema de cadastro de clientes, agendamentos e controle financeiro para studios de beleza!</span>
     </div>
 
     <div class="projeto">
-        <h2>Sistema de Estoque</h2>
-        <p>Sistema profissional de controle de estoque para empresas!</p>
-        <p>Adicionar, remover, atualizar produtos e alertas de estoque baixo!</p>
+        <h2 id="proj2-titulo">Sistema de Estoque</h2>
+        <p id="proj2-desc1">Sistema profissional de controle de estoque!</p>
+        <p id="proj2-desc2">Adicionar, remover, atualizar produtos e alertas de estoque baixo!</p>
         <br>
         <span class="tag">Python</span>
         <span class="tag">Gestao de Estoque</span>
         <span class="tag">Alertas Automaticos</span>
         <br><br>
-        <button class="botao" onclick="alert('Sistema de controle de estoque com alertas automaticos de estoque baixo para empresas!')">ver detalhes</button>
+        <button class="botao" id="btn-detalhes2" onclick="alert(document.getElementById('proj2-alert').innerText)">Ver detalhes</button>
+        <span id="proj2-alert" style="display:none">Sistema de controle de estoque com alertas automaticos de estoque baixo!</span>
     </div>
 
     <br>
-    <a href="/contato"><button class="botao2">solicitar um projeto</button></a>
+    <a href="/contato"><button class="botao2" id="btn-solicitar">Solicitar um projeto</button></a>
+
+    <script>
+        var textos = {
+            pt: {
+                inicio: "Inicio", sobre: "Sobre", projetos: "Projetos", contato: "Contato",
+                tituloPagina: "Meus Projetos",
+                proj1Titulo: "Sistema do Studio da Lara",
+                proj1Desc1: "Sistema completo de gestao para studios de beleza!",
+                proj1Desc2: "Cadastro de clientes, agendamentos e controle financeiro!",
+                proj1Alert: "Sistema de cadastro de clientes, agendamentos e controle financeiro para studios de beleza!",
+                proj2Titulo: "Sistema de Estoque",
+                proj2Desc1: "Sistema profissional de controle de estoque!",
+                proj2Desc2: "Adicionar, remover, atualizar produtos e alertas de estoque baixo!",
+                proj2Alert: "Sistema de controle de estoque com alertas automaticos!",
+                btnDetalhes: "Ver detalhes",
+                btnSolicitar: "Solicitar um projeto"
+            },
+            es: {
+                inicio: "Inicio", sobre: "Sobre mí", projetos: "Proyectos", contato: "Contacto",
+                tituloPagina: "Mis Proyectos",
+                proj1Titulo: "Sistema del Studio de Lara",
+                proj1Desc1: "Sistema completo de gestion para estudios de belleza!",
+                proj1Desc2: "Registro de clientes, citas y control financiero!",
+                proj1Alert: "Sistema de registro de clientes, citas y control financiero para estudios de belleza!",
+                proj2Titulo: "Sistema de Inventario",
+                proj2Desc1: "Sistema profesional de control de inventario!",
+                proj2Desc2: "Agregar, eliminar, actualizar productos y alertas de stock bajo!",
+                proj2Alert: "Sistema de control de inventario con alertas automaticas!",
+                btnDetalhes: "Ver detalles",
+                btnSolicitar: "Solicitar un proyecto"
+            },
+            en: {
+                inicio: "Home", sobre: "About", projetos: "Projects", contato: "Contact",
+                tituloPagina: "My Projects",
+                proj1Titulo: "Lara Studio System",
+                proj1Desc1: "Complete management system for beauty studios!",
+                proj1Desc2: "Client registration, appointments and financial control!",
+                proj1Alert: "Client registration system, appointments and financial control for beauty studios!",
+                proj2Titulo: "Stock System",
+                proj2Desc1: "Professional stock control system!",
+                proj2Desc2: "Add, remove, update products and low stock alerts!",
+                proj2Alert: "Stock control system with automatic low stock alerts!",
+                btnDetalhes: "See details",
+                btnSolicitar: "Request a project"
+            }
+        }
+
+        function aplicarIdioma(idioma) {
+            localStorage.setItem("idioma", idioma)
+            var t = textos[idioma]
+            document.getElementById("nav-inicio").innerText = t.inicio
+            document.getElementById("nav-sobre").innerText = t.sobre
+            document.getElementById("nav-projetos").innerText = t.projetos
+            document.getElementById("nav-contato").innerText = t.contato
+            document.getElementById("titulo-pagina").innerText = t.tituloPagina
+            document.getElementById("proj1-titulo").innerText = t.proj1Titulo
+            document.getElementById("proj1-desc1").innerText = t.proj1Desc1
+            document.getElementById("proj1-desc2").innerText = t.proj1Desc2
+            document.getElementById("proj1-alert").innerText = t.proj1Alert
+            document.getElementById("proj2-titulo").innerText = t.proj2Titulo
+            document.getElementById("proj2-desc1").innerText = t.proj2Desc1
+            document.getElementById("proj2-desc2").innerText = t.proj2Desc2
+            document.getElementById("proj2-alert").innerText = t.proj2Alert
+            document.getElementById("btn-detalhes1").innerText = t.btnDetalhes
+            document.getElementById("btn-detalhes2").innerText = t.btnDetalhes
+            document.getElementById("btn-solicitar").innerText = t.btnSolicitar
+        }
+
+        var idiomaSalvo = localStorage.getItem("idioma") || "pt"
+        aplicarIdioma(idiomaSalvo)
+    </script>
 </body>
 </html>

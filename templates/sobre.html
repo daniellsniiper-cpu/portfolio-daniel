@@ -13,6 +13,9 @@
         nav {
             background-color: #2607f1;
             padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         nav a {
             color: white;
@@ -20,6 +23,17 @@
             text-decoration: none;
             font-size: 18px;
             font-weight: bold;
+        }
+        .bandeiras {
+            margin-right: 15px;
+        }
+        .bandeira {
+            width: 35px;
+            height: 25px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 3px;
+            border: 2px solid white;
         }
         .cartao {
             background-color: rgba(255, 255, 255, 0.1);
@@ -29,15 +43,8 @@
             border-radius: 15px;
             color: white;
         }
-        h1 {
-            color: white;
-            font-size: 42px;
-        }
-        p {
-            color: #ccc;
-            font-size: 18px;
-            line-height: 1.8;
-        }
+        h1 { color: white; font-size: 42px; }
+        p { color: #ccc; font-size: 18px; line-height: 1.8; }
         .habilidade {
             background-color: #2607f1;
             color: white;
@@ -61,21 +68,28 @@
 </head>
 <body>
     <nav>
-        <a href="/">Inicio</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/projetos">Projetos</a>
-        <a href="/contato">Contato</a>
+        <div>
+            <a href="/" id="nav-inicio">Inicio</a>
+            <a href="/sobre" id="nav-sobre">Sobre</a>
+            <a href="/projetos" id="nav-projetos">Projetos</a>
+            <a href="/contato" id="nav-contato">Contato</a>
+        </div>
+        <div class="bandeiras">
+            <img src="https://flagcdn.com/w40/br.png" onclick="mudarIdioma('pt')" class="bandeira" title="Português">
+            <img src="https://flagcdn.com/w40/es.png" onclick="mudarIdioma('es')" class="bandeira" title="Español">
+            <img src="https://flagcdn.com/w40/gb.png" onclick="mudarIdioma('en')" class="bandeira" title="English">
+        </div>
     </nav>
 
     <div class="cartao">
-        <h1>Sobre mim</h1>
-        <p>Me chamo <strong>Daniel Mota</strong>, tenho 34 anos e moro na Espanha.</p>
-        <p>Sou um desenvolvedor apaixonado por tecnologia e por transformar ideias em produtos digitais reais!</p>
-        <p>Comecei do zero e hoje desenvolvo sistemas e sites profissionais para empresas e empreendedores.</p>
+        <h1 id="titulo-sobre">Sobre mim</h1>
+        <p id="texto1">Me chamo <strong>Daniel Mota</strong>, tenho 34 anos e moro na Espanha.</p>
+        <p id="texto2">Sou desenvolvedor apaixonado por tecnologia!</p>
+        <p id="texto3">Desenvolvo sistemas e sites profissionais para empresas!</p>
     </div>
 
     <div class="cartao">
-        <h1>Minhas Habilidades</h1>
+        <h1 id="titulo-habilidades">Minhas Habilidades</h1>
         <span class="habilidade">Python</span>
         <span class="habilidade">HTML</span>
         <span class="habilidade">CSS</span>
@@ -86,11 +100,72 @@
     </div>
 
     <div class="cartao">
-        <h1>Meus Valores</h1>
-        <p>Trabalho com honestidade, dedicacao e compromisso!</p>
-        <p>Cada projeto e tratado com muito cuidado e atencao!</p>
+        <h1 id="titulo-valores">Meus Valores</h1>
+        <p id="texto-valores">Trabalho com honestidade, dedicacao e compromisso!</p>
         <br>
-        <a href="/contato"><button class="botao">entre em contato</button></a>
+        <a href="/contato"><button class="botao" id="btn-contato">Entre em contato</button></a>
     </div>
+
+    <script>
+        var textos = {
+            pt: {
+                inicio: "Inicio", sobre: "Sobre", projetos: "Projetos", contato: "Contato",
+                tituloSobre: "Sobre mim",
+                texto1: "Me chamo Daniel Mota, tenho 34 anos e moro na Espanha.",
+                texto2: "Sou desenvolvedor apaixonado por tecnologia!",
+                texto3: "Desenvolvo sistemas e sites profissionais para empresas!",
+                tituloHabilidades: "Minhas Habilidades",
+                tituloValores: "Meus Valores",
+                textoValores: "Trabalho com honestidade, dedicacao e compromisso!",
+                btnContato: "Entre em contato"
+            },
+            es: {
+                inicio: "Inicio", sobre: "Sobre mí", projetos: "Proyectos", contato: "Contacto",
+                tituloSobre: "Sobre mí",
+                texto1: "Me llamo Daniel Mota, tengo 34 años y vivo en España.",
+                texto2: "Soy desarrollador apasionado por la tecnología!",
+                texto3: "Desarrollo sistemas y sitios profesionales para empresas!",
+                tituloHabilidades: "Mis Habilidades",
+                tituloValores: "Mis Valores",
+                textoValores: "Trabajo con honestidad, dedicacion y compromiso!",
+                btnContato: "Contáctame"
+            },
+            en: {
+                inicio: "Home", sobre: "About", projetos: "Projects", contato: "Contact",
+                tituloSobre: "About me",
+                texto1: "My name is Daniel Mota, I am 34 years old and I live in Spain.",
+                texto2: "I am a developer passionate about technology!",
+                texto3: "I develop professional systems and websites for companies!",
+                tituloHabilidades: "My Skills",
+                tituloValores: "My Values",
+                textoValores: "I work with honesty, dedication and commitment!",
+                btnContato: "Contact me"
+            }
+        }
+
+        function mudarIdioma(idioma) {
+            localStorage.setItem("idioma", idioma)
+            aplicarIdioma(idioma)
+        }
+
+        function aplicarIdioma(idioma) {
+            var t = textos[idioma]
+            document.getElementById("nav-inicio").innerText = t.inicio
+            document.getElementById("nav-sobre").innerText = t.sobre
+            document.getElementById("nav-projetos").innerText = t.projetos
+            document.getElementById("nav-contato").innerText = t.contato
+            document.getElementById("titulo-sobre").innerText = t.tituloSobre
+            document.getElementById("texto1").innerText = t.texto1
+            document.getElementById("texto2").innerText = t.texto2
+            document.getElementById("texto3").innerText = t.texto3
+            document.getElementById("titulo-habilidades").innerText = t.tituloHabilidades
+            document.getElementById("titulo-valores").innerText = t.tituloValores
+            document.getElementById("texto-valores").innerText = t.textoValores
+            document.getElementById("btn-contato").innerText = t.btnContato
+        }
+
+        var idiomaSalvo = localStorage.getItem("idioma") || "pt"
+        aplicarIdioma(idiomaSalvo)
+    </script>
 </body>
 </html>
