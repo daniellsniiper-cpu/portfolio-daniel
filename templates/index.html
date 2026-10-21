@@ -1,123 +1,812 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
-    <title>Daniel Mota - Desenvolvedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daniel Mota - Dev-Dani</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
         body {
-            font-family: Arial;
-            background-image: url("/static/fundo.jpg");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            text-align: center;
-            margin: 0;
-            padding: 0;
+            background-color: #000;
+            color: #00d4ff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
         }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: scan 4s linear infinite;
+            z-index: 0;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100vh; } }
+
+        /* NAV */
         nav {
-            background-color: #2607f1;
-            padding: 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
-        nav a {
-            color: white;
-            margin: 15px;
+        .logo-nav {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: #00d4ff;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px #00d4ff;
+        }
+        .nav-links a {
+            color: rgba(0, 212, 255, 0.7);
             text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
+            margin: 0 20px;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.3s;
         }
-        .bandeiras { margin-right: 15px; }
-        .bandeira {
-            width: 35px;
-            height: 25px;
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #00d4ff;
+        }
+        .bandeira { width: 26px; height: 17px; cursor: pointer; margin: 0 4px; border-radius: 2px; opacity: 0.8; transition: opacity 0.3s; }
+        .bandeira:hover { opacity: 1; }
+
+        /* SECOES */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 80px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HERO */
+        #hero {
+            align-items: center;
+            text-align: center;
+            padding: 0;
+        }
+        .circle-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 50px;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+        .circle:nth-child(1) { width: 280px; height: 280px; top: 0; left: 0; animation: rotate 10s linear infinite; }
+        .circle:nth-child(2) { width: 220px; height: 220px; top: 30px; left: 30px; animation: rotate 7s linear infinite reverse; border-color: rgba(0, 212, 255, 0.2); }
+        .circle:nth-child(3) { width: 160px; height: 160px; top: 60px; left: 60px; animation: rotate 5s linear infinite; border-color: rgba(0, 212, 255, 0.6); }
+        .circle::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00d4ff;
+            border-radius: 50%;
+            top: -4px;
+            left: 50%;
+            box-shadow: 0 0 15px #00d4ff;
+        }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .avatar-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            color: #00d4ff;
+            text-shadow: 0 0 30px #00d4ff;
+        }
+        #hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 52px;
+            color: #fff;
+            text-shadow: 0 0 40px #00d4ff;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+        }
+        .typing-text {
+            font-size: 20px;
+            color: #00d4ff;
+            letter-spacing: 3px;
+            min-height: 28px;
+            text-shadow: 0 0 10px #00d4ff;
+            margin-bottom: 50px;
+        }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 20px;
+            background: #00d4ff;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .botoes { display: flex; gap: 20px; justify-content: center; }
+        .botao-jarvis {
+            padding: 14px 35px;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            background: transparent;
+            color: #00d4ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
             cursor: pointer;
-            margin: 5px;
-            border-radius: 3px;
-            border: 2px solid white;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
         }
-        .hero {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 80px 20px;
-            margin: 50px auto;
-            width: 70%;
-            border-radius: 15px;
+        .botao-jarvis:hover {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.3);
+            color: #fff;
+            border-color: #00d4ff;
         }
-        .hero h1 { color: white; font-size: 48px; }
-        .hero p { color: #ccc; font-size: 20px; }
-        .botao {
-            background-color: #2607f1;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            margin: 10px;
+        .botao-jarvis.filled { background: rgba(0, 212, 255, 0.15); border-color: #00d4ff; }
+
+        /* LABEL SECAO */
+        .secao-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 212, 255, 0.4);
+            letter-spacing: 6px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .secao-titulo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 38px;
+            color: #fff;
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        .linha-divisoria {
+            width: 60px;
+            height: 1px;
+            background: #00d4ff;
+            margin-bottom: 60px;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        /* SOBRE */
+        #sobre { border-top: 1px solid rgba(0, 212, 255, 0.1); }
+        .sobre-grid {
+            display: flex;
+            gap: 80px;
+            align-items: center;
+        }
+        .sobre-texto { flex: 1; }
+        .sobre-texto p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 17px;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+        .sobre-stats {
+            display: flex;
+            gap: 50px;
+            margin-top: 40px;
+        }
+        .stat { text-align: center; }
+        .stat-numero {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #00d4ff;
+            text-shadow: 0 0 20px #00d4ff;
+        }
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 5px;
+        }
+
+        /* HABILIDADES */
+        #habilidades { border-top: 1px solid rgba(0, 212, 255, 0.1); }
+        .hab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 900px;
+        }
+        .habilidade-item label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            color: rgba(0, 212, 255, 0.8);
+        }
+        .barra-fundo {
+            height: 3px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+        .barra-progresso {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #0044ff);
+            box-shadow: 0 0 8px #00d4ff;
+            width: 0%;
+            transition: width 2s ease;
+        }
+
+        /* PROJETOS */
+        #projetos { border-top: 1px solid rgba(0, 212, 255, 0.1); }
+        .projetos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .projeto-card {
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 35px;
+            background: rgba(0, 212, 255, 0.02);
+            position: relative;
+            transition: all 0.4s;
             cursor: pointer;
+        }
+        .projeto-card:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.15);
+            transform: translateY(-8px);
+            background: rgba(0, 212, 255, 0.05);
+        }
+        .projeto-numero {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 212, 255, 0.3);
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+        .projeto-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        .projeto-card p {
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
+            line-height: 1.9;
+            margin-bottom: 25px;
+        }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: rgba(0, 212, 255, 0.6);
+            padding: 4px 12px;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+        .corner { position: absolute; width: 15px; height: 15px; }
+        .corner-tl { top: 8px; left: 8px; border-top: 1px solid rgba(0,212,255,0.4); border-left: 1px solid rgba(0,212,255,0.4); }
+        .corner-tr { top: 8px; right: 8px; border-top: 1px solid rgba(0,212,255,0.4); border-right: 1px solid rgba(0,212,255,0.4); }
+        .corner-bl { bottom: 8px; left: 8px; border-bottom: 1px solid rgba(0,212,255,0.4); border-left: 1px solid rgba(0,212,255,0.4); }
+        .corner-br { bottom: 8px; right: 8px; border-bottom: 1px solid rgba(0,212,255,0.4); border-right: 1px solid rgba(0,212,255,0.4); }
+
+        /* CONTATO */
+        #contato { border-top: 1px solid rgba(0, 212, 255, 0.1); }
+        .contato-grid { display: flex; gap: 80px; }
+        .contato-info { flex: 1; }
+        .contato-info p {
+            color: rgba(255,255,255,0.5);
+            font-size: 16px;
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+        .contato-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            color: rgba(0, 212, 255, 0.7);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        .contato-item span:first-child {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            color: rgba(0, 212, 255, 0.4);
+            letter-spacing: 3px;
+            min-width: 80px;
+        }
+        .form-contato { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .form-campo input, .form-campo textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 15px;
+            letter-spacing: 1px;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .form-campo input:focus, .form-campo textarea:focus {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.1);
+        }
+        .form-campo textarea { height: 130px; resize: none; }
+        .form-campo input::placeholder, .form-campo textarea::placeholder {
+            color: rgba(0, 212, 255, 0.3);
+            font-size: 13px;
+            letter-spacing: 2px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 25px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; }
+
+        /* CELULAR (telas ate 768px) */
+        @media (max-width: 768px) {
+            nav { flex-wrap: wrap; padding: 12px 16px; }
+            .logo-nav { font-size: 15px; letter-spacing: 3px; }
+            .nav-links {
+                order: 3;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px 14px;
+                margin-top: 10px;
+            }
+            .nav-links a { margin: 0; font-size: 11px; letter-spacing: 1px; }
+
+            section { padding: 140px 20px 60px; }
+            #hero { padding: 130px 20px 60px; }
+            #hero h1 { font-size: 28px; letter-spacing: 3px; }
+            .typing-text { font-size: 15px; letter-spacing: 1px; margin-bottom: 35px; }
+            .botoes { flex-direction: column; align-items: center; gap: 15px; }
+            .botoes .botao-jarvis { width: 100%; max-width: 280px; text-align: center; }
+
+            .secao-titulo { font-size: 24px; margin-bottom: 30px; }
+            .linha-divisoria { margin-bottom: 40px; }
+
+            .sobre-grid { flex-direction: column; gap: 40px; }
+            .sobre-stats { gap: 25px; justify-content: space-between; }
+            .stat-numero { font-size: 28px; }
+
+            .hab-grid { grid-template-columns: 1fr; }
+
+            .projeto-card { padding: 25px; }
+
+            .contato-grid { flex-direction: column; gap: 40px; }
+
+            footer { flex-direction: column; gap: 8px; padding: 20px; text-align: center; }
         }
     </style>
 </head>
 <body>
+
+    <canvas id="canvas"></canvas>
+    <div class="scan-line"></div>
+
     <nav>
-        <div>
-            <a href="/" id="nav-inicio">Inicio</a>
-            <a href="/sobre" id="nav-sobre">Sobre</a>
-            <a href="/projetos" id="nav-projetos">Projetos</a>
-            <a href="/contato" id="nav-contato">Contato</a>
+        <div class="logo-nav">DEV-DANI</div>
+        <div class="nav-links">
+            <a href="#hero" id="nav-inicio">INICIO</a>
+            <a href="#sobre" id="nav-sobre">SOBRE</a>
+            <a href="#habilidades" id="nav-hab">HABILIDADES</a>
+            <a href="#projetos" id="nav-projetos">PROJETOS</a>
+            <a href="#contato" id="nav-contato">CONTATO</a>
         </div>
-        <div class="bandeiras">
-            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira" title="Português">
-            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira" title="Español">
-            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira" title="English">
+        <div>
+            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira">
+            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira">
+            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira">
         </div>
     </nav>
 
-    <div class="hero">
-        <h1 id="titulo">Daniel Mota</h1>
-        <p id="subtitulo">Desenvolvedor de Sites e Sistemas</p>
-        <p id="descricao">Transformo ideias em produtos digitais reais!</p>
-        <br>
-        <a href="/projetos"><button class="botao" id="btn-projetos">Ver meus projetos</button></a>
-        <a href="/contato"><button class="botao" id="btn-contato">Entre em contato</button></a>
-    </div>
+    <!-- HERO -->
+    <section id="hero">
+        <div class="circle-container">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="avatar-text">DM</div>
+        </div>
+        <h1>DANIEL MOTA</h1>
+        <div class="typing-text">
+            <span id="typing"></span><span class="cursor"></span>
+        </div>
+        <div class="botoes">
+            <a href="#projetos" class="botao-jarvis filled" id="btn-projetos">Ver Projetos</a>
+            <a href="#contato" class="botao-jarvis" id="btn-contato">Entre em Contato</a>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre">
+        <p class="secao-label" id="sobre-label">SISTEMA — 001</p>
+        <h2 class="secao-titulo" id="sobre-titulo">SOBRE MIM</h2>
+        <div class="linha-divisoria"></div>
+        <div class="sobre-grid">
+            <div class="sobre-texto">
+                <p id="sobre-p1">Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, España.</p>
+                <p id="sobre-p2">Combino design elegante com código eficiente para transformar ideias em produtos digitais reais que geram resultados para meus clientes.</p>
+                <div class="sobre-stats">
+                    <div class="stat">
+                        <div class="stat-numero">2+</div>
+                        <div class="stat-label" id="stat1">PROJETOS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-numero">3</div>
+                        <div class="stat-label" id="stat2">IDIOMAS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-numero">1</div>
+                        <div class="stat-label" id="stat3">EMPRESA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section id="habilidades">
+        <p class="secao-label" id="hab-label">SISTEMA — 002</p>
+        <h2 class="secao-titulo" id="hab-titulo">HABILIDADES</h2>
+        <div class="linha-divisoria"></div>
+        <div class="hab-grid">
+            <div class="habilidade-item">
+                <label><span>HTML & CSS</span><span>90%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="90"></div></div>
+            </div>
+            <div class="habilidade-item">
+                <label><span>JavaScript</span><span>75%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="75"></div></div>
+            </div>
+            <div class="habilidade-item">
+                <label><span>Python & Flask</span><span>80%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="80"></div></div>
+            </div>
+            <div class="habilidade-item">
+                <label><span>Git & GitHub</span><span>70%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="70"></div></div>
+            </div>
+            <div class="habilidade-item">
+                <label><span>UI/UX Design</span><span>65%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="65"></div></div>
+            </div>
+            <div class="habilidade-item">
+                <label><span>React</span><span>40%</span></label>
+                <div class="barra-fundo"><div class="barra-progresso" data-width="40"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJETOS -->
+    <section id="projetos">
+        <p class="secao-label" id="proj-label">SISTEMA — 003</p>
+        <h2 class="secao-titulo" id="proj-titulo">PROJETOS</h2>
+        <div class="linha-divisoria"></div>
+        <div class="projetos-grid">
+            <div class="projeto-card">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                <div class="projeto-numero">PROJETO — 001</div>
+                <h3 id="proj1-titulo">STUDIO LARA MARQUES</h3>
+                <p id="proj1-desc">Sistema completo de agendamento online com área administrativa, 3 idiomas e assistente virtual com IA integrada.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">AI</span>
+                </div>
+            </div>
+            <div class="projeto-card">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                <div class="projeto-numero">PROJETO — 002</div>
+                <h3 id="proj2-titulo">PORTFÓLIO DEV-DANI</h3>
+                <p id="proj2-desc">Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.</p>
+                <div class="tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">Flask</span>
+                    <span class="tag">Canvas</span>
+                </div>
+            </div>
+            <div class="projeto-card">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                <div class="projeto-numero">PROJETO — 003</div>
+                <h3 id="proj3-titulo">EM BREVE</h3>
+                <p id="proj3-desc">Novo projeto em desenvolvimento. Fique atento às novidades da Dev-Dani.</p>
+                <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato">
+        <p class="secao-label" id="cont-label">SISTEMA — 004</p>
+        <h2 class="secao-titulo" id="cont-titulo">CONTATO</h2>
+        <div class="linha-divisoria"></div>
+        <div class="contato-grid">
+            <div class="contato-info">
+                <p id="cont-desc">Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.</p>
+                <div class="contato-item">
+                    <span>EMAIL</span>
+                    <span>contato@devdani.com</span>
+                </div>
+                <div class="contato-item">
+                    <span>LOCAL</span>
+                    <span>Madrid, España</span>
+                </div>
+                <div class="contato-item">
+                    <span>STATUS</span>
+                    <span style="color: #00ff88;">● <span id="status-txt">Disponível para projetos</span></span>
+                </div>
+            </div>
+            <form class="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
+                <div class="form-campo">
+                    <input type="text" name="nome" id="input-nome" placeholder="SEU NOME" required>
+                </div>
+                <div class="form-campo">
+                    <input type="email" name="email" id="input-email" placeholder="SEU EMAIL" required>
+                </div>
+                <div class="form-campo">
+                    <textarea name="mensagem" id="input-msg" placeholder="SUA MENSAGEM..." required></textarea>
+                </div>
+                <button type="submit" class="botao-jarvis filled" id="btn-enviar">ENVIAR MENSAGEM</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p id="footer-txt">© 2025 DEV-DANI — DANIEL MOTA</p>
+        <p>MADRID, ESPAÑA</p>
+    </footer>
 
     <script>
+        // CANVAS
+        var canvas = document.getElementById("canvas")
+        var ctx = canvas.getContext("2d")
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        var particulas = []
+        for (var i = 0; i < 80; i++) {
+            particulas.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                r: Math.random() * 2,
+                subindo: false
+            })
+        }
+        for (var i = 0; i < 20; i++) {
+            particulas.push({
+                x: Math.random() * canvas.width,
+                y: canvas.height + Math.random() * 200,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: -(Math.random() * 1.5 + 0.5),
+                r: Math.random() * 3 + 1,
+                subindo: true
+            })
+        }
+
+        function animarParticulas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            particulas.forEach(function(p) {
+                p.x += p.vx
+                p.y += p.vy
+                if (!p.subindo) {
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1
+                }
+                if (p.subindo && p.y < -10) {
+                    p.y = canvas.height + 10
+                    p.x = Math.random() * canvas.width
+                }
+                ctx.beginPath()
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+                ctx.fillStyle = p.subindo ? "rgba(0, 212, 255, 1)" : "rgba(0, 212, 255, 0.6)"
+                ctx.fill()
+                if (p.subindo) {
+                    ctx.shadowBlur = 15
+                    ctx.shadowColor = "#00d4ff"
+                    ctx.fill()
+                    ctx.shadowBlur = 0
+                }
+            })
+            for (var i = 0; i < particulas.length; i++) {
+                for (var j = i + 1; j < particulas.length; j++) {
+                    var dx = particulas[i].x - particulas[j].x
+                    var dy = particulas[i].y - particulas[j].y
+                    var dist = Math.sqrt(dx*dx + dy*dy)
+                    if (dist < 120) {
+                        ctx.beginPath()
+                        ctx.moveTo(particulas[i].x, particulas[i].y)
+                        ctx.lineTo(particulas[j].x, particulas[j].y)
+                        ctx.strokeStyle = "rgba(0, 212, 255, " + (1 - dist/120) * 0.15 + ")"
+                        ctx.stroke()
+                    }
+                }
+            }
+            requestAnimationFrame(animarParticulas)
+        }
+        animarParticulas()
+
+        // DIGITACAO
+        var frases = [
+            "Desenvolvedor Web & Mobile",
+            "Fundador da Dev-Dani",
+            "Transformo ideias em realidade",
+            "Python | JavaScript | Flask"
+        ]
+        var fraseAtual = 0, letraAtual = 0, apagando = false
+        function digitar() {
+            var frase = frases[fraseAtual]
+            var el = document.getElementById("typing")
+            if (!apagando) {
+                el.innerText = frase.substring(0, letraAtual + 1)
+                letraAtual++
+                if (letraAtual === frase.length) {
+                    apagando = true
+                    setTimeout(digitar, 2000)
+                    return
+                }
+            } else {
+                el.innerText = frase.substring(0, letraAtual - 1)
+                letraAtual--
+                if (letraAtual === 0) {
+                    apagando = false
+                    fraseAtual = (fraseAtual + 1) % frases.length
+                }
+            }
+            setTimeout(digitar, apagando ? 50 : 100)
+        }
+        digitar()
+
+        // BARRAS
+        setTimeout(function() {
+            document.querySelectorAll(".barra-progresso").forEach(function(b) {
+                b.style.width = b.getAttribute("data-width") + "%"
+            })
+        }, 500)
+
+        // IDIOMAS
         var textos = {
             pt: {
-                inicio: "Inicio", sobre: "Sobre", projetos: "Projetos", contato: "Contato",
-                subtitulo: "Desenvolvedor de Sites e Sistemas",
-                descricao: "Transformo ideias em produtos digitais reais!",
-                btnProjetos: "Ver meus projetos", btnContato: "Entre em contato"
+                navInicio: "INICIO", navSobre: "SOBRE", navHab: "HABILIDADES", navProj: "PROJETOS", navCont: "CONTATO",
+                btnProjetos: "Ver Projetos", btnContato: "Entre em Contato",
+                sobreTitulo: "SOBRE MIM", sobreP1: "Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, España.",
+                sobreP2: "Combino design elegante com código eficiente para transformar ideias em produtos digitais reais que geram resultados para meus clientes.",
+                stat1: "PROJETOS", stat2: "IDIOMAS", stat3: "EMPRESA",
+                habTitulo: "HABILIDADES", projTitulo: "PROJETOS",
+                proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de agendamento online com área administrativa, 3 idiomas e assistente virtual com IA integrada.",
+                proj2Titulo: "PORTFÓLIO DEV-DANI", proj2Desc: "Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.",
+                proj3Titulo: "EM BREVE", proj3Desc: "Novo projeto em desenvolvimento. Fique atento às novidades da Dev-Dani.",
+                contTitulo: "CONTATO", contDesc: "Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.",
+                statusTxt: "Disponível para projetos",
+                inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
+                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
             },
             es: {
-                inicio: "Inicio", sobre: "Sobre mí", projetos: "Proyectos", contato: "Contacto",
-                subtitulo: "Desarrollador de Sitios y Sistemas",
-                descricao: "Transformo ideas en productos digitales reales!",
-                btnProjetos: "Ver mis proyectos", btnContato: "Contáctame"
+                navInicio: "INICIO", navSobre: "SOBRE MÍ", navHab: "HABILIDADES", navProj: "PROYECTOS", navCont: "CONTACTO",
+                btnProjetos: "Ver Proyectos", btnContato: "Contáctame",
+                sobreTitulo: "SOBRE MÍ", sobreP1: "Desarrollador web apasionado por la tecnología y la innovación. Fundador de Dev-Dani, empresa especializada en crear soluciones digitales profesionales para negocios en Madrid, España.",
+                sobreP2: "Combino diseño elegante con código eficiente para transformar ideas en productos digitales reales que generan resultados para mis clientes.",
+                stat1: "PROYECTOS", stat2: "IDIOMAS", stat3: "EMPRESA",
+                habTitulo: "HABILIDADES", projTitulo: "PROYECTOS",
+                proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de reservas online con área administrativa, 3 idiomas y asistente virtual con IA integrada.",
+                proj2Titulo: "PORTAFOLIO DEV-DANI", proj2Desc: "Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.",
+                proj3Titulo: "PRÓXIMAMENTE", proj3Desc: "Nuevo proyecto en desarrollo. Mantente atento a las novedades de Dev-Dani.",
+                contTitulo: "CONTACTO", contDesc: "¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.",
+                statusTxt: "Disponible para proyectos",
+                inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
+                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
             },
             en: {
-                inicio: "Home", sobre: "About", projetos: "Projects", contato: "Contact",
-                subtitulo: "Website and Systems Developer",
-                descricao: "I transform ideas into real digital products!",
-                btnProjetos: "See my projects", btnContato: "Contact me"
+                navInicio: "HOME", navSobre: "ABOUT", navHab: "SKILLS", navProj: "PROJECTS", navCont: "CONTACT",
+                btnProjetos: "See Projects", btnContato: "Contact Me",
+                sobreTitulo: "ABOUT ME", sobreP1: "Web developer passionate about technology and innovation. Founder of Dev-Dani, a company specialized in creating professional digital solutions for businesses in Madrid, Spain.",
+                sobreP2: "I combine elegant design with efficient code to transform ideas into real digital products that generate results for my clients.",
+                stat1: "PROJECTS", stat2: "LANGUAGES", stat3: "COMPANY",
+                habTitulo: "SKILLS", projTitulo: "PROJECTS",
+                proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Complete online booking system with admin area, 3 languages and AI virtual assistant.",
+                proj2Titulo: "DEV-DANI PORTFOLIO", proj2Desc: "Professional JARVIS-style portfolio with animations, 3 languages and internet deployment.",
+                proj3Titulo: "COMING SOON", proj3Desc: "New project in development. Stay tuned for Dev-Dani news.",
+                contTitulo: "CONTACT", contDesc: "Have a project in mind? Let's talk and turn your idea into digital reality.",
+                statusTxt: "Available for projects",
+                inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
+                btnEnviar: "SEND MESSAGE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
             }
         }
 
         function aplicarIdioma(idioma) {
             localStorage.setItem("idioma", idioma)
             var t = textos[idioma]
-            document.getElementById("nav-inicio").innerText = t.inicio
-            document.getElementById("nav-sobre").innerText = t.sobre
-            document.getElementById("nav-projetos").innerText = t.projetos
-            document.getElementById("nav-contato").innerText = t.contato
-            document.getElementById("subtitulo").innerText = t.subtitulo
-            document.getElementById("descricao").innerText = t.descricao
+            document.getElementById("nav-inicio").innerText = t.navInicio
+            document.getElementById("nav-sobre").innerText = t.navSobre
+            document.getElementById("nav-hab").innerText = t.navHab
+            document.getElementById("nav-projetos").innerText = t.navProj
+            document.getElementById("nav-contato").innerText = t.navCont
             document.getElementById("btn-projetos").innerText = t.btnProjetos
             document.getElementById("btn-contato").innerText = t.btnContato
+            document.getElementById("sobre-titulo").innerText = t.sobreTitulo
+            document.getElementById("sobre-p1").innerText = t.sobreP1
+            document.getElementById("sobre-p2").innerText = t.sobreP2
+            document.getElementById("stat1").innerText = t.stat1
+            document.getElementById("stat2").innerText = t.stat2
+            document.getElementById("stat3").innerText = t.stat3
+            document.getElementById("hab-titulo").innerText = t.habTitulo
+            document.getElementById("proj-titulo").innerText = t.projTitulo
+            document.getElementById("proj1-titulo").innerText = t.proj1Titulo
+            document.getElementById("proj1-desc").innerText = t.proj1Desc
+            document.getElementById("proj2-titulo").innerText = t.proj2Titulo
+            document.getElementById("proj2-desc").innerText = t.proj2Desc
+            document.getElementById("proj3-titulo").innerText = t.proj3Titulo
+            document.getElementById("proj3-desc").innerText = t.proj3Desc
+            document.getElementById("cont-titulo").innerText = t.contTitulo
+            document.getElementById("cont-desc").innerText = t.contDesc
+            document.getElementById("status-txt").innerText = t.statusTxt
+            document.getElementById("input-nome").placeholder = t.inputNome
+            document.getElementById("input-email").placeholder = t.inputEmail
+            document.getElementById("input-msg").placeholder = t.inputMsg
+            document.getElementById("btn-enviar").innerText = t.btnEnviar
+            document.getElementById("footer-txt").innerText = t.footerTxt
         }
 
         var idiomaSalvo = localStorage.getItem("idioma") || "pt"
         aplicarIdioma(idiomaSalvo)
+
+        window.addEventListener("resize", function() {
+            canvas.width = window.innerWidth
+            canvas.height = window.innerHeight
+        })
     </script>
 </body>
 </html>
