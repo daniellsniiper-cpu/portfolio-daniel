@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="Desarrollo de páginas web, tiendas online, apps y automatización con IA en Madrid. Soluciones digitales a medida para hacer crecer tu negocio.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daniel Mota - Dev-Dani</title>
+    <title>{{ MARCA }} — Desarrollo web en Madrid</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <style>
@@ -55,9 +55,8 @@
         .logo-nav {
             font-family: 'Orbitron', sans-serif;
             font-size: 18px;
-            color: #00d4ff;
+            color: #fff;
             letter-spacing: 4px;
-            text-shadow: 0 0 15px #00d4ff;
         }
         .nav-links a {
             color: rgba(0, 212, 255, 0.7);
@@ -72,6 +71,8 @@
             color: #fff;
             text-shadow: 0 0 10px #00d4ff;
         }
+        /* partes da marca em azul neon (o "_" e o "4" de dev_mot4) */
+        .marca-destaque { color: #00d4ff; text-shadow: 0 0 12px #00d4ff, 0 0 4px #00d4ff; }
         .bandeira { width: 26px; height: 17px; cursor: pointer; margin: 0 4px; border-radius: 2px; opacity: 0.8; transition: opacity 0.3s; }
         .bandeira:hover { opacity: 1; }
 
@@ -128,6 +129,7 @@
             color: #00d4ff;
             text-shadow: 0 0 30px #00d4ff;
         }
+        .avatar-text svg { width: 72px; height: 72px; display: block; filter: drop-shadow(0 0 8px #00d4ff); }
         #hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 52px;
@@ -136,6 +138,15 @@
             letter-spacing: 6px;
             margin-bottom: 20px;
         }
+        .slogan {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 14px;
+        }
+        .slogan .barra { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; margin: 0 12px; }
+        .assinatura { font-size: 14px; letter-spacing: 3px; color: rgba(0, 212, 255, 0.5); margin-bottom: 30px; }
         .typing-text {
             font-size: 20px;
             color: #00d4ff;
@@ -215,6 +226,9 @@
             line-height: 2;
             margin-bottom: 20px;
         }
+        .filosofia { border-left: 1px solid #00d4ff; padding-left: 20px; margin-top: 10px; }
+        .filosofia .secao-label { margin-bottom: 8px; }
+        .filosofia-frase { color: #00d4ff; font-size: 17px; line-height: 1.8; text-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
         .sobre-stats {
             display: flex;
             gap: 50px;
@@ -343,6 +357,9 @@
             letter-spacing: 3px;
             min-width: 80px;
         }
+        .link-instagram { display: inline-flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; transition: all 0.3s; }
+        .link-instagram:hover { color: #fff; text-shadow: 0 0 10px #00d4ff; }
+        .icone-instagram { width: 18px; height: 18px; flex-shrink: 0; }
         .form-contato { flex: 1; display: flex; flex-direction: column; gap: 20px; }
         .form-campo input, .form-campo textarea {
             width: 100%;
@@ -381,6 +398,8 @@
             z-index: 1;
         }
         footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; }
+        .footer-instagram { display: inline-flex; color: rgba(0, 212, 255, 0.5); transition: all 0.3s; }
+        .footer-instagram:hover { color: #00d4ff; filter: drop-shadow(0 0 6px #00d4ff); }
 
         /* CELULAR (telas ate 768px) */
         @media (max-width: 768px) {
@@ -400,6 +419,8 @@
             section { padding: 140px 20px 60px; }
             #hero { padding: 130px 20px 60px; }
             #hero h1 { font-size: 28px; letter-spacing: 3px; }
+            .slogan { font-size: 10px; letter-spacing: 2px; }
+            .slogan .barra { margin: 0 5px; }
             .typing-text { font-size: 15px; letter-spacing: 1px; margin-bottom: 35px; }
             .botoes { flex-direction: column; align-items: center; gap: 15px; }
             .botoes .botao-jarvis { width: 100%; max-width: 280px; text-align: center; }
@@ -422,15 +443,16 @@
     </style>
 </head>
 <body>
+    {% macro icone_instagram() %}<svg class="icone-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>{% endmacro %}
 
     <canvas id="canvas"></canvas>
     <div class="scan-line"></div>
 
     <nav>
-        <div class="logo-nav">DEV-DANI</div>
+        <div class="logo-nav">{{ MARCA_HTML }}</div>
         <div class="nav-links">
             <a href="#hero" id="nav-inicio">INICIO</a>
-            <a href="#sobre" id="nav-sobre">SOBRE MÍ</a>
+            <a href="#sobre" id="nav-sobre">NOSOTROS</a>
             <a href="#habilidades" id="nav-hab">HABILIDADES</a>
             <a href="#projetos" id="nav-projetos">PROYECTOS</a>
             <a href="#contato" id="nav-contato">CONTACTO</a>
@@ -448,9 +470,11 @@
             <div class="circle"></div>
             <div class="circle"></div>
             <div class="circle"></div>
-            <div class="avatar-text">DM</div>
+            <div class="avatar-text" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,20 10,32 22,44"/><polyline points="42,20 54,32 42,44"/><line x1="36" y1="16" x2="28" y2="48"/></svg></div>
         </div>
-        <h1>DANIEL MOTA</h1>
+        <h1>{{ MARCA_HTML }}</h1>
+        <p class="slogan" id="slogan">IDEAS<span class="barra">/</span>CÓDIGO<span class="barra">/</span>RESULTADOS</p>
+        <p class="assinatura" id="assinatura">por {{ AUTOR }}</p>
         <div class="typing-text">
             <span id="typing"></span><span class="cursor"></span>
         </div>
@@ -463,12 +487,16 @@
     <!-- SOBRE -->
     <section id="sobre">
         <p class="secao-label" id="sobre-label">SISTEMA — 001</p>
-        <h2 class="secao-titulo" id="sobre-titulo">SOBRE MÍ</h2>
+        <h2 class="secao-titulo" id="sobre-titulo">SOBRE NOSOTROS</h2>
         <div class="linha-divisoria"></div>
         <div class="sobre-grid">
             <div class="sobre-texto">
-                <p id="sobre-p1">Desarrollador web apasionado por la tecnología y la innovación. Fundador de Dev-Dani, empresa especializada en crear soluciones digitales profesionales para negocios en Madrid, España.</p>
-                <p id="sobre-p2">Combino diseño elegante con código eficiente para transformar ideas en productos digitales reales que generan resultados para mis clientes.</p>
+                <p id="sobre-p1">{{ MARCA }} es una marca de desarrollo tecnológico en Madrid. Creamos soluciones digitales modernas y a medida: páginas web, apps, tiendas online, sistemas de gestión y automatización con IA.</p>
+                <p id="sobre-p2">Soy {{ AUTOR }}, fundador de {{ MARCA }}. Atiendo personalmente cada proyecto porque los mejores resultados nacen de escuchar de cerca a cada cliente y entender su negocio.</p>
+                <div class="filosofia">
+                    <div class="secao-label" id="filosofia-label">NUESTRA FILOSOFÍA</div>
+                    <div class="filosofia-frase" id="filosofia-txt">Escuchar, crear y trabajar con compromiso en cada proyecto.</div>
+                </div>
                 <div class="sobre-stats">
                     <div class="stat">
                         <div class="stat-numero">2+</div>
@@ -547,7 +575,7 @@
                 <div class="corner corner-bl"></div>
                 <div class="corner corner-br"></div>
                 <div class="projeto-numero" id="proj2-num">PROYECTO — 002</div>
-                <h3 id="proj2-titulo">PORTAFOLIO DEV-DANI</h3>
+                <h3 id="proj2-titulo">PORTAFOLIO {{ MARCA }}</h3>
                 <p id="proj2-desc">Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.</p>
                 <div class="tags">
                     <span class="tag">HTML</span>
@@ -563,7 +591,7 @@
                 <div class="corner corner-br"></div>
                 <div class="projeto-numero" id="proj3-num">PROYECTO — 003</div>
                 <h3 id="proj3-titulo">PRÓXIMAMENTE</h3>
-                <p id="proj3-desc">Nuevo proyecto en desarrollo. Mantente atento a las novedades de Dev-Dani.</p>
+                <p id="proj3-desc">Nuevo proyecto en desarrollo. Mantente atento a las novedades de {{ MARCA }}.</p>
                 <div class="tags">
                     <span class="tag">React</span>
                     <span class="tag">Node.js</span>
@@ -588,6 +616,10 @@
                     <span id="label-status">ESTADO</span>
                     <span style="color: #00ff88;">● <span id="status-txt">Disponible para proyectos</span></span>
                 </div>
+                <div class="contato-item">
+                    <span>INSTAGRAM</span>
+                    <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="link-instagram">{{ icone_instagram() }}{{ INSTAGRAM_USUARIO }}</a>
+                </div>
             </div>
             <form class="form-contato" id="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
                 <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
@@ -608,7 +640,8 @@
     </section>
 
     <footer>
-        <p id="footer-txt">© {{ ano }} DEV-DANI — DANIEL MOTA</p>
+        <p id="footer-txt">© {{ ano }} {{ MARCA }} — {{ AUTOR }}</p>
+        <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="footer-instagram" id="footer-instagram" aria-label="Instagram de {{ MARCA }}">{{ icone_instagram() }}</a>
         <p id="footer-local">MADRID, ESPAÑA</p>
     </footer>
 
@@ -717,41 +750,52 @@
         }, 500)
 
         // IDIOMAS
+        // nome da marca e do autor: vem do meu_site.py (um lugar so)
+        var MARCA = {{ MARCA|tojson }}
+        var AUTOR = {{ AUTOR|tojson }}
+        function comMarca(texto) {
+            return texto.split("{marca}").join(MARCA).split("{autor}").join(AUTOR)
+        }
+
         var textos = {
             pt: {
                 frases: ["Sites que vendem", "Lojas online e apps", "Automação com IA", "Sua ideia. Nossa tecnologia."],
                 navInicio: "INÍCIO", navSobre: "SOBRE", navHab: "HABILIDADES", navProj: "PROJETOS", navCont: "CONTATO",
                 btnProjetos: "Ver Projetos", btnContato: "Entre em Contato",
-                sobreTitulo: "SOBRE MIM", sobreP1: "Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, Espanha.",
-                sobreP2: "Combino design elegante com código eficiente para transformar ideias em produtos digitais reais que geram resultados para meus clientes.",
+                sobreTitulo: "SOBRE NÓS", sobreP1: "{marca} é uma marca de desenvolvimento tecnológico em Madrid. Criamos soluções digitais modernas e sob medida: sites, apps, lojas online, sistemas de gestão e automação com IA.",
+                sobreP2: "Sou {autor}, fundador da {marca}. Atendo pessoalmente cada projeto porque os melhores resultados nascem de ouvir de perto cada cliente e entender o seu negócio.",
                 stat1: "PROJETOS", stat2: "IDIOMAS", stat3: "EMPRESA",
                 habTitulo: "HABILIDADES", projTitulo: "PROJETOS",
                 proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de agendamento online com área administrativa, 3 idiomas e assistente virtual com IA integrada.",
-                proj2Titulo: "PORTFÓLIO DEV-DANI", proj2Desc: "Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.",
-                proj3Titulo: "EM BREVE", proj3Desc: "Novo projeto em desenvolvimento. Fique atento às novidades da Dev-Dani.",
+                proj2Titulo: "PORTFÓLIO {marca}", proj2Desc: "Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.",
+                proj3Titulo: "EM BREVE", proj3Desc: "Novo projeto em desenvolvimento. Fique atento às novidades da {marca}.",
                 contTitulo: "CONTATO", contDesc: "Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.",
                 statusTxt: "Disponível para projetos",
                 inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
-                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
+                btnEnviar: "ENVIAR MENSAGEM", slogan: ["IDEIAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
+                filosofiaLabel: "NOSSA FILOSOFIA", filosofiaTxt: "Ouvir, criar e trabalhar com compromisso em cada projeto.",
+                instagramAria: "Instagram da {marca}",
                 secaoLabel: "SISTEMA", projNum: "PROJETO", labelLocal: "LOCAL", labelStatus: "STATUS",
                 localTxt: "Madrid, Espanha", footerLocal: "MADRID, ESPANHA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
             },
             es: {
                 frases: ["Páginas web que venden", "Tiendas online y apps", "Automatización con IA", "Tu idea. Nuestra tecnología."],
-                navInicio: "INICIO", navSobre: "SOBRE MÍ", navHab: "HABILIDADES", navProj: "PROYECTOS", navCont: "CONTACTO",
+                navInicio: "INICIO", navSobre: "NOSOTROS", navHab: "HABILIDADES", navProj: "PROYECTOS", navCont: "CONTACTO",
                 btnProjetos: "Ver Proyectos", btnContato: "Contáctame",
-                sobreTitulo: "SOBRE MÍ", sobreP1: "Desarrollador web apasionado por la tecnología y la innovación. Fundador de Dev-Dani, empresa especializada en crear soluciones digitales profesionales para negocios en Madrid, España.",
-                sobreP2: "Combino diseño elegante con código eficiente para transformar ideas en productos digitales reales que generan resultados para mis clientes.",
+                sobreTitulo: "SOBRE NOSOTROS", sobreP1: "{marca} es una marca de desarrollo tecnológico en Madrid. Creamos soluciones digitales modernas y a medida: páginas web, apps, tiendas online, sistemas de gestión y automatización con IA.",
+                sobreP2: "Soy {autor}, fundador de {marca}. Atiendo personalmente cada proyecto porque los mejores resultados nacen de escuchar de cerca a cada cliente y entender su negocio.",
                 stat1: "PROYECTOS", stat2: "IDIOMAS", stat3: "EMPRESA",
                 habTitulo: "HABILIDADES", projTitulo: "PROYECTOS",
                 proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de reservas online con área administrativa, 3 idiomas y asistente virtual con IA integrada.",
-                proj2Titulo: "PORTAFOLIO DEV-DANI", proj2Desc: "Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.",
-                proj3Titulo: "PRÓXIMAMENTE", proj3Desc: "Nuevo proyecto en desarrollo. Mantente atento a las novedades de Dev-Dani.",
+                proj2Titulo: "PORTAFOLIO {marca}", proj2Desc: "Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.",
+                proj3Titulo: "PRÓXIMAMENTE", proj3Desc: "Nuevo proyecto en desarrollo. Mantente atento a las novedades de {marca}.",
                 contTitulo: "CONTACTO", contDesc: "¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.",
                 statusTxt: "Disponible para proyectos",
                 inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
-                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
+                btnEnviar: "ENVIAR MENSAJE", slogan: ["IDEAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
+                filosofiaLabel: "NUESTRA FILOSOFÍA", filosofiaTxt: "Escuchar, crear y trabajar con compromiso en cada proyecto.",
+                instagramAria: "Instagram de {marca}",
                 secaoLabel: "SISTEMA", projNum: "PROYECTO", labelLocal: "UBICACIÓN", labelStatus: "ESTADO",
                 localTxt: "Madrid, España", footerLocal: "MADRID, ESPAÑA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
@@ -760,17 +804,19 @@
                 frases: ["Websites that sell", "Online stores & apps", "AI automation", "Your idea. Our technology."],
                 navInicio: "HOME", navSobre: "ABOUT", navHab: "SKILLS", navProj: "PROJECTS", navCont: "CONTACT",
                 btnProjetos: "See Projects", btnContato: "Contact Me",
-                sobreTitulo: "ABOUT ME", sobreP1: "Web developer passionate about technology and innovation. Founder of Dev-Dani, a company specialized in creating professional digital solutions for businesses in Madrid, Spain.",
-                sobreP2: "I combine elegant design with efficient code to transform ideas into real digital products that generate results for my clients.",
+                sobreTitulo: "ABOUT US", sobreP1: "{marca} is a technology development brand based in Madrid. We build modern, custom digital solutions: websites, apps, online stores, management systems and AI automation.",
+                sobreP2: "I'm {autor}, founder of {marca}. I personally handle every project because the best results come from listening closely to each client and understanding their business.",
                 stat1: "PROJECTS", stat2: "LANGUAGES", stat3: "COMPANY",
                 habTitulo: "SKILLS", projTitulo: "PROJECTS",
                 proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Complete online booking system with admin area, 3 languages and AI virtual assistant.",
-                proj2Titulo: "DEV-DANI PORTFOLIO", proj2Desc: "Professional JARVIS-style portfolio with animations, 3 languages and internet deployment.",
-                proj3Titulo: "COMING SOON", proj3Desc: "New project in development. Stay tuned for Dev-Dani news.",
+                proj2Titulo: "PORTFOLIO {marca}", proj2Desc: "Professional JARVIS-style portfolio with animations, 3 languages and internet deployment.",
+                proj3Titulo: "COMING SOON", proj3Desc: "New project in development. Stay tuned for {marca} news.",
                 contTitulo: "CONTACT", contDesc: "Have a project in mind? Let's talk and turn your idea into digital reality.",
                 statusTxt: "Available for projects",
                 inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
-                btnEnviar: "SEND MESSAGE", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
+                btnEnviar: "SEND MESSAGE", slogan: ["IDEAS", "CODE", "RESULTS"], assinatura: "by {autor}",
+                filosofiaLabel: "OUR PHILOSOPHY", filosofiaTxt: "Listen, create and work with commitment on every project.",
+                instagramAria: "{marca} on Instagram",
                 secaoLabel: "SYSTEM", projNum: "PROJECT", labelLocal: "LOCATION", labelStatus: "STATUS",
                 localTxt: "Madrid, Spain", footerLocal: "MADRID, SPAIN",
                 btnEnviando: "SENDING...", erroEnvio: "The message could not be sent. Please try again in a few minutes."
@@ -797,8 +843,10 @@
             document.getElementById("btn-projetos").innerText = t.btnProjetos
             document.getElementById("btn-contato").innerText = t.btnContato
             document.getElementById("sobre-titulo").innerText = t.sobreTitulo
-            document.getElementById("sobre-p1").innerText = t.sobreP1
-            document.getElementById("sobre-p2").innerText = t.sobreP2
+            document.getElementById("sobre-p1").innerText = comMarca(t.sobreP1)
+            document.getElementById("sobre-p2").innerText = comMarca(t.sobreP2)
+            document.getElementById("filosofia-label").innerText = t.filosofiaLabel
+            document.getElementById("filosofia-txt").innerText = t.filosofiaTxt
             document.getElementById("stat1").innerText = t.stat1
             document.getElementById("stat2").innerText = t.stat2
             document.getElementById("stat3").innerText = t.stat3
@@ -806,10 +854,10 @@
             document.getElementById("proj-titulo").innerText = t.projTitulo
             document.getElementById("proj1-titulo").innerText = t.proj1Titulo
             document.getElementById("proj1-desc").innerText = t.proj1Desc
-            document.getElementById("proj2-titulo").innerText = t.proj2Titulo
+            document.getElementById("proj2-titulo").innerText = comMarca(t.proj2Titulo)
             document.getElementById("proj2-desc").innerText = t.proj2Desc
             document.getElementById("proj3-titulo").innerText = t.proj3Titulo
-            document.getElementById("proj3-desc").innerText = t.proj3Desc
+            document.getElementById("proj3-desc").innerText = comMarca(t.proj3Desc)
             document.getElementById("cont-titulo").innerText = t.contTitulo
             document.getElementById("cont-desc").innerText = t.contDesc
             document.getElementById("status-txt").innerText = t.statusTxt
@@ -820,7 +868,21 @@
             document.getElementById("input-email").setAttribute("aria-label", t.inputEmail)
             document.getElementById("input-msg").setAttribute("aria-label", t.inputMsg)
             document.getElementById("btn-enviar").innerText = t.btnEnviar
-            document.getElementById("footer-txt").innerText = t.footerTxt.replace("{ano}", new Date().getFullYear())
+            document.getElementById("assinatura").innerText = comMarca(t.assinatura)
+            document.getElementById("footer-instagram").setAttribute("aria-label", comMarca(t.instagramAria))
+
+            // slogan: palavras com as barras "/" em azul
+            var slogan = document.getElementById("slogan")
+            slogan.innerHTML = ""
+            t.slogan.forEach(function(palavra, i) {
+                if (i > 0) {
+                    var barra = document.createElement("span")
+                    barra.className = "barra"
+                    barra.innerText = "/"
+                    slogan.appendChild(barra)
+                }
+                slogan.appendChild(document.createTextNode(palavra))
+            })
             document.getElementById("sobre-label").innerText = t.secaoLabel + " — 001"
             document.getElementById("hab-label").innerText = t.secaoLabel + " — 002"
             document.getElementById("proj-label").innerText = t.secaoLabel + " — 003"

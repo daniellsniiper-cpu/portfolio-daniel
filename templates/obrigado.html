@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- pagina de confirmacao: nao precisa aparecer no Google -->
     <meta name="robots" content="noindex">
-    <title>Mensaje enviado - Dev-Dani</title>
+    <title>Mensaje enviado — {{ MARCA }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <style>
@@ -23,6 +23,8 @@
             text-align: center;
             padding: 40px 20px;
         }
+        .marca-label { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 4px; color: #fff; margin-bottom: 16px; }
+        .marca-destaque { color: #00d4ff; text-shadow: 0 0 12px #00d4ff, 0 0 4px #00d4ff; }
         .secao-label {
             font-family: 'Orbitron', sans-serif;
             font-size: 11px;
@@ -77,7 +79,7 @@
 </head>
 <body>
 
-    <p class="secao-label">DEV-DANI</p>
+    <div class="marca-label">{{ MARCA_HTML }}</div>
     <h1 id="obrigado-titulo">¡MENSAJE ENVIADO!</h1>
     <div class="linha-divisoria"></div>
     <p id="obrigado-texto">Gracias por tu mensaje. Te responderemos en menos de 24 horas.</p>
@@ -95,7 +97,7 @@
         try { idioma = localStorage.getItem("idioma") || "es" } catch (e) {}  // modo anonimo pode bloquear
         var t = textos[idioma] || textos.es
         document.documentElement.lang = textos[idioma] ? idioma : "es"
-        document.title = t.aba + " - Dev-Dani"
+        document.title = t.aba + " — " + {{ MARCA|tojson }}
         document.getElementById("obrigado-titulo").innerText = t.titulo
         document.getElementById("obrigado-texto").innerText = t.texto
         document.getElementById("obrigado-botao").innerText = t.botao
