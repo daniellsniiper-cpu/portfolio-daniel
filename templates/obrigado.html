@@ -7,6 +7,7 @@
     <meta name="robots" content="noindex">
     <title>Mensaje enviado - Dev-Dani</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -90,7 +91,8 @@
         }
 
         // mesmo idioma escolhido no site (padrao: espanhol)
-        var idioma = localStorage.getItem("idioma") || "es"
+        var idioma = "es"
+        try { idioma = localStorage.getItem("idioma") || "es" } catch (e) {}  // modo anonimo pode bloquear
         var t = textos[idioma] || textos.es
         document.documentElement.lang = textos[idioma] ? idioma : "es"
         document.title = t.aba + " - Dev-Dani"

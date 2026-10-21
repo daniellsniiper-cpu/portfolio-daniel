@@ -2,6 +2,7 @@
 # criado por Daniel Mota
 
 import os
+from datetime import date
 
 from flask import Flask, render_template, redirect
 
@@ -9,7 +10,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def inicio():
-    return render_template("index.html")
+    return render_template("index.html", ano=date.today().year)
 
 @app.route("/sobre")
 def sobre():

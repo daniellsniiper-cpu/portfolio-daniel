@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Daniel Mota - Dev-Dani</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
@@ -275,7 +276,6 @@
             background: rgba(0, 212, 255, 0.02);
             position: relative;
             transition: all 0.4s;
-            cursor: pointer;
         }
         .projeto-card:hover {
             border-color: rgba(0, 212, 255, 0.6);
@@ -436,9 +436,9 @@
             <a href="#contato" id="nav-contato">CONTACTO</a>
         </div>
         <div>
-            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira">
-            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira">
-            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira">
+            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira" alt="Português" role="button" tabindex="0" data-idioma="pt">
+            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira" alt="Español" role="button" tabindex="0" data-idioma="es">
+            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira" alt="English" role="button" tabindex="0" data-idioma="en">
         </div>
     </nav>
 
@@ -593,13 +593,13 @@
                 <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
                 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                 <div class="form-campo">
-                    <input type="text" name="nome" id="input-nome" placeholder="TU NOMBRE" required>
+                    <input type="text" name="nome" id="input-nome" placeholder="TU NOMBRE" aria-label="TU NOMBRE" required>
                 </div>
                 <div class="form-campo">
-                    <input type="email" name="email" id="input-email" placeholder="TU EMAIL" required>
+                    <input type="email" name="email" id="input-email" placeholder="TU EMAIL" aria-label="TU EMAIL" required>
                 </div>
                 <div class="form-campo">
-                    <textarea name="mensagem" id="input-msg" placeholder="TU MENSAJE..." required></textarea>
+                    <textarea name="mensagem" id="input-msg" placeholder="TU MENSAJE..." aria-label="TU MENSAJE..." required></textarea>
                 </div>
                 <button type="submit" class="botao-jarvis filled" id="btn-enviar">ENVIAR MENSAJE</button>
                 <p class="form-erro" id="form-erro" role="alert" hidden></p>
@@ -608,7 +608,7 @@
     </section>
 
     <footer>
-        <p id="footer-txt">© 2025 DEV-DANI — DANIEL MOTA</p>
+        <p id="footer-txt">© {{ ano }} DEV-DANI — DANIEL MOTA</p>
         <p id="footer-local">MADRID, ESPAÑA</p>
     </footer>
 
@@ -732,7 +732,7 @@
                 contTitulo: "CONTATO", contDesc: "Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.",
                 statusTxt: "Disponível para projetos",
                 inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
-                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
                 secaoLabel: "SISTEMA", projNum: "PROJETO", labelLocal: "LOCAL", labelStatus: "STATUS",
                 localTxt: "Madrid, Espanha", footerLocal: "MADRID, ESPANHA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
@@ -751,7 +751,7 @@
                 contTitulo: "CONTACTO", contDesc: "¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.",
                 statusTxt: "Disponible para proyectos",
                 inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
-                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
                 secaoLabel: "SISTEMA", projNum: "PROYECTO", labelLocal: "UBICACIÓN", labelStatus: "ESTADO",
                 localTxt: "Madrid, España", footerLocal: "MADRID, ESPAÑA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
@@ -770,7 +770,7 @@
                 contTitulo: "CONTACT", contDesc: "Have a project in mind? Let's talk and turn your idea into digital reality.",
                 statusTxt: "Available for projects",
                 inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
-                btnEnviar: "SEND MESSAGE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                btnEnviar: "SEND MESSAGE", footerTxt: "© {ano} DEV-DANI — DANIEL MOTA",
                 secaoLabel: "SYSTEM", projNum: "PROJECT", labelLocal: "LOCATION", labelStatus: "STATUS",
                 localTxt: "Madrid, Spain", footerLocal: "MADRID, SPAIN",
                 btnEnviando: "SENDING...", erroEnvio: "The message could not be sent. Please try again in a few minutes."
@@ -778,7 +778,8 @@
         }
 
         function aplicarIdioma(idioma) {
-            localStorage.setItem("idioma", idioma)
+            if (!textos[idioma]) idioma = "es"  // valor estranho salvo: usa espanhol
+            try { localStorage.setItem("idioma", idioma) } catch (e) {}  // modo anonimo pode bloquear
             var t = textos[idioma]
             document.documentElement.lang = idioma
 
@@ -815,8 +816,11 @@
             document.getElementById("input-nome").placeholder = t.inputNome
             document.getElementById("input-email").placeholder = t.inputEmail
             document.getElementById("input-msg").placeholder = t.inputMsg
+            document.getElementById("input-nome").setAttribute("aria-label", t.inputNome)
+            document.getElementById("input-email").setAttribute("aria-label", t.inputEmail)
+            document.getElementById("input-msg").setAttribute("aria-label", t.inputMsg)
             document.getElementById("btn-enviar").innerText = t.btnEnviar
-            document.getElementById("footer-txt").innerText = t.footerTxt
+            document.getElementById("footer-txt").innerText = t.footerTxt.replace("{ano}", new Date().getFullYear())
             document.getElementById("sobre-label").innerText = t.secaoLabel + " — 001"
             document.getElementById("hab-label").innerText = t.secaoLabel + " — 002"
             document.getElementById("proj-label").innerText = t.secaoLabel + " — 003"
@@ -831,9 +835,20 @@
             document.getElementById("form-erro").innerText = t.erroEnvio
         }
 
-        var idiomaSalvo = localStorage.getItem("idioma") || "es"
+        var idiomaSalvo = "es"
+        try { idiomaSalvo = localStorage.getItem("idioma") || "es" } catch (e) {}
         aplicarIdioma(idiomaSalvo)
         digitar()
+
+        // BANDEIRAS: Enter ou Espaco trocam o idioma (para quem navega com Tab)
+        document.querySelectorAll(".bandeira").forEach(function(bandeira) {
+            bandeira.addEventListener("keydown", function(e) {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault()
+                    aplicarIdioma(bandeira.getAttribute("data-idioma"))
+                }
+            })
+        })
 
         // FORMULARIO: envia por fetch (sem sair do site) e vai para /obrigado
         var formContato = document.getElementById("form-contato")
@@ -872,8 +887,13 @@
         })
 
         window.addEventListener("resize", function() {
+            var larguraAntiga = canvas.width, alturaAntiga = canvas.height
             canvas.width = window.innerWidth
             canvas.height = window.innerHeight
+            particulas.forEach(function(p) {
+                p.x = p.x / larguraAntiga * canvas.width
+                p.y = p.y / alturaAntiga * canvas.height
+            })
         })
     </script>
 </body>
