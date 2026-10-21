@@ -661,6 +661,12 @@
         var TAMANHO_SIMBOLO = [16, 24]        // largura do simbolo em px (sorteada entre os dois)
         var MAX_SIMBOLOS = 3                  // maximo de simbolos na tela ao mesmo tempo
         var BRILHO_SIMBOLO = 0.7              // opacidade maxima (0 = invisivel, 1 = total)
+        var PROFUNDIDADE = 1                  // efeito de distancia: 0 = desligado (todos perto), 1 = completo
+        var CAMADAS = [                       // chance de cada distancia (soma 1) e faixa de distancia (0 = perto, 1 = longe)
+            { chance: 0.50, distancia: [0.8, 1.0] },   // longe
+            { chance: 0.35, distancia: [0.4, 0.6] },   // medio
+            { chance: 0.15, distancia: [0.0, 0.15] }   // perto
+        ]
 
         // CANVAS
         var canvas = document.getElementById("canvas")
@@ -968,15 +974,33 @@
             return minimo + Math.random() * (maximo - minimo)
         }
 
+        // sorteia a camada (longe / medio / perto) pela chance de cada uma
+        function sortearDistancia() {
+            var r = Math.random(), acumulado = 0
+            for (var i = 0; i < CAMADAS.length; i++) {
+                acumulado += CAMADAS[i].chance
+                if (r < acumulado) return sortear(CAMADAS[i].distancia[0], CAMADAS[i].distancia[1])
+            }
+            return 1
+        }
+
         function criarSimbolo() {
             if (simbolos.length < MAX_SIMBOLOS) {
+                // d: 0 = perto, 1 = bem longe. Quanto maior, menor/desfocado/apagado/lento
+                var d = sortearDistancia() * PROFUNDIDADE
                 simbolos.push({
+                    distancia: d,
                     x: sortear(30, canvasSimbolos.width - 30),
                     y: canvasSimbolos.height + 30,
-                    vx: sortear(-0.15, 0.15),
-                    vy: -sortear(1, 1.6),  // na faixa dos pontinhos que sobem (0.5 a 2)
-                    tamanho: sortear(TAMANHO_SIMBOLO[0], TAMANHO_SIMBOLO[1])
+                    vx: sortear(-0.15, 0.15) * (1 - 0.6 * d),
+                    vy: -sortear(1, 1.6) * (1 - 0.6 * d),            // longe: ate 60% mais lento
+                    tamanho: sortear(TAMANHO_SIMBOLO[0], TAMANHO_SIMBOLO[1]) * (1 - 0.5 * d),  // longe: metade do tamanho
+                    desfoque: 1.2 * d,                                // longe: blur de ate 1.2px
+                    brilho: BRILHO_SIMBOLO * (1 - 0.6 * d),           // longe: bem mais apagado
+                    halo: 10 * (1 - 0.6 * d)                          // longe: brilho neon mais curto
                 })
+                // desenha os de longe primeiro, para os de perto passarem na frente
+                simbolos.sort(function(a, b) { return b.distancia - a.distancia })
             }
             var espera = sortear(INTERVALO_SIMBOLO[0], INTERVALO_SIMBOLO[1])
             if (window.innerWidth <= 768) espera *= INTERVALO_CELULAR
@@ -995,7 +1019,8 @@
             ctxSimbolos.lineCap = "round"
             ctxSimbolos.lineJoin = "round"
             ctxSimbolos.shadowColor = "#00d4ff"
-            ctxSimbolos.shadowBlur = 10 / escala  // brilho suave, igual em qualquer tamanho
+            ctxSimbolos.shadowBlur = s.halo / escala  // brilho suave (mais curto nos distantes)
+            ctxSimbolos.filter = s.desfoque > 0.1 ? "blur(" + s.desfoque + "px)" : "none"
             ctxSimbolos.beginPath()
             ctxSimbolos.moveTo(12, 4);  ctxSimbolos.lineTo(0, 16);  ctxSimbolos.lineTo(12, 28)
             ctxSimbolos.moveTo(32, 4);  ctxSimbolos.lineTo(44, 16); ctxSimbolos.lineTo(32, 28)
@@ -1010,7 +1035,7 @@
             simbolos = simbolos.filter(function(s) {
                 s.x += s.vx
                 s.y += s.vy
-                var opacidade = BRILHO_SIMBOLO * Math.max(0, Math.min(1, s.y / zonaFade))
+                var opacidade = s.brilho * Math.max(0, Math.min(1, s.y / zonaFade))
                 if (opacidade <= 0) return false  // chegou ao topo: remove
                 desenharSimbolo(s, opacidade)
                 return true
