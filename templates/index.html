@@ -81,8 +81,45 @@
         }
         /* partes da marca em azul neon (o "_" e o "4" de dev_mot4) */
         .marca-destaque { color: #00d4ff; text-shadow: 0 0 12px #00d4ff, 0 0 4px #00d4ff; }
-        .bandeira { width: 26px; height: 17px; cursor: pointer; margin: 0 4px; border-radius: 2px; opacity: 0.8; transition: opacity 0.3s; }
-        .bandeira:hover { opacity: 1; }
+        /* SELETOR DE IDIOMA estilo HUD: ES / PT / EN */
+        .idiomas {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+        }
+        .idioma-btn {
+            position: relative;
+            background: none;
+            border: none;
+            padding: 4px 0 4px 3px;  /* 3px a esquerda compensa o espaco que o letter-spacing deixa no fim */
+            font: inherit;
+            letter-spacing: inherit;
+            color: rgba(140, 170, 190, 0.4);
+            cursor: pointer;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        .idioma-btn::after {
+            /* linha fina embaixo do idioma ativo */
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 1px;
+            background: #00d4ff;
+            box-shadow: 0 0 6px #00d4ff;
+            transform: scaleX(0);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .idioma-btn:hover { color: rgba(0, 212, 255, 0.7); }
+        .idioma-btn.ativo { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
+        .idioma-btn.ativo::after { transform: scaleX(1); opacity: 1; }
+        .idioma-btn:focus-visible { outline: 1px solid rgba(0, 212, 255, 0.6); outline-offset: 4px; }
+        .idioma-barra { color: rgba(0, 212, 255, 0.18); }
 
         /* SECOES */
         section {
@@ -466,10 +503,12 @@
             <a href="#projetos" id="nav-projetos">PROYECTOS</a>
             <a href="#contato" id="nav-contato">CONTACTO</a>
         </div>
-        <div>
-            <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira" alt="Português" role="button" tabindex="0" data-idioma="pt">
-            <img src="https://flagcdn.com/w40/es.png" onclick="aplicarIdioma('es')" class="bandeira" alt="Español" role="button" tabindex="0" data-idioma="es">
-            <img src="https://flagcdn.com/w40/gb.png" onclick="aplicarIdioma('en')" class="bandeira" alt="English" role="button" tabindex="0" data-idioma="en">
+        <div class="idiomas" role="group" id="grupo-idiomas" aria-label="Idioma">
+            <button type="button" class="idioma-btn ativo" data-idioma="es" aria-label="Español" aria-current="true">ES</button>
+            <span class="idioma-barra" aria-hidden="true">/</span>
+            <button type="button" class="idioma-btn" data-idioma="pt" aria-label="Português">PT</button>
+            <span class="idioma-barra" aria-hidden="true">/</span>
+            <button type="button" class="idioma-btn" data-idioma="en" aria-label="English">EN</button>
         </div>
     </nav>
 
@@ -796,7 +835,7 @@
                 inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
                 btnEnviar: "ENVIAR MENSAGEM", slogan: ["IDEIAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
                 filosofiaLabel: "NOSSA FILOSOFIA", filosofiaTxt: "Ouvir, criar e trabalhar com compromisso em cada projeto.",
-                instagramAria: "Instagram da {marca}",
+                instagramAria: "Instagram da {marca}", grupoIdiomas: "Idioma",
                 secaoLabel: "SISTEMA", projNum: "PROJETO", labelLocal: "LOCAL", labelStatus: "STATUS",
                 localTxt: "Madrid, Espanha", footerLocal: "MADRID, ESPANHA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
@@ -817,7 +856,7 @@
                 inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
                 btnEnviar: "ENVIAR MENSAJE", slogan: ["IDEAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
                 filosofiaLabel: "NUESTRA FILOSOFÍA", filosofiaTxt: "Escuchar, crear y trabajar con compromiso en cada proyecto.",
-                instagramAria: "Instagram de {marca}",
+                instagramAria: "Instagram de {marca}", grupoIdiomas: "Idioma",
                 secaoLabel: "SISTEMA", projNum: "PROYECTO", labelLocal: "UBICACIÓN", labelStatus: "ESTADO",
                 localTxt: "Madrid, España", footerLocal: "MADRID, ESPAÑA",
                 btnEnviando: "ENVIANDO...", erroEnvio: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
@@ -838,7 +877,7 @@
                 inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
                 btnEnviar: "SEND MESSAGE", slogan: ["IDEAS", "CODE", "RESULTS"], assinatura: "by {autor}",
                 filosofiaLabel: "OUR PHILOSOPHY", filosofiaTxt: "Listen, create and work with commitment on every project.",
-                instagramAria: "{marca} on Instagram",
+                instagramAria: "{marca} on Instagram", grupoIdiomas: "Language",
                 secaoLabel: "SYSTEM", projNum: "PROJECT", labelLocal: "LOCATION", labelStatus: "STATUS",
                 localTxt: "Madrid, Spain", footerLocal: "MADRID, SPAIN",
                 btnEnviando: "SENDING...", erroEnvio: "The message could not be sent. Please try again in a few minutes."
@@ -850,6 +889,15 @@
             try { localStorage.setItem("idioma", idioma) } catch (e) {}  // modo anonimo pode bloquear
             var t = textos[idioma]
             document.documentElement.lang = idioma
+
+            // marca o idioma ativo no seletor (cor + linha + aria-current para leitor de tela)
+            document.querySelectorAll(".idioma-btn").forEach(function(botao) {
+                var ativo = botao.getAttribute("data-idioma") === idioma
+                botao.classList.toggle("ativo", ativo)
+                if (ativo) botao.setAttribute("aria-current", "true")
+                else botao.removeAttribute("aria-current")
+            })
+            document.getElementById("grupo-idiomas").setAttribute("aria-label", t.grupoIdiomas)
 
             // troca as frases do topo e recomeca a digitacao do zero
             frases = t.frases
@@ -924,13 +972,10 @@
         aplicarIdioma(idiomaSalvo)
         digitar()
 
-        // BANDEIRAS: Enter ou Espaco trocam o idioma (para quem navega com Tab)
-        document.querySelectorAll(".bandeira").forEach(function(bandeira) {
-            bandeira.addEventListener("keydown", function(e) {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault()
-                    aplicarIdioma(bandeira.getAttribute("data-idioma"))
-                }
+        // SELETOR DE IDIOMA: <button> ja funciona com clique, Tab, Enter e Espaco
+        document.querySelectorAll(".idioma-btn").forEach(function(botao) {
+            botao.addEventListener("click", function() {
+                aplicarIdioma(botao.getAttribute("data-idioma"))
             })
         })
 
