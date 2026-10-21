@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Desarrollo de páginas web, tiendas online, apps y automatización con IA en Madrid. Soluciones digitales a medida para hacer crecer tu negocio.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Daniel Mota - Dev-Dani</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
@@ -365,6 +367,9 @@
             letter-spacing: 2px;
         }
 
+        .botao-jarvis:disabled { opacity: 0.6; cursor: wait; }
+        .form-erro { color: #ff4d6d; font-size: 14px; letter-spacing: 1px; line-height: 1.6; }
+
         /* FOOTER */
         footer {
             border-top: 1px solid rgba(0, 212, 255, 0.1);
@@ -425,10 +430,10 @@
         <div class="logo-nav">DEV-DANI</div>
         <div class="nav-links">
             <a href="#hero" id="nav-inicio">INICIO</a>
-            <a href="#sobre" id="nav-sobre">SOBRE</a>
+            <a href="#sobre" id="nav-sobre">SOBRE MÍ</a>
             <a href="#habilidades" id="nav-hab">HABILIDADES</a>
-            <a href="#projetos" id="nav-projetos">PROJETOS</a>
-            <a href="#contato" id="nav-contato">CONTATO</a>
+            <a href="#projetos" id="nav-projetos">PROYECTOS</a>
+            <a href="#contato" id="nav-contato">CONTACTO</a>
         </div>
         <div>
             <img src="https://flagcdn.com/w40/br.png" onclick="aplicarIdioma('pt')" class="bandeira">
@@ -450,24 +455,24 @@
             <span id="typing"></span><span class="cursor"></span>
         </div>
         <div class="botoes">
-            <a href="#projetos" class="botao-jarvis filled" id="btn-projetos">Ver Projetos</a>
-            <a href="#contato" class="botao-jarvis" id="btn-contato">Entre em Contato</a>
+            <a href="#projetos" class="botao-jarvis filled" id="btn-projetos">Ver Proyectos</a>
+            <a href="#contato" class="botao-jarvis" id="btn-contato">Contáctame</a>
         </div>
     </section>
 
     <!-- SOBRE -->
     <section id="sobre">
         <p class="secao-label" id="sobre-label">SISTEMA — 001</p>
-        <h2 class="secao-titulo" id="sobre-titulo">SOBRE MIM</h2>
+        <h2 class="secao-titulo" id="sobre-titulo">SOBRE MÍ</h2>
         <div class="linha-divisoria"></div>
         <div class="sobre-grid">
             <div class="sobre-texto">
-                <p id="sobre-p1">Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, España.</p>
-                <p id="sobre-p2">Combino design elegante com código eficiente para transformar ideias em produtos digitais reais que geram resultados para meus clientes.</p>
+                <p id="sobre-p1">Desarrollador web apasionado por la tecnología y la innovación. Fundador de Dev-Dani, empresa especializada en crear soluciones digitales profesionales para negocios en Madrid, España.</p>
+                <p id="sobre-p2">Combino diseño elegante con código eficiente para transformar ideas en productos digitales reales que generan resultados para mis clientes.</p>
                 <div class="sobre-stats">
                     <div class="stat">
                         <div class="stat-numero">2+</div>
-                        <div class="stat-label" id="stat1">PROJETOS</div>
+                        <div class="stat-label" id="stat1">PROYECTOS</div>
                     </div>
                     <div class="stat">
                         <div class="stat-numero">3</div>
@@ -518,7 +523,7 @@
     <!-- PROJETOS -->
     <section id="projetos">
         <p class="secao-label" id="proj-label">SISTEMA — 003</p>
-        <h2 class="secao-titulo" id="proj-titulo">PROJETOS</h2>
+        <h2 class="secao-titulo" id="proj-titulo">PROYECTOS</h2>
         <div class="linha-divisoria"></div>
         <div class="projetos-grid">
             <div class="projeto-card">
@@ -526,9 +531,9 @@
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
                 <div class="corner corner-br"></div>
-                <div class="projeto-numero">PROJETO — 001</div>
+                <div class="projeto-numero" id="proj1-num">PROYECTO — 001</div>
                 <h3 id="proj1-titulo">STUDIO LARA MARQUES</h3>
-                <p id="proj1-desc">Sistema completo de agendamento online com área administrativa, 3 idiomas e assistente virtual com IA integrada.</p>
+                <p id="proj1-desc">Sistema completo de reservas online con área administrativa, 3 idiomas y asistente virtual con IA integrada.</p>
                 <div class="tags">
                     <span class="tag">Python</span>
                     <span class="tag">Flask</span>
@@ -541,9 +546,9 @@
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
                 <div class="corner corner-br"></div>
-                <div class="projeto-numero">PROJETO — 002</div>
-                <h3 id="proj2-titulo">PORTFÓLIO DEV-DANI</h3>
-                <p id="proj2-desc">Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.</p>
+                <div class="projeto-numero" id="proj2-num">PROYECTO — 002</div>
+                <h3 id="proj2-titulo">PORTAFOLIO DEV-DANI</h3>
+                <p id="proj2-desc">Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.</p>
                 <div class="tags">
                     <span class="tag">HTML</span>
                     <span class="tag">CSS</span>
@@ -556,9 +561,9 @@
                 <div class="corner corner-tr"></div>
                 <div class="corner corner-bl"></div>
                 <div class="corner corner-br"></div>
-                <div class="projeto-numero">PROJETO — 003</div>
-                <h3 id="proj3-titulo">EM BREVE</h3>
-                <p id="proj3-desc">Novo projeto em desenvolvimento. Fique atento às novidades da Dev-Dani.</p>
+                <div class="projeto-numero" id="proj3-num">PROYECTO — 003</div>
+                <h3 id="proj3-titulo">PRÓXIMAMENTE</h3>
+                <p id="proj3-desc">Nuevo proyecto en desarrollo. Mantente atento a las novedades de Dev-Dani.</p>
                 <div class="tags">
                     <span class="tag">React</span>
                     <span class="tag">Node.js</span>
@@ -570,42 +575,41 @@
     <!-- CONTATO -->
     <section id="contato">
         <p class="secao-label" id="cont-label">SISTEMA — 004</p>
-        <h2 class="secao-titulo" id="cont-titulo">CONTATO</h2>
+        <h2 class="secao-titulo" id="cont-titulo">CONTACTO</h2>
         <div class="linha-divisoria"></div>
         <div class="contato-grid">
             <div class="contato-info">
-                <p id="cont-desc">Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.</p>
+                <p id="cont-desc">¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.</p>
                 <div class="contato-item">
-                    <span>EMAIL</span>
-                    <span>contato@devdani.com</span>
+                    <span id="label-local">UBICACIÓN</span>
+                    <span id="local-txt">Madrid, España</span>
                 </div>
                 <div class="contato-item">
-                    <span>LOCAL</span>
-                    <span>Madrid, España</span>
-                </div>
-                <div class="contato-item">
-                    <span>STATUS</span>
-                    <span style="color: #00ff88;">● <span id="status-txt">Disponível para projetos</span></span>
+                    <span id="label-status">ESTADO</span>
+                    <span style="color: #00ff88;">● <span id="status-txt">Disponible para proyectos</span></span>
                 </div>
             </div>
-            <form class="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
+            <form class="form-contato" id="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
+                <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                 <div class="form-campo">
-                    <input type="text" name="nome" id="input-nome" placeholder="SEU NOME" required>
+                    <input type="text" name="nome" id="input-nome" placeholder="TU NOMBRE" required>
                 </div>
                 <div class="form-campo">
-                    <input type="email" name="email" id="input-email" placeholder="SEU EMAIL" required>
+                    <input type="email" name="email" id="input-email" placeholder="TU EMAIL" required>
                 </div>
                 <div class="form-campo">
-                    <textarea name="mensagem" id="input-msg" placeholder="SUA MENSAGEM..." required></textarea>
+                    <textarea name="mensagem" id="input-msg" placeholder="TU MENSAJE..." required></textarea>
                 </div>
-                <button type="submit" class="botao-jarvis filled" id="btn-enviar">ENVIAR MENSAGEM</button>
+                <button type="submit" class="botao-jarvis filled" id="btn-enviar">ENVIAR MENSAJE</button>
+                <p class="form-erro" id="form-erro" role="alert" hidden></p>
             </form>
         </div>
     </section>
 
     <footer>
         <p id="footer-txt">© 2025 DEV-DANI — DANIEL MOTA</p>
-        <p>MADRID, ESPAÑA</p>
+        <p id="footer-local">MADRID, ESPAÑA</p>
     </footer>
 
     <script>
@@ -680,12 +684,8 @@
         animarParticulas()
 
         // DIGITACAO
-        var frases = [
-            "Desenvolvedor Web & Mobile",
-            "Fundador da Dev-Dani",
-            "Transformo ideias em realidade",
-            "Python | JavaScript | Flask"
-        ]
+        // as frases vem de textos[idioma].frases (definidas no aplicarIdioma)
+        var frases = []
         var fraseAtual = 0, letraAtual = 0, apagando = false
         function digitar() {
             var frase = frases[fraseAtual]
@@ -708,7 +708,6 @@
             }
             setTimeout(digitar, apagando ? 50 : 100)
         }
-        digitar()
 
         // BARRAS
         setTimeout(function() {
@@ -720,9 +719,10 @@
         // IDIOMAS
         var textos = {
             pt: {
-                navInicio: "INICIO", navSobre: "SOBRE", navHab: "HABILIDADES", navProj: "PROJETOS", navCont: "CONTATO",
+                frases: ["Sites que vendem", "Lojas online e apps", "Automação com IA", "Sua ideia. Nossa tecnologia."],
+                navInicio: "INÍCIO", navSobre: "SOBRE", navHab: "HABILIDADES", navProj: "PROJETOS", navCont: "CONTATO",
                 btnProjetos: "Ver Projetos", btnContato: "Entre em Contato",
-                sobreTitulo: "SOBRE MIM", sobreP1: "Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, España.",
+                sobreTitulo: "SOBRE MIM", sobreP1: "Desenvolvedor web apaixonado por tecnologia e inovação. Fundador da Dev-Dani, empresa especializada em criar soluções digitais profissionais para negócios em Madrid, Espanha.",
                 sobreP2: "Combino design elegante com código eficiente para transformar ideias em produtos digitais reais que geram resultados para meus clientes.",
                 stat1: "PROJETOS", stat2: "IDIOMAS", stat3: "EMPRESA",
                 habTitulo: "HABILIDADES", projTitulo: "PROJETOS",
@@ -732,9 +732,13 @@
                 contTitulo: "CONTATO", contDesc: "Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.",
                 statusTxt: "Disponível para projetos",
                 inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
-                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
+                btnEnviar: "ENVIAR MENSAGEM", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                secaoLabel: "SISTEMA", projNum: "PROJETO", labelLocal: "LOCAL", labelStatus: "STATUS",
+                localTxt: "Madrid, Espanha", footerLocal: "MADRID, ESPANHA",
+                btnEnviando: "ENVIANDO...", erroEnvio: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
             },
             es: {
+                frases: ["Páginas web que venden", "Tiendas online y apps", "Automatización con IA", "Tu idea. Nuestra tecnología."],
                 navInicio: "INICIO", navSobre: "SOBRE MÍ", navHab: "HABILIDADES", navProj: "PROYECTOS", navCont: "CONTACTO",
                 btnProjetos: "Ver Proyectos", btnContato: "Contáctame",
                 sobreTitulo: "SOBRE MÍ", sobreP1: "Desarrollador web apasionado por la tecnología y la innovación. Fundador de Dev-Dani, empresa especializada en crear soluciones digitales profesionales para negocios en Madrid, España.",
@@ -747,9 +751,13 @@
                 contTitulo: "CONTACTO", contDesc: "¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.",
                 statusTxt: "Disponible para proyectos",
                 inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
-                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
+                btnEnviar: "ENVIAR MENSAJE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                secaoLabel: "SISTEMA", projNum: "PROYECTO", labelLocal: "UBICACIÓN", labelStatus: "ESTADO",
+                localTxt: "Madrid, España", footerLocal: "MADRID, ESPAÑA",
+                btnEnviando: "ENVIANDO...", erroEnvio: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
             },
             en: {
+                frases: ["Websites that sell", "Online stores & apps", "AI automation", "Your idea. Our technology."],
                 navInicio: "HOME", navSobre: "ABOUT", navHab: "SKILLS", navProj: "PROJECTS", navCont: "CONTACT",
                 btnProjetos: "See Projects", btnContato: "Contact Me",
                 sobreTitulo: "ABOUT ME", sobreP1: "Web developer passionate about technology and innovation. Founder of Dev-Dani, a company specialized in creating professional digital solutions for businesses in Madrid, Spain.",
@@ -762,13 +770,24 @@
                 contTitulo: "CONTACT", contDesc: "Have a project in mind? Let's talk and turn your idea into digital reality.",
                 statusTxt: "Available for projects",
                 inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
-                btnEnviar: "SEND MESSAGE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA"
+                btnEnviar: "SEND MESSAGE", footerTxt: "© 2025 DEV-DANI — DANIEL MOTA",
+                secaoLabel: "SYSTEM", projNum: "PROJECT", labelLocal: "LOCATION", labelStatus: "STATUS",
+                localTxt: "Madrid, Spain", footerLocal: "MADRID, SPAIN",
+                btnEnviando: "SENDING...", erroEnvio: "The message could not be sent. Please try again in a few minutes."
             }
         }
 
         function aplicarIdioma(idioma) {
             localStorage.setItem("idioma", idioma)
             var t = textos[idioma]
+            document.documentElement.lang = idioma
+
+            // troca as frases do topo e recomeca a digitacao do zero
+            frases = t.frases
+            fraseAtual = 0
+            letraAtual = 0
+            apagando = false
+            document.getElementById("typing").innerText = ""
             document.getElementById("nav-inicio").innerText = t.navInicio
             document.getElementById("nav-sobre").innerText = t.navSobre
             document.getElementById("nav-hab").innerText = t.navHab
@@ -798,10 +817,59 @@
             document.getElementById("input-msg").placeholder = t.inputMsg
             document.getElementById("btn-enviar").innerText = t.btnEnviar
             document.getElementById("footer-txt").innerText = t.footerTxt
+            document.getElementById("sobre-label").innerText = t.secaoLabel + " — 001"
+            document.getElementById("hab-label").innerText = t.secaoLabel + " — 002"
+            document.getElementById("proj-label").innerText = t.secaoLabel + " — 003"
+            document.getElementById("cont-label").innerText = t.secaoLabel + " — 004"
+            document.getElementById("proj1-num").innerText = t.projNum + " — 001"
+            document.getElementById("proj2-num").innerText = t.projNum + " — 002"
+            document.getElementById("proj3-num").innerText = t.projNum + " — 003"
+            document.getElementById("label-local").innerText = t.labelLocal
+            document.getElementById("label-status").innerText = t.labelStatus
+            document.getElementById("local-txt").innerText = t.localTxt
+            document.getElementById("footer-local").innerText = t.footerLocal
+            document.getElementById("form-erro").innerText = t.erroEnvio
         }
 
-        var idiomaSalvo = localStorage.getItem("idioma") || "pt"
+        var idiomaSalvo = localStorage.getItem("idioma") || "es"
         aplicarIdioma(idiomaSalvo)
+        digitar()
+
+        // FORMULARIO: envia por fetch (sem sair do site) e vai para /obrigado
+        var formContato = document.getElementById("form-contato")
+        formContato.addEventListener("submit", function(e) {
+            e.preventDefault()
+            var t = textos[document.documentElement.lang]
+            var botao = document.getElementById("btn-enviar")
+            var erro = document.getElementById("form-erro")
+            erro.hidden = true
+            botao.disabled = true
+            botao.innerText = t.btnEnviando
+
+            fetch(formContato.action, {
+                method: "POST",
+                body: new FormData(formContato),
+                headers: { "Accept": "application/json" }
+            }).then(function(resposta) {
+                if (!resposta.ok) throw new Error("Formspree respondeu " + resposta.status)
+                formContato.reset()
+                window.location.href = "/obrigado"
+            }).catch(function() {
+                // sem internet, Formspree fora do ar ou envio recusado
+                var t = textos[document.documentElement.lang]
+                erro.innerText = t.erroEnvio
+                erro.hidden = false
+                botao.disabled = false
+                botao.innerText = t.btnEnviar
+            })
+        })
+
+        // se o visitante voltar da pagina /obrigado com o botao "Voltar", reativa o botao
+        window.addEventListener("pageshow", function() {
+            var botao = document.getElementById("btn-enviar")
+            botao.disabled = false
+            botao.innerText = textos[document.documentElement.lang].btnEnviar
+        })
 
         window.addEventListener("resize", function() {
             canvas.width = window.innerWidth
