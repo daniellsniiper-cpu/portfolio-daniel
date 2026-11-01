@@ -12,6 +12,26 @@
         <p class="secao-label" data-i18n="servicios.label">SISTEMA — 001</p>
         <h1 class="secao-titulo" data-i18n="servicios.titulo">SERVICIOS</h1>
         <div class="linha-divisoria"></div>
-        {# as 4 linhas de servico entram na Etapa 8 #}
+        <p class="servicios-intro" data-i18n="servicios.intro">Cuatro líneas de trabajo para hacer crecer tu negocio. Cada proyecto se adapta a lo que necesitas.</p>
+
+        <div class="linhas-servico">
+            {# ancora (para os cards da Inicio), chave da traducao, tipo pre-selecionado no formulario #}
+            {% for ancora, chave, tipo, titulo, texto in [
+                ("webs", "web", "web", "WEBS", "Webs corporativas, páginas para profesionales y landing pages. Diseño a medida, adaptado a móviles y preparado para crecer."),
+                ("tiendas", "tienda", "tienda", "TIENDAS ONLINE", "Catálogo de productos, carrito, pago online con tarjeta y gestión de pedidos, fácil de administrar para ti."),
+                ("apps", "apps", "app", "APPS Y SISTEMAS", "Sistemas de reservas, áreas de clientes y herramientas internas que se adaptan a cómo trabaja tu negocio."),
+                ("ia", "ia", "ia", "AUTOMATIZACIÓN E IA", "Asistentes virtuales, respuestas automáticas y tareas repetitivas que dejan de hacerse a mano.")
+            ] %}
+            <article class="linha-servico" id="{{ ancora }}">
+                <div class="linha-servico-num">0{{ loop.index }}</div>
+                <div class="linha-servico-conteudo">
+                    <h2 data-i18n="servicios.{{ chave }}Titulo">{{ titulo }}</h2>
+                    <p data-i18n="servicios.{{ chave }}Texto">{{ texto }}</p>
+                    {# FASE 2: detalhes desta linha (o que inclui, exemplos, perguntas frequentes) #}
+                    <a href="/contacto?tipo={{ tipo }}" class="botao-jarvis" data-i18n="servicios.botao">Pedir presupuesto</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     </section>
 {% endblock %}

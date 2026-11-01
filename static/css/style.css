@@ -595,3 +595,96 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     .passo-ponto { top: 2px; left: -35px; }
     .passo-num { margin-top: 0; }
 }
+
+/* ===== PAGINA SERVICIOS: as 4 linhas ===== */
+.servicios-intro { color: rgba(255, 255, 255, 0.6); font-size: 17px; line-height: 1.9; max-width: 640px; margin-bottom: 50px; }
+.linha-servico {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 30px;
+    padding: 45px 0;
+    border-top: 1px solid rgba(0, 212, 255, 0.12);
+    scroll-margin-top: 110px;  /* ao chegar por /servicios#webs, o titulo nao fica atras do menu fixo */
+}
+.linha-servico-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    color: #00d4ff;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    line-height: 1;
+}
+.linha-servico h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+}
+.linha-servico p { color: rgba(255, 255, 255, 0.55); font-size: 16px; line-height: 1.9; max-width: 640px; margin-bottom: 25px; }
+.linha-servico .botao-jarvis { display: inline-block; }
+
+/* ===== PAGINA HERRAMIENTAS: painel "Proximamente" ===== */
+.painel-hud {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 50px 40px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    background: rgba(0, 212, 255, 0.02);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.painel-simbolo svg { width: 64px; height: 64px; filter: drop-shadow(0 0 10px #00d4ff); margin-bottom: 25px; }
+.painel-estado {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(0, 212, 255, 0.7);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.ponto-piscando { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: blink 1.4s infinite; }
+.barra-carregando {
+    width: 100%;
+    max-width: 320px;
+    height: 3px;
+    background: rgba(0, 212, 255, 0.1);
+    overflow: hidden;
+    margin-bottom: 35px;
+}
+.barra-carregando div {
+    width: 35%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    box-shadow: 0 0 8px #00d4ff;
+    animation: carregando 2.2s ease-in-out infinite;
+}
+@keyframes carregando { 0% { transform: translateX(-100%); } 100% { transform: translateX(290%); } }
+.painel-titulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    color: #fff;
+    letter-spacing: 6px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    margin-bottom: 18px;
+}
+.painel-texto { color: rgba(255, 255, 255, 0.6); font-size: 16px; line-height: 1.8; margin-bottom: 25px; }
+.painel-hud .tags { justify-content: center; margin-bottom: 35px; }
+
+/* quem pede "reduzir movimento" no sistema ve a barra e o ponto parados */
+@media (prefers-reduced-motion: reduce) {
+    .ponto-piscando, .barra-carregando div { animation: none; }
+    .barra-carregando div { width: 60%; transform: none; background: #00d4ff; }
+}
+
+@media (max-width: 768px) {
+    .linha-servico { grid-template-columns: 1fr; gap: 12px; padding: 35px 0; scroll-margin-top: 130px; }
+    .linha-servico-num { font-size: 30px; }
+    .linha-servico h2 { font-size: 16px; }
+    .painel-hud { padding: 40px 22px; }
+    .painel-titulo { font-size: 20px; letter-spacing: 4px; }
+}
