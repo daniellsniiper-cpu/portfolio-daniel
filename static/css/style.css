@@ -72,7 +72,7 @@ nav {
     text-shadow: 0 0 10px #00d4ff;
 }
 /* pagina atual no menu: azul neon com brilho e linha fina embaixo (como o idioma ativo) */
-.nav-links a { position: relative; padding-bottom: 4px; }
+.nav-links a { position: relative; padding-bottom: 4px; white-space: nowrap; }
 .nav-links a.ativo { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
 .nav-links a.ativo::after {
     content: "";
@@ -142,6 +142,7 @@ section {
     align-items: center;
     text-align: center;
     padding: 0;
+    overflow: hidden;  /* cada .circle e um quadrado girando: a 45 graus a caixa dele fica ~41% maior e criava rolagem lateral */
 }
 .circle-container {
     position: relative;
@@ -402,6 +403,13 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 .footer-instagram { display: inline-flex; color: rgba(0, 212, 255, 0.5); transition: all 0.3s; }
 .footer-instagram:hover { color: #00d4ff; filter: drop-shadow(0 0 6px #00d4ff); }
 
+/* TABLET / NOTEBOOK PEQUENO (ate 1100px): menu em duas linhas, links centralizados embaixo */
+@media (max-width: 1100px) {
+    nav { flex-wrap: wrap; padding: 14px 40px; }
+    .nav-links { order: 3; width: 100%; display: flex; justify-content: center; gap: 0 30px; margin-top: 12px; }
+    .nav-links a { margin: 0; }
+}
+
 /* CELULAR (telas ate 768px) */
 @media (max-width: 768px) {
     nav { flex-wrap: wrap; padding: 12px 16px; }
@@ -420,6 +428,11 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 
     section { padding: 140px 20px 60px; }
     #hero { padding: 130px 20px 60px; }
+    .circle-container { width: 220px; height: 220px; margin-bottom: 40px; }
+    .circle:nth-child(1) { width: 220px; height: 220px; }
+    .circle:nth-child(2) { width: 172px; height: 172px; top: 24px; left: 24px; }
+    .circle:nth-child(3) { width: 124px; height: 124px; top: 48px; left: 48px; }
+    .avatar-text svg { width: 56px; height: 56px; }
     #hero h1 { font-size: 28px; letter-spacing: 3px; }
     .slogan { font-size: 10px; letter-spacing: 2px; }
     .slogan .barra { margin: 0 5px; }
