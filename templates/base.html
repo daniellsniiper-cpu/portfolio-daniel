@@ -8,7 +8,8 @@
     <title>{% block titulo %}{{ MARCA }}{% endblock %}</title>
     <meta name="description" content="{% block descricao %}{% endblock %}">
     {% block meta %}{% endblock %}
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    {# fontes servidas pelo proprio site (sem Google Fonts: melhor para o RGPD) #}
+    <link rel="stylesheet" href="/static/css/fonts.css">
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>

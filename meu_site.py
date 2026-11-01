@@ -1,6 +1,7 @@
 # meu primeiro site
 # criado por Daniel Mota
 
+import mimetypes
 import os
 from datetime import date
 
@@ -11,6 +12,9 @@ from markupsafe import Markup, escape
 MARCA = "dev_mot4"
 AUTOR = "Daniel Mota"
 INSTAGRAM = "https://instagram.com/dev_mot4"
+
+# tipo correto das fontes (o Windows nao conhece .woff2 por padrao)
+mimetypes.add_type("font/woff2", ".woff2")
 
 app = Flask(__name__)
 
