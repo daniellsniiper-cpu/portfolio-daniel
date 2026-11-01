@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "_macros.html" import icone_instagram %}
+
+{% block titulo %}Contacto y presupuesto — {{ MARCA }}{% endblock %}
+{% block descricao %}Cuéntanos tu proyecto y pide tu presupuesto. Te respondemos en menos de 24 horas.{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/contacto.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section id="contato">
+        <p class="secao-label" data-i18n="contacto.label">SISTEMA — 004</p>
+        <h1 class="secao-titulo" data-i18n="contacto.titulo">CONTACTO</h1>
+        <div class="linha-divisoria"></div>
+        <div class="contato-grid">
+            <div class="contato-info">
+                <p data-i18n="contacto.desc">¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.</p>
+                <div class="contato-item">
+                    <span data-i18n="contacto.labelLocal">UBICACIÓN</span>
+                    <span data-i18n="contacto.local">Madrid, España</span>
+                </div>
+                <div class="contato-item">
+                    <span data-i18n="contacto.labelStatus">ESTADO</span>
+                    <span style="color: #00ff88;">● <span data-i18n="contacto.status">Disponible para proyectos</span></span>
+                </div>
+                <div class="contato-item">
+                    <span>INSTAGRAM</span>
+                    <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="link-instagram">{{ icone_instagram() }}{{ INSTAGRAM_USUARIO }}</a>
+                </div>
+            </div>
+            <form class="form-contato" id="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
+                <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                <div class="form-campo">
+                    <input type="text" name="nome" placeholder="TU NOMBRE" aria-label="TU NOMBRE" data-i18n-placeholder="contacto.nombre" data-i18n-aria-label="contacto.nombre" required>
+                </div>
+                <div class="form-campo">
+                    <input type="email" name="email" placeholder="TU EMAIL" aria-label="TU EMAIL" data-i18n-placeholder="contacto.email" data-i18n-aria-label="contacto.email" required>
+                </div>
+                <div class="form-campo">
+                    <textarea name="mensagem" placeholder="TU MENSAJE..." aria-label="TU MENSAJE..." data-i18n-placeholder="contacto.mensaje" data-i18n-aria-label="contacto.mensaje" required></textarea>
+                </div>
+                <button type="submit" class="botao-jarvis filled" id="btn-enviar" data-i18n="contacto.enviar">ENVIAR MENSAJE</button>
+                <p class="form-erro" id="form-erro" role="alert" hidden></p>
+            </form>
+        </div>
+    </section>
+{% endblock %}

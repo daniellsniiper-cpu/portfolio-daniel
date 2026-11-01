@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block titulo %}Nosotros — {{ MARCA }}{% endblock %}
+{% block descricao %}Conoce {{ MARCA }}: desarrollo tecnológico en Madrid con atención personal en cada proyecto.{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/nosotros.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section id="sobre">
+        <p class="secao-label" data-i18n="nosotros.label">SISTEMA — 003</p>
+        <h1 class="secao-titulo" data-i18n="nosotros.titulo">SOBRE NOSOTROS</h1>
+        <div class="linha-divisoria"></div>
+        <div class="sobre-grid">
+            <div class="sobre-texto">
+                <p data-i18n="nosotros.p1">{{ MARCA }} es una marca de desarrollo tecnológico en Madrid. Creamos soluciones digitales modernas y a medida: páginas web, apps, tiendas online, sistemas de gestión y automatización con IA.</p>
+                <p data-i18n="nosotros.p2">Soy {{ AUTOR }}, fundador de {{ MARCA }}. Atiendo personalmente cada proyecto porque los mejores resultados nacen de escuchar de cerca a cada cliente y entender su negocio.</p>
+                <div class="filosofia">
+                    <div class="secao-label" data-i18n="nosotros.filosofiaLabel">NUESTRA FILOSOFÍA</div>
+                    <div class="filosofia-frase" data-i18n="nosotros.filosofiaTxt">Escuchar, crear y trabajar con compromiso en cada proyecto.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# "Como trabajamos" entra aqui na Etapa 7 #}
+{% endblock %}

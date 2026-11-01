@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}Aviso legal — {{ MARCA }}{% endblock %}
+{% block descricao %}Información legal y datos del titular del sitio web de {{ MARCA }}.{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/legal.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section class="pagina-legal">
+        <p class="secao-label" data-i18n="legal.label">INFORMACIÓN LEGAL</p>
+        <h1 class="secao-titulo" data-i18n="legal.avisoTitulo">AVISO LEGAL</h1>
+        <div class="linha-divisoria"></div>
+        {# texto legal entra na Etapa 10 #}
+    </section>
+{% endblock %}

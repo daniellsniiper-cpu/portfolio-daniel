@@ -1,13 +1,18 @@
 {% extends "base.html" %}
-{% from "_macros.html" import icone_instagram %}
 
 {% block titulo %}{{ MARCA }} — Desarrollo web en Madrid{% endblock %}
 {% block descricao %}Desarrollo de páginas web, tiendas online, apps y automatización con IA en Madrid. Soluciones digitales a medida para hacer crecer tu negocio.{% endblock %}
 
+{% block meta %}
+    <script>
+        // links antigos do site de uma pagina so (ex.: /#contato) levam para a pagina nova
+        var enderecosAntigos = { "#sobre": "/nosotros", "#contato": "/contacto", "#projetos": "/servicios", "#habilidades": "/servicios" }
+        if (enderecosAntigos[location.hash]) location.replace(enderecosAntigos[location.hash])
+    </script>
+{% endblock %}
+
 {% block traducoes %}
     <script src="/static/js/traducoes/inicio.js"></script>
-    <script src="/static/js/traducoes/nosotros.js"></script>
-    <script src="/static/js/traducoes/contacto.js"></script>
 {% endblock %}
 
 {% block conteudo %}
@@ -26,63 +31,9 @@
             <span id="typing"></span><span class="cursor"></span>
         </div>
         <div class="botoes">
-            <a href="#contato" class="botao-jarvis filled" data-i18n="inicio.botaoContacto">Contáctame</a>
+            <a href="/contacto" class="botao-jarvis filled" data-i18n="inicio.botaoContacto">Contáctame</a>
         </div>
     </section>
 
-    <!-- SOBRE (vai para /nosotros na Etapa 7) -->
-    <section id="sobre">
-        <p class="secao-label" data-i18n="nosotros.label">SISTEMA — 001</p>
-        <h2 class="secao-titulo" data-i18n="nosotros.titulo">SOBRE NOSOTROS</h2>
-        <div class="linha-divisoria"></div>
-        <div class="sobre-grid">
-            <div class="sobre-texto">
-                <p data-i18n="nosotros.p1">{{ MARCA }} es una marca de desarrollo tecnológico en Madrid. Creamos soluciones digitales modernas y a medida: páginas web, apps, tiendas online, sistemas de gestión y automatización con IA.</p>
-                <p data-i18n="nosotros.p2">Soy {{ AUTOR }}, fundador de {{ MARCA }}. Atiendo personalmente cada proyecto porque los mejores resultados nacen de escuchar de cerca a cada cliente y entender su negocio.</p>
-                <div class="filosofia">
-                    <div class="secao-label" data-i18n="nosotros.filosofiaLabel">NUESTRA FILOSOFÍA</div>
-                    <div class="filosofia-frase" data-i18n="nosotros.filosofiaTxt">Escuchar, crear y trabajar con compromiso en cada proyecto.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTATO (vai para /contacto na Etapa 9) -->
-    <section id="contato">
-        <p class="secao-label" data-i18n="contacto.label">SISTEMA — 004</p>
-        <h2 class="secao-titulo" data-i18n="contacto.titulo">CONTACTO</h2>
-        <div class="linha-divisoria"></div>
-        <div class="contato-grid">
-            <div class="contato-info">
-                <p data-i18n="contacto.desc">¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.</p>
-                <div class="contato-item">
-                    <span data-i18n="contacto.labelLocal">UBICACIÓN</span>
-                    <span data-i18n="contacto.local">Madrid, España</span>
-                </div>
-                <div class="contato-item">
-                    <span data-i18n="contacto.labelStatus">ESTADO</span>
-                    <span style="color: #00ff88;">● <span data-i18n="contacto.status">Disponible para proyectos</span></span>
-                </div>
-                <div class="contato-item">
-                    <span>INSTAGRAM</span>
-                    <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="link-instagram">{{ icone_instagram() }}{{ INSTAGRAM_USUARIO }}</a>
-                </div>
-            </div>
-            <form class="form-contato" id="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
-                <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
-                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                <div class="form-campo">
-                    <input type="text" name="nome" placeholder="TU NOMBRE" aria-label="TU NOMBRE" data-i18n-placeholder="contacto.nombre" data-i18n-aria-label="contacto.nombre" required>
-                </div>
-                <div class="form-campo">
-                    <input type="email" name="email" placeholder="TU EMAIL" aria-label="TU EMAIL" data-i18n-placeholder="contacto.email" data-i18n-aria-label="contacto.email" required>
-                </div>
-                <div class="form-campo">
-                    <textarea name="mensagem" placeholder="TU MENSAJE..." aria-label="TU MENSAJE..." data-i18n-placeholder="contacto.mensaje" data-i18n-aria-label="contacto.mensaje" required></textarea>
-                </div>
-                <button type="submit" class="botao-jarvis filled" id="btn-enviar" data-i18n="contacto.enviar">ENVIAR MENSAJE</button>
-                <p class="form-erro" id="form-erro" role="alert" hidden></p>
-            </form>
-        </div>
-    </section>
+    {# "Tecnologias", "Lo que hacemos", "Nuestros compromisos" e a chamada final entram na Etapa 6 #}
 {% endblock %}

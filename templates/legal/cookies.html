@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}Política de cookies — {{ MARCA }}{% endblock %}
+{% block descricao %}Información sobre cookies y almacenamiento local en el sitio web de {{ MARCA }}.{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/legal.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section class="pagina-legal">
+        <p class="secao-label" data-i18n="legal.label">INFORMACIÓN LEGAL</p>
+        <h1 class="secao-titulo" data-i18n="legal.cookiesTitulo">POLÍTICA DE COOKIES</h1>
+        <div class="linha-divisoria"></div>
+        {# texto legal entra na Etapa 10 #}
+    </section>
+{% endblock %}

@@ -22,10 +22,14 @@
 
     <nav>
         <div class="logo-nav">{{ MARCA_HTML }}</div>
+        {# a pagina atual (request.endpoint = nome da funcao da rota) fica acesa e com aria-current #}
+        {% set atual = request.endpoint %}
         <div class="nav-links">
-            <a href="/#hero" data-i18n="comum.navInicio">INICIO</a>
-            <a href="/#sobre" data-i18n="comum.navNosotros">NOSOTROS</a>
-            <a href="/#contato" data-i18n="comum.navContacto">CONTACTO</a>
+            <a href="/" data-i18n="comum.navInicio"{% if atual == "inicio" %} class="ativo" aria-current="page"{% endif %}>INICIO</a>
+            <a href="/servicios" data-i18n="comum.navServicios"{% if atual == "servicios" %} class="ativo" aria-current="page"{% endif %}>SERVICIOS</a>
+            <a href="/herramientas" data-i18n="comum.navHerramientas"{% if atual == "herramientas" %} class="ativo" aria-current="page"{% endif %}>HERRAMIENTAS</a>
+            <a href="/nosotros" data-i18n="comum.navNosotros"{% if atual == "nosotros" %} class="ativo" aria-current="page"{% endif %}>NOSOTROS</a>
+            <a href="/contacto" data-i18n="comum.navContacto"{% if atual == "contacto" %} class="ativo" aria-current="page"{% endif %}>CONTACTO</a>
         </div>
         <div class="idiomas" role="group" aria-label="Idioma" data-i18n-aria-label="comum.grupoIdiomas">
             <button type="button" class="idioma-btn ativo" data-idioma="es" aria-label="Español" aria-current="true">ES</button>

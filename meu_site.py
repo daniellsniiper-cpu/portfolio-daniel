@@ -43,25 +43,60 @@ def dados_da_marca():
     }
 
 
+# ===== PAGINAS =====
+# o nome da funcao (ex.: "servicios") e o que o menu usa para saber a pagina atual
+
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
-@app.route("/sobre")
-def sobre():
-    return redirect("/#sobre", code=301)
+@app.route("/servicios")
+def servicios():
+    return render_template("servicios.html")
 
-@app.route("/projetos")
-def projetos():
-    return redirect("/#projetos", code=301)
+@app.route("/herramientas")
+def herramientas():
+    return render_template("herramientas.html")
 
-@app.route("/contato")
-def contato():
-    return redirect("/#contato", code=301)
+@app.route("/nosotros")
+def nosotros():
+    return render_template("nosotros.html")
+
+@app.route("/contacto")
+def contacto():
+    return render_template("contacto.html")
 
 @app.route("/obrigado")
 def obrigado():
     return render_template("obrigado.html")
+
+# paginas legais (LSSI e RGPD)
+@app.route("/aviso-legal")
+def aviso_legal():
+    return render_template("legal/aviso_legal.html")
+
+@app.route("/privacidad")
+def privacidad():
+    return render_template("legal/privacidad.html")
+
+@app.route("/cookies")
+def cookies():
+    return render_template("legal/cookies.html")
+
+
+# ===== ENDERECOS ANTIGOS: redirecionam (301 = mudou para sempre) =====
+
+@app.route("/sobre")
+def sobre():
+    return redirect("/nosotros", code=301)
+
+@app.route("/projetos")
+def projetos():
+    return redirect("/servicios", code=301)
+
+@app.route("/contato")
+def contato():
+    return redirect("/contacto", code=301)
 
 if __name__ == "__main__":
     # debug so liga com FLASK_DEBUG=1 (nunca em producao)

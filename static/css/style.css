@@ -71,6 +71,19 @@ nav {
     color: #fff;
     text-shadow: 0 0 10px #00d4ff;
 }
+/* pagina atual no menu: azul neon com brilho e linha fina embaixo (como o idioma ativo) */
+.nav-links a { position: relative; padding-bottom: 4px; }
+.nav-links a.ativo { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
+.nav-links a.ativo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 3px;  /* compensa o espaco que o letter-spacing deixa depois da ultima letra */
+    bottom: 0;
+    height: 1px;
+    background: #00d4ff;
+    box-shadow: 0 0 6px #00d4ff;
+}
 /* partes da marca em azul neon (o "_" e o "4" de dev_mot4) */
 .marca-destaque { color: #00d4ff; text-shadow: 0 0 12px #00d4ff, 0 0 4px #00d4ff; }
 /* SELETOR DE IDIOMA estilo HUD: ES / PT / EN */
@@ -403,6 +416,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
         margin-top: 10px;
     }
     .nav-links a { margin: 0; font-size: 11px; letter-spacing: 1px; }
+    .nav-links a.ativo::after { right: 1px; }
 
     section { padding: 140px 20px 60px; }
     #hero { padding: 130px 20px 60px; }

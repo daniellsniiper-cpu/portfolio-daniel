@@ -7,7 +7,9 @@ var TRADUCOES = window.TRADUCOES || {}
 TRADUCOES.comum = {
     pt: {
         navInicio: "INÍCIO",
-        navNosotros: "SOBRE",
+        navServicios: "SERVIÇOS",
+        navHerramientas: "FERRAMENTAS",
+        navNosotros: "SOBRE NÓS",
         navContacto: "CONTATO",
         grupoIdiomas: "Idioma",
         instagramAria: "Instagram da {marca}",
@@ -15,7 +17,9 @@ TRADUCOES.comum = {
     },
     en: {
         navInicio: "HOME",
-        navNosotros: "ABOUT",
+        navServicios: "SERVICES",
+        navHerramientas: "TOOLS",
+        navNosotros: "ABOUT US",
         navContacto: "CONTACT",
         grupoIdiomas: "Language",
         instagramAria: "{marca} on Instagram",

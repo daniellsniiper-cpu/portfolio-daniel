@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block titulo %}Herramientas — {{ MARCA }}{% endblock %}
+{% block descricao %}Herramientas digitales gratuitas para negocios y comercios: WhatsApp, precios, presupuestos y más.{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/herramientas.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section id="herramientas">
+        <p class="secao-label" data-i18n="herramientas.label">SISTEMA — 002</p>
+        <h1 class="secao-titulo" data-i18n="herramientas.titulo">HERRAMIENTAS</h1>
+        <div class="linha-divisoria"></div>
+        {# o "Proximamente" estilo HUD entra na Etapa 8 #}
+    </section>
+{% endblock %}
