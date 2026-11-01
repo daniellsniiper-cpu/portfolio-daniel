@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_macros.html" import pendiente %}
 
 {% block titulo %}Política de cookies — {{ MARCA }}{% endblock %}
 {% block descricao %}Información sobre cookies y almacenamiento local en el sitio web de {{ MARCA }}.{% endblock %}
@@ -12,6 +13,34 @@
         <p class="secao-label" data-i18n="legal.label">INFORMACIÓN LEGAL</p>
         <h1 class="secao-titulo" data-i18n="legal.cookiesTitulo">POLÍTICA DE COOKIES</h1>
         <div class="linha-divisoria"></div>
-        {# texto legal entra na Etapa 10 #}
+        <p class="aviso-idioma" data-i18n="legal.avisoIdioma">Este texto solo está disponible en español.</p>
+
+        <div class="texto-legal">
+            <p class="legal-data">Última actualización: {{ pendiente("fecha de última actualización") }}</p>
+
+            <h2>1. ¿Qué son las cookies?</h2>
+            <p>Las cookies son pequeños archivos que algunos sitios web guardan en tu navegador para recordar información sobre tu visita, como tus preferencias o tu actividad.</p>
+
+            <h2>2. Este sitio no utiliza cookies</h2>
+            <p>Este sitio web <strong>no utiliza cookies</strong>, ni propias ni de terceros. Tampoco usa herramientas de analítica, publicidad ni redes sociales que te sigan entre sitios web. Por eso no te mostramos ningún aviso para aceptar cookies.</p>
+
+            <h2>3. Almacenamiento local: el idioma que eliges</h2>
+            <p>Cuando eliges un idioma (ES / PT / EN), el sitio lo guarda en el almacenamiento local de tu navegador (<em>localStorage</em>, con la clave <code>idioma</code>) para mostrarte la web en ese idioma en tus próximas visitas. Este dato no identifica a nadie, no se envía a ningún servidor y solo se usa para esta función.</p>
+            <p>Al tratarse de un elemento técnico solicitado expresamente por ti, está exento del deber de consentimiento según el artículo 22.2 de la LSSI-CE.</p>
+
+            <h2>4. Servicios de terceros</h2>
+            <ul>
+                <li><strong>Fuentes tipográficas:</strong> se cargan desde este mismo sitio web, sin conectar con servicios externos.</li>
+                <li><strong>Formulario de contacto (Formspree):</strong> solo se conecta con Formspree cuando envías el formulario. Más información en la <a href="/privacidad">política de privacidad</a>.</li>
+                <li><strong>Instagram:</strong> el enlace a nuestro perfil solo conecta con Instagram si haces clic en él; a partir de ese momento se aplican las políticas de Instagram.</li>
+            </ul>
+
+            <h2>5. Cómo borrar el almacenamiento local</h2>
+            <p>Puedes eliminar el idioma guardado en cualquier momento desde la configuración de tu navegador, en la opción de borrar los datos de navegación o los datos de este sitio web. También puedes simplemente elegir otro idioma.</p>
+
+            <h2>6. Cambios en esta política</h2>
+            <p>Si en el futuro incorporamos cookies que no sean técnicas (por ejemplo, de analítica), actualizaremos esta política y te pediremos tu consentimiento antes de usarlas.</p>
+            <p>Si tienes cualquier duda, escríbenos a {{ pendiente("email de contacto") }}.</p>
+        </div>
     </section>
 {% endblock %}

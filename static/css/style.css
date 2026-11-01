@@ -741,3 +741,50 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 @media (max-width: 768px) {
     .form-grade { grid-template-columns: 1fr; }
 }
+
+/* ===== RODAPE: links das paginas legais ===== */
+.footer-legal { display: flex; gap: 10px; align-items: center; font-size: 11px; letter-spacing: 2px; color: rgba(0, 212, 255, 0.25); }
+.footer-legal a { color: rgba(0, 212, 255, 0.45); text-decoration: none; transition: color 0.3s, text-shadow 0.3s; }
+.footer-legal a:hover, .footer-legal a.ativo { color: #00d4ff; text-shadow: 0 0 8px #00d4ff; }
+
+/* ===== PAGINAS LEGAIS (aviso legal, privacidad, cookies) ===== */
+.pagina-legal { justify-content: flex-start; }
+.texto-legal { max-width: 780px; color: rgba(255, 255, 255, 0.65); font-size: 16px; line-height: 1.9; }
+.texto-legal h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    letter-spacing: 2px;
+    margin: 40px 0 14px;
+}
+.texto-legal p { margin-bottom: 14px; }
+.texto-legal ul { margin: 0 0 14px 20px; }
+.texto-legal li { margin-bottom: 6px; }
+.texto-legal strong { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
+.texto-legal a { color: #00d4ff; }
+.texto-legal code { font-family: monospace; color: #00d4ff; }
+.legal-data { font-size: 13px; color: rgba(255, 255, 255, 0.4); }
+/* aviso "so em espanhol": escondido quando a pagina esta em espanhol */
+.aviso-idioma {
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: #00d4ff;
+    font-size: 14px;
+    padding: 10px 16px;
+    margin-bottom: 30px;
+    max-width: 780px;
+}
+html[lang="es"] .aviso-idioma { display: none; }
+/* dado que ainda falta preencher: bem visivel (o site NAO vai ao ar com isto) */
+.pendiente {
+    background: rgba(255, 140, 0, 0.18);
+    color: #ffa940;
+    border: 1px dashed #ff8c00;
+    padding: 1px 6px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .footer-legal { flex-wrap: wrap; justify-content: center; }
+    .texto-legal { font-size: 15px; }
+    .texto-legal h2 { font-size: 13px; }
+}

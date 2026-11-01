@@ -5,12 +5,14 @@ TRADUCOES.legal = {
         label: "INFORMAÇÃO LEGAL",
         avisoTitulo: "AVISO LEGAL",
         privacidadTitulo: "POLÍTICA DE PRIVACIDADE",
-        cookiesTitulo: "POLÍTICA DE COOKIES"
+        cookiesTitulo: "POLÍTICA DE COOKIES",
+        avisoIdioma: "Este texto está disponível apenas em espanhol."
     },
     en: {
         label: "LEGAL INFORMATION",
         avisoTitulo: "LEGAL NOTICE",
         privacidadTitulo: "PRIVACY POLICY",
-        cookiesTitulo: "COOKIE POLICY"
+        cookiesTitulo: "COOKIE POLICY",
+        avisoIdioma: "This text is only available in Spanish."
     }
 }

@@ -47,6 +47,14 @@
 
     <footer>
         <p>© {{ ano }} {{ MARCA }} — {{ AUTOR }}</p>
+        {# paginas legais (obrigatorias na Espanha: LSSI e RGPD) #}
+        <div class="footer-legal">
+            <a href="/aviso-legal" data-i18n="comum.footerAviso"{% if atual == "aviso_legal" %} class="ativo" aria-current="page"{% endif %}>Aviso legal</a>
+            <span aria-hidden="true">·</span>
+            <a href="/privacidad" data-i18n="comum.footerPrivacidad"{% if atual == "privacidad" %} class="ativo" aria-current="page"{% endif %}>Privacidad</a>
+            <span aria-hidden="true">·</span>
+            <a href="/cookies" data-i18n="comum.footerCookies"{% if atual == "cookies" %} class="ativo" aria-current="page"{% endif %}>Cookies</a>
+        </div>
         <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="footer-instagram" aria-label="Instagram de {{ MARCA }}" data-i18n-aria-label="comum.instagramAria">{{ icone_instagram() }}</a>
         <p data-i18n="comum.footerLocal">MADRID, ESPAÑA</p>
     </footer>

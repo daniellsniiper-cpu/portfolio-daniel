@@ -13,7 +13,10 @@ TRADUCOES.comum = {
         navContacto: "CONTATO",
         grupoIdiomas: "Idioma",
         instagramAria: "Instagram da {marca}",
-        footerLocal: "MADRID, ESPANHA"
+        footerLocal: "MADRID, ESPANHA",
+        footerAviso: "Aviso legal",
+        footerPrivacidad: "Privacidade",
+        footerCookies: "Cookies"
     },
     en: {
         navInicio: "HOME",
@@ -23,6 +26,9 @@ TRADUCOES.comum = {
         navContacto: "CONTACT",
         grupoIdiomas: "Language",
         instagramAria: "{marca} on Instagram",
-        footerLocal: "MADRID, SPAIN"
+        footerLocal: "MADRID, SPAIN",
+        footerAviso: "Legal notice",
+        footerPrivacidad: "Privacy",
+        footerCookies: "Cookies"
     }
 }
