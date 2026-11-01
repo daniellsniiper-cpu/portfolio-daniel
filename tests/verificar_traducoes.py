@@ -1,6 +1,6 @@
 """VERIFICADOR DE TRADUCOES
 
-Confere, em todos os templates:
+Monta cada pagina com o Flask (como o navegador recebe) e confere:
   1. cada etiqueta data-i18n (texto, html, placeholder, aria-label) tem traducao em PT e EN;
   2. a pagina carrega o arquivo de traducao do grupo usado (ex.: traducoes/nosotros.js);
   3. os textos que so existem no JavaScript tem os 3 idiomas (ES, PT e EN);
@@ -39,26 +39,29 @@ def carregar_traducoes():
     return json.loads(resultado.stdout)
 
 
-def grupos_carregados(nome, visitados=()):
-    """grupos de traducao que um template carrega (somando o base.html que ele estende)"""
-    texto = open(os.path.join(PASTA_TEMPLATES, nome), encoding="utf-8").read()
-    grupos = set(re.findall(r"/static/js/traducoes/(\w+)\.js", texto))
-    pai = re.search(r'{%\s*extends\s+"([^"]+)"', texto)
-    if pai and pai.group(1) not in visitados:
-        grupos |= grupos_carregados(pai.group(1), visitados + (nome,))
-    return grupos
+def montar_paginas():
+    """monta cada template de pagina com o Flask e devolve {nome: html}.
+    Assim laços {% for %}, heranca e {{ MARCA }} ja aparecem resolvidos."""
+    sys.path.insert(0, RAIZ)
+    from flask import render_template
+    import meu_site
+    paginas = {}
+    for caminho in sorted(glob.glob(os.path.join(PASTA_TEMPLATES, "**", "*.html"), recursive=True)):
+        nome = os.path.relpath(caminho, PASTA_TEMPLATES).replace(os.sep, "/")
+        if nome == "base.html" or os.path.basename(nome).startswith("_"):
+            continue  # a moldura e os pedacos so existem dentro das paginas
+        with meu_site.app.test_request_context("/"):
+            paginas[nome] = render_template(nome)
+    return paginas
 
 
 def main():
     traducoes = carregar_traducoes()
     problemas, usadas = [], set()
 
-    templates = sorted(glob.glob(os.path.join(PASTA_TEMPLATES, "**", "*.html"), recursive=True))
-    for caminho in templates:
-        nome = os.path.relpath(caminho, PASTA_TEMPLATES).replace(os.sep, "/")
-        texto = open(caminho, encoding="utf-8").read()
+    for nome, texto in montar_paginas().items():
         chaves = sorted(set(re.findall(r'data-i18n(?:-html|-placeholder|-aria-label)?="([^"]+)"', texto)))
-        carregados = grupos_carregados(nome)
+        carregados = set(re.findall(r"/static/js/traducoes/(\w+)\.js", texto))
         print(f"{nome:24} {len(chaves):3} chaves | traducoes: {', '.join(sorted(carregados)) or '-'}")
 
         for chave in chaves:
@@ -67,7 +70,7 @@ def main():
             if grupo not in traducoes:
                 problemas.append(f"{nome}: o grupo '{grupo}' nao existe (chave {chave})")
                 continue
-            if grupo not in carregados and nome != "base.html":
+            if grupo not in carregados:
                 problemas.append(f"{nome}: usa '{chave}' mas nao carrega traducoes/{grupo}.js")
             for idioma in ("pt", "en"):
                 if k not in traducoes[grupo].get(idioma, {}):

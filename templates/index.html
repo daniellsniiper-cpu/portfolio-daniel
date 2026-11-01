@@ -31,9 +31,72 @@
             <span id="typing"></span><span class="cursor"></span>
         </div>
         <div class="botoes">
-            <a href="/contacto" class="botao-jarvis filled" data-i18n="inicio.botaoContacto">Contáctame</a>
+            <a href="/servicios" class="botao-jarvis filled" data-i18n="inicio.botaoServicios">Ver servicios</a>
+            <a href="/contacto" class="botao-jarvis" data-i18n="inicio.botaoContacto">Contáctame</a>
         </div>
     </section>
 
-    {# "Tecnologias", "Lo que hacemos", "Nuestros compromisos" e a chamada final entram na Etapa 6 #}
+    <!-- LO QUE HACEMOS: resumo das 4 linhas de servico -->
+    <section class="secao-compacta">
+        <p class="secao-label" data-i18n="inicio.hacemosLabel">NUESTROS SERVICIOS</p>
+        <h2 class="secao-titulo" data-i18n="inicio.hacemosTitulo">LO QUE HACEMOS</h2>
+        <div class="linha-divisoria"></div>
+        <div class="cards-servicos">
+            {% for ancora, chave, titulo, texto in [
+                ("webs", "web", "WEBS", "Páginas web a medida, rápidas y adaptadas a móviles."),
+                ("tiendas", "tienda", "TIENDAS ONLINE", "Vende tus productos por internet con un catálogo fácil de gestionar."),
+                ("apps", "apps", "APPS Y SISTEMAS", "Reservas, gestión de clientes y herramientas internas hechas para tu negocio."),
+                ("ia", "ia", "AUTOMATIZACIÓN E IA", "Asistentes virtuales y tareas automáticas para ahorrar tiempo.")
+            ] %}
+            <a href="/servicios#{{ ancora }}" class="projeto-card card-servico">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                <div class="projeto-numero">0{{ loop.index }}</div>
+                <h3 data-i18n="inicio.{{ chave }}Titulo">{{ titulo }}</h3>
+                <p data-i18n="inicio.{{ chave }}Texto">{{ texto }}</p>
+                <span class="card-ver-mas" data-i18n="inicio.verMas">VER MÁS →</span>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- NUESTROS COMPROMISOS -->
+    <section class="secao-compacta">
+        <p class="secao-label" data-i18n="inicio.compLabel">CÓMO TRABAJAMOS</p>
+        <h2 class="secao-titulo" data-i18n="inicio.compTitulo">NUESTROS COMPROMISOS</h2>
+        <div class="linha-divisoria"></div>
+        <div class="compromissos">
+            {% for titulo, texto in [
+                ("Respuesta en 24 h", "Respondemos a cada mensaje en menos de 24 horas laborables."),
+                ("Diseño 100% a medida", "Nada de plantillas genéricas: cada web se diseña para tu negocio."),
+                ("Web multilingüe", "Tu web en español, inglés y portugués si lo necesitas, para llegar a más clientes."),
+                ("El sitio es tuyo", "El dominio queda a tu nombre y el código es tuyo al finalizar el proyecto. Sin permanencias.")
+            ] %}
+            <div class="compromisso">
+                <div class="compromisso-num">0{{ loop.index }}</div>
+                <h3 data-i18n="inicio.comp{{ loop.index }}Titulo">{{ titulo }}</h3>
+                <p data-i18n="inicio.comp{{ loop.index }}Texto">{{ texto }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- TECNOLOGIAS QUE USAMOS (so nomes, sem porcentagem) -->
+    <section class="secao-compacta tecnologias">
+        <p class="secao-label" data-i18n="inicio.tecLabel">TECNOLOGÍAS QUE USAMOS</p>
+        <div class="tags">
+            {% for tec in ["HTML", "CSS", "JavaScript", "Python", "Flask", "React", "Node.js", "Git", "GitHub"] %}
+            <span class="tag">{{ tec }}</span>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- CHAMADA FINAL -->
+    <section class="secao-compacta chamada-final">
+        <h2 class="secao-titulo" data-i18n="inicio.ctaTitulo">¿TIENES UN PROYECTO EN MENTE?</h2>
+        <p data-i18n="inicio.ctaTexto">Cuéntanos tu idea y te respondemos en menos de 24 horas laborables.</p>
+        <a href="/contacto" class="botao-jarvis filled" data-i18n="inicio.ctaBotao">Pide tu presupuesto</a>
+    </section>
 {% endblock %}

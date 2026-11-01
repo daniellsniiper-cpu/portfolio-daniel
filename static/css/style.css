@@ -461,3 +461,69 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 @media (max-width: 768px) {
     .pagina-obrigado h1 { font-size: 24px; letter-spacing: 3px; }
 }
+
+/* ===== PAGINA INICIO: blocos abaixo do topo ===== */
+/* secao com altura conforme o conteudo (as outras ocupam a tela inteira) */
+.secao-compacta {
+    min-height: auto;
+    padding: 100px 80px;
+    border-top: 1px solid rgba(0, 212, 255, 0.1);
+}
+
+/* Lo que hacemos: 4 cards clicaveis */
+.cards-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+.card-servico { display: flex; flex-direction: column; color: inherit; text-decoration: none; }
+.card-servico p { flex: 1; }
+.card-ver-mas {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(0, 212, 255, 0.6);
+    transition: color 0.3s, text-shadow 0.3s;
+}
+.card-servico:hover .card-ver-mas,
+.card-servico:focus-visible .card-ver-mas { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
+.card-servico:focus-visible { outline: 1px solid rgba(0, 212, 255, 0.6); outline-offset: 4px; }
+
+/* Nuestros compromisos: 4 itens numerados */
+.compromissos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+.compromisso { border-left: 1px solid rgba(0, 212, 255, 0.25); padding-left: 20px; }
+.compromisso-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    color: #00d4ff;
+    text-shadow: 0 0 15px #00d4ff;
+    margin-bottom: 14px;
+}
+.compromisso h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.compromisso p { color: rgba(255, 255, 255, 0.5); font-size: 15px; line-height: 1.8; }
+
+/* Tecnologias: faixa discreta centralizada */
+.tecnologias { align-items: center; text-align: center; padding-top: 70px; padding-bottom: 70px; }
+.tecnologias .tags { justify-content: center; max-width: 700px; }
+
+/* Chamada final */
+.chamada-final { align-items: center; text-align: center; }
+.chamada-final .secao-titulo { margin-bottom: 20px; }
+.chamada-final p { color: rgba(255, 255, 255, 0.6); font-size: 17px; line-height: 1.8; margin-bottom: 40px; max-width: 560px; }
+
+@media (max-width: 768px) {
+    .secao-compacta { padding: 70px 20px; }
+    .compromissos { gap: 30px; }
+    .chamada-final .secao-titulo { font-size: 20px; }
+}
