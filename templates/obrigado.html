@@ -1,36 +1,21 @@
 {% extends "base.html" %}
 
+{% block titulo_i18n %} data-i18n="obrigado.aba"{% endblock %}
 {% block titulo %}Mensaje enviado — {{ MARCA }}{% endblock %}
 {% block descricao %}Tu mensaje ha sido enviado. Te responderemos en menos de 24 horas.{% endblock %}
 {# pagina de confirmacao: nao precisa aparecer no Google #}
 {% block meta %}<meta name="robots" content="noindex">{% endblock %}
 
+{% block traducoes %}
+    <script src="/static/js/traducoes/obrigado.js"></script>
+{% endblock %}
+
 {% block conteudo %}
     <section class="pagina-obrigado">
         <div class="marca-label">{{ MARCA_HTML }}</div>
-        <h1 id="obrigado-titulo">¡MENSAJE ENVIADO!</h1>
+        <h1 data-i18n="obrigado.titulo">¡MENSAJE ENVIADO!</h1>
         <div class="linha-divisoria"></div>
-        <p id="obrigado-texto">Gracias por tu mensaje. Te responderemos en menos de 24 horas.</p>
-        <a href="/" class="botao-jarvis filled" id="obrigado-botao">VOLVER AL INICIO</a>
+        <p data-i18n="obrigado.texto">Gracias por tu mensaje. Te responderemos en menos de 24 horas.</p>
+        <a href="/" class="botao-jarvis filled" data-i18n="obrigado.botao">VOLVER AL INICIO</a>
     </section>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    // textos desta pagina (na Etapa 4 passam para o sistema de traducoes)
-    var textosObrigado = {
-        pt: { titulo: "MENSAGEM ENVIADA!", texto: "Obrigado pela mensagem. Responderemos em menos de 24 horas.", botao: "VOLTAR AO INÍCIO", aba: "Mensagem enviada" },
-        es: { titulo: "¡MENSAJE ENVIADO!", texto: "Gracias por tu mensaje. Te responderemos en menos de 24 horas.", botao: "VOLVER AL INICIO", aba: "Mensaje enviado" },
-        en: { titulo: "MESSAGE SENT!", texto: "Thanks for your message. We'll get back to you within 24 hours.", botao: "BACK TO HOME", aba: "Message sent" }
-    }
-    function traduzirObrigado() {
-        var t = textosObrigado[document.documentElement.lang] || textosObrigado.es
-        document.title = t.aba + " — " + MARCA
-        document.getElementById("obrigado-titulo").innerText = t.titulo
-        document.getElementById("obrigado-texto").innerText = t.texto
-        document.getElementById("obrigado-botao").innerText = t.botao
-    }
-    traduzirObrigado()                                   // idioma que o main.js ja aplicou
-    document.addEventListener("idioma", traduzirObrigado) // e a cada clique no seletor
-</script>
 {% endblock %}

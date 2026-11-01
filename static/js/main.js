@@ -84,13 +84,13 @@ function animarParticulas() {
 animarParticulas()
 
 // DIGITACAO
-// as frases vem de textos[idioma].frases (definidas no aplicarIdioma)
+// as frases vem de TRADUCOES.inicio.frases (definidas no aplicarIdioma)
 var frases = []
 var fraseAtual = 0, letraAtual = 0, apagando = false
 function digitar() {
-    var frase = frases[fraseAtual]
     var el = document.getElementById("typing")
-    if (!el) return  // pagina sem o texto que se digita
+    if (!el || !frases.length) return  // pagina sem o texto que se digita
+    var frase = frases[fraseAtual]
     if (!apagando) {
         el.innerText = frase.substring(0, letraAtual + 1)
         letraAtual++
@@ -110,102 +110,69 @@ function digitar() {
     setTimeout(digitar, apagando ? 50 : 100)
 }
 
-// BARRAS
-setTimeout(function() {
-    document.querySelectorAll(".barra-progresso").forEach(function(b) {
-        b.style.width = b.getAttribute("data-width") + "%"
-    })
-}, 500)
+// ===== IDIOMAS =====
+// Como funciona:
+// - No HTML, cada texto traduzivel tem uma etiqueta com a chave da traducao:
+//     data-i18n="grupo.chave"              -> troca o texto
+//     data-i18n-html="grupo.chave"         -> troca o HTML (ex.: slogan com <span> azul)
+//     data-i18n-placeholder="grupo.chave"  -> troca o placeholder
+//     data-i18n-aria-label="grupo.chave"   -> troca o aria-label
+// - O ESPANHOL fica so no HTML: ao abrir a pagina, guardamos o original para voltar ao ES.
+// - PT e EN ficam em static/js/traducoes/<grupo>.js (TRADUCOES.grupo.pt / .en).
+// - Textos que so existem no JavaScript (ex.: "ENVIANDO...") tem tambem .es no arquivo.
+var IDIOMAS = ["es", "pt", "en"]
+var ATRIBUTOS_I18N = ["placeholder", "aria-label"]
 
-// IDIOMAS
-// nome da marca e do autor: vem do meu_site.py (um lugar so)
-// (o valor vem do meu_site.py, pelos atributos data-marca e data-autor do <body>)
+// nome da marca e do autor: vem do meu_site.py, pelos atributos data-marca e data-autor do <body>
 var MARCA = document.body.dataset.marca
 var AUTOR = document.body.dataset.autor
 function comMarca(texto) {
     return texto.split("{marca}").join(MARCA).split("{autor}").join(AUTOR)
 }
 
-var textos = {
-    pt: {
-        frases: ["Sites que vendem", "Lojas online e apps", "Automação com IA", "Sua ideia. Nossa tecnologia."],
-        navInicio: "INÍCIO", navSobre: "SOBRE", navHab: "HABILIDADES", navProj: "PROJETOS", navCont: "CONTATO",
-        btnProjetos: "Ver Projetos", btnContato: "Entre em Contato",
-        sobreTitulo: "SOBRE NÓS", sobreP1: "{marca} é uma marca de desenvolvimento tecnológico em Madrid. Criamos soluções digitais modernas e sob medida: sites, apps, lojas online, sistemas de gestão e automação com IA.",
-        sobreP2: "Sou {autor}, fundador da {marca}. Atendo pessoalmente cada projeto porque os melhores resultados nascem de ouvir de perto cada cliente e entender o seu negócio.",
-        stat1: "PROJETOS", stat2: "IDIOMAS", stat3: "EMPRESA",
-        habTitulo: "HABILIDADES", projTitulo: "PROJETOS",
-        proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de agendamento online com área administrativa, 3 idiomas e assistente virtual com IA integrada.",
-        proj2Titulo: "PORTFÓLIO {marca}", proj2Desc: "Site portfólio profissional estilo JARVIS com animações, 3 idiomas e deploy na internet.",
-        proj3Titulo: "EM BREVE", proj3Desc: "Novo projeto em desenvolvimento. Fique atento às novidades da {marca}.",
-        contTitulo: "CONTATO", contDesc: "Tem um projeto em mente? Vamos conversar e transformar sua ideia em realidade digital.",
-        statusTxt: "Disponível para projetos",
-        inputNome: "SEU NOME", inputEmail: "SEU EMAIL", inputMsg: "SUA MENSAGEM...",
-        btnEnviar: "ENVIAR MENSAGEM", slogan: ["IDEIAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
-        filosofiaLabel: "NOSSA FILOSOFIA", filosofiaTxt: "Ouvir, criar e trabalhar com compromisso em cada projeto.",
-        instagramAria: "Instagram da {marca}", grupoIdiomas: "Idioma",
-        secaoLabel: "SISTEMA", projNum: "PROJETO", labelLocal: "LOCAL", labelStatus: "STATUS",
-        localTxt: "Madrid, Espanha", footerLocal: "MADRID, ESPANHA",
-        btnEnviando: "ENVIANDO...", erroEnvio: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
-    },
-    es: {
-        frases: ["Páginas web que venden", "Tiendas online y apps", "Automatización con IA", "Tu idea. Nuestra tecnología."],
-        navInicio: "INICIO", navSobre: "NOSOTROS", navHab: "HABILIDADES", navProj: "PROYECTOS", navCont: "CONTACTO",
-        btnProjetos: "Ver Proyectos", btnContato: "Contáctame",
-        sobreTitulo: "SOBRE NOSOTROS", sobreP1: "{marca} es una marca de desarrollo tecnológico en Madrid. Creamos soluciones digitales modernas y a medida: páginas web, apps, tiendas online, sistemas de gestión y automatización con IA.",
-        sobreP2: "Soy {autor}, fundador de {marca}. Atiendo personalmente cada proyecto porque los mejores resultados nacen de escuchar de cerca a cada cliente y entender su negocio.",
-        stat1: "PROYECTOS", stat2: "IDIOMAS", stat3: "EMPRESA",
-        habTitulo: "HABILIDADES", projTitulo: "PROYECTOS",
-        proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Sistema completo de reservas online con área administrativa, 3 idiomas y asistente virtual con IA integrada.",
-        proj2Titulo: "PORTAFOLIO {marca}", proj2Desc: "Sitio portafolio profesional estilo JARVIS con animaciones, 3 idiomas y deploy en internet.",
-        proj3Titulo: "PRÓXIMAMENTE", proj3Desc: "Nuevo proyecto en desarrollo. Mantente atento a las novedades de {marca}.",
-        contTitulo: "CONTACTO", contDesc: "¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.",
-        statusTxt: "Disponible para proyectos",
-        inputNome: "TU NOMBRE", inputEmail: "TU EMAIL", inputMsg: "TU MENSAJE...",
-        btnEnviar: "ENVIAR MENSAJE", slogan: ["IDEAS", "CÓDIGO", "RESULTADOS"], assinatura: "por {autor}",
-        filosofiaLabel: "NUESTRA FILOSOFÍA", filosofiaTxt: "Escuchar, crear y trabajar con compromiso en cada proyecto.",
-        instagramAria: "Instagram de {marca}", grupoIdiomas: "Idioma",
-        secaoLabel: "SISTEMA", projNum: "PROYECTO", labelLocal: "UBICACIÓN", labelStatus: "ESTADO",
-        localTxt: "Madrid, España", footerLocal: "MADRID, ESPAÑA",
-        btnEnviando: "ENVIANDO...", erroEnvio: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
-    },
-    en: {
-        frases: ["Websites that sell", "Online stores & apps", "AI automation", "Your idea. Our technology."],
-        navInicio: "HOME", navSobre: "ABOUT", navHab: "SKILLS", navProj: "PROJECTS", navCont: "CONTACT",
-        btnProjetos: "See Projects", btnContato: "Contact Me",
-        sobreTitulo: "ABOUT US", sobreP1: "{marca} is a technology development brand based in Madrid. We build modern, custom digital solutions: websites, apps, online stores, management systems and AI automation.",
-        sobreP2: "I'm {autor}, founder of {marca}. I personally handle every project because the best results come from listening closely to each client and understanding their business.",
-        stat1: "PROJECTS", stat2: "LANGUAGES", stat3: "COMPANY",
-        habTitulo: "SKILLS", projTitulo: "PROJECTS",
-        proj1Titulo: "STUDIO LARA MARQUES", proj1Desc: "Complete online booking system with admin area, 3 languages and AI virtual assistant.",
-        proj2Titulo: "PORTFOLIO {marca}", proj2Desc: "Professional JARVIS-style portfolio with animations, 3 languages and internet deployment.",
-        proj3Titulo: "COMING SOON", proj3Desc: "New project in development. Stay tuned for {marca} news.",
-        contTitulo: "CONTACT", contDesc: "Have a project in mind? Let's talk and turn your idea into digital reality.",
-        statusTxt: "Available for projects",
-        inputNome: "YOUR NAME", inputEmail: "YOUR EMAIL", inputMsg: "YOUR MESSAGE...",
-        btnEnviar: "SEND MESSAGE", slogan: ["IDEAS", "CODE", "RESULTS"], assinatura: "by {autor}",
-        filosofiaLabel: "OUR PHILOSOPHY", filosofiaTxt: "Listen, create and work with commitment on every project.",
-        instagramAria: "{marca} on Instagram", grupoIdiomas: "Language",
-        secaoLabel: "SYSTEM", projNum: "PROJECT", labelLocal: "LOCATION", labelStatus: "STATUS",
-        localTxt: "Madrid, Spain", footerLocal: "MADRID, SPAIN",
-        btnEnviando: "SENDING...", erroEnvio: "The message could not be sent. Please try again in a few minutes."
-    }
+// procura a traducao "grupo.chave" no idioma pedido (null se nao existir)
+function buscarTraducao(chave, idioma) {
+    var partes = chave.split(".")
+    var grupo = window.TRADUCOES && TRADUCOES[partes[0]]
+    var valor = grupo && grupo[idioma] && grupo[idioma][partes[1]]
+    if (valor === undefined) return null
+    return typeof valor === "string" ? comMarca(valor) : valor
 }
 
-// helpers: cada pagina tem elementos diferentes; so altera o que existir
-function definirTexto(id, valor) {
-    var el = document.getElementById(id)
-    if (el) el.innerText = valor
+// texto que so existe no JavaScript (precisa dos 3 idiomas no arquivo de traducao)
+function textoJS(chave) {
+    var idioma = document.documentElement.lang
+    var valor = buscarTraducao(chave, idioma)
+    if (valor === null) valor = buscarTraducao(chave, "es")
+    return valor === null ? "" : valor
 }
-function definirAtributo(id, atributo, valor) {
-    var el = document.getElementById(id)
-    if (el) el.setAttribute(atributo, valor)
+
+// guarda o espanhol original de cada elemento etiquetado
+var originais = []
+document.querySelectorAll("[data-i18n], [data-i18n-html], [data-i18n-placeholder], [data-i18n-aria-label]").forEach(function(el) {
+    var original = { el: el, atributos: {} }
+    if (el.hasAttribute("data-i18n")) original.texto = el.textContent
+    if (el.hasAttribute("data-i18n-html")) original.html = el.innerHTML
+    ATRIBUTOS_I18N.forEach(function(atributo) {
+        if (el.hasAttribute("data-i18n-" + atributo)) original.atributos[atributo] = el.getAttribute(atributo)
+    })
+    originais.push(original)
+})
+
+// devolve a traducao; se faltar, avisa no console e mantem o espanhol
+function traduzir(chave, idioma, espanhol) {
+    if (idioma === "es") return espanhol
+    var valor = buscarTraducao(chave, idioma)
+    if (valor === null) {
+        console.warn("Traducao faltando (" + idioma + "): " + chave)
+        return espanhol
+    }
+    return valor
 }
 
 function aplicarIdioma(idioma) {
-    if (!textos[idioma]) idioma = "es"  // valor estranho salvo: usa espanhol
+    if (IDIOMAS.indexOf(idioma) === -1) idioma = "es"  // valor estranho salvo: usa espanhol
     try { localStorage.setItem("idioma", idioma) } catch (e) {}  // modo anonimo pode bloquear
-    var t = textos[idioma]
     document.documentElement.lang = idioma
 
     // marca o idioma ativo no seletor (cor + linha + aria-current para leitor de tela)
@@ -215,75 +182,27 @@ function aplicarIdioma(idioma) {
         if (ativo) botao.setAttribute("aria-current", "true")
         else botao.removeAttribute("aria-current")
     })
-    definirAtributo("grupo-idiomas", "aria-label", t.grupoIdiomas)
 
-    // troca as frases do topo e recomeca a digitacao do zero
-    frases = t.frases
-    fraseAtual = 0
-    letraAtual = 0
-    apagando = false
-    definirTexto("typing", "")
-    definirTexto("nav-inicio", t.navInicio)
-    definirTexto("nav-sobre", t.navSobre)
-    definirTexto("nav-hab", t.navHab)
-    definirTexto("nav-projetos", t.navProj)
-    definirTexto("nav-contato", t.navCont)
-    definirTexto("btn-projetos", t.btnProjetos)
-    definirTexto("btn-contato", t.btnContato)
-    definirTexto("sobre-titulo", t.sobreTitulo)
-    definirTexto("sobre-p1", comMarca(t.sobreP1))
-    definirTexto("sobre-p2", comMarca(t.sobreP2))
-    definirTexto("filosofia-label", t.filosofiaLabel)
-    definirTexto("filosofia-txt", t.filosofiaTxt)
-    definirTexto("stat1", t.stat1)
-    definirTexto("stat2", t.stat2)
-    definirTexto("stat3", t.stat3)
-    definirTexto("hab-titulo", t.habTitulo)
-    definirTexto("proj-titulo", t.projTitulo)
-    definirTexto("proj1-titulo", t.proj1Titulo)
-    definirTexto("proj1-desc", t.proj1Desc)
-    definirTexto("proj2-titulo", comMarca(t.proj2Titulo))
-    definirTexto("proj2-desc", t.proj2Desc)
-    definirTexto("proj3-titulo", t.proj3Titulo)
-    definirTexto("proj3-desc", comMarca(t.proj3Desc))
-    definirTexto("cont-titulo", t.contTitulo)
-    definirTexto("cont-desc", t.contDesc)
-    definirTexto("status-txt", t.statusTxt)
-    definirAtributo("input-nome", "placeholder", t.inputNome)
-    definirAtributo("input-email", "placeholder", t.inputEmail)
-    definirAtributo("input-msg", "placeholder", t.inputMsg)
-    definirAtributo("input-nome", "aria-label", t.inputNome)
-    definirAtributo("input-email", "aria-label", t.inputEmail)
-    definirAtributo("input-msg", "aria-label", t.inputMsg)
-    definirTexto("btn-enviar", t.btnEnviar)
-    definirTexto("assinatura", comMarca(t.assinatura))
-    definirAtributo("footer-instagram", "aria-label", comMarca(t.instagramAria))
-
-    // slogan: palavras com as barras "/" em azul
-    var slogan = document.getElementById("slogan")
-    if (slogan) slogan.innerHTML = ""
-    if (slogan) t.slogan.forEach(function(palavra, i) {
-        if (i > 0) {
-            var barra = document.createElement("span")
-            barra.className = "barra"
-            barra.innerText = "/"
-            slogan.appendChild(barra)
-        }
-        slogan.appendChild(document.createTextNode(palavra))
+    // troca todos os textos etiquetados da pagina
+    originais.forEach(function(o) {
+        var el = o.el
+        if ("texto" in o) el.textContent = traduzir(el.getAttribute("data-i18n"), idioma, o.texto)
+        if ("html" in o) el.innerHTML = traduzir(el.getAttribute("data-i18n-html"), idioma, o.html)
+        Object.keys(o.atributos).forEach(function(atributo) {
+            el.setAttribute(atributo, traduzir(el.getAttribute("data-i18n-" + atributo), idioma, o.atributos[atributo]))
+        })
     })
-    definirTexto("sobre-label", t.secaoLabel + " — 001")
-    definirTexto("hab-label", t.secaoLabel + " — 002")
-    definirTexto("proj-label", t.secaoLabel + " — 003")
-    definirTexto("cont-label", t.secaoLabel + " — 004")
-    definirTexto("proj1-num", t.projNum + " — 001")
-    definirTexto("proj2-num", t.projNum + " — 002")
-    definirTexto("proj3-num", t.projNum + " — 003")
-    definirTexto("label-local", t.labelLocal)
-    definirTexto("label-status", t.labelStatus)
-    definirTexto("local-txt", t.localTxt)
-    definirTexto("footer-local", t.footerLocal)
-    definirTexto("form-erro", t.erroEnvio)
 
+    // frases do topo: troca a lista e recomeca a digitacao do zero
+    if (document.getElementById("typing")) {
+        frases = buscarTraducao("inicio.frases", idioma) || []
+        fraseAtual = 0
+        letraAtual = 0
+        apagando = false
+        document.getElementById("typing").innerText = ""
+    }
+
+    // avisa as paginas que o idioma mudou: document.addEventListener("idioma", ...)
     document.dispatchEvent(new CustomEvent("idioma", { detail: idioma }))
 }
 
@@ -301,14 +220,22 @@ document.querySelectorAll(".idioma-btn").forEach(function(botao) {
 
 // FORMULARIO: envia por fetch (sem sair do site) e vai para /obrigado
 var formContato = document.getElementById("form-contato")
+var botaoEnviar = document.getElementById("btn-enviar")
+var erroEnvio = document.getElementById("form-erro")
+var textoBotaoEnviar = ""
+
+function reativarBotaoEnviar() {
+    if (!botaoEnviar || !botaoEnviar.disabled) return
+    botaoEnviar.disabled = false
+    botaoEnviar.textContent = textoBotaoEnviar
+}
+
 if (formContato) formContato.addEventListener("submit", function(e) {
     e.preventDefault()
-    var t = textos[document.documentElement.lang]
-    var botao = document.getElementById("btn-enviar")
-    var erro = document.getElementById("form-erro")
-    erro.hidden = true
-    botao.disabled = true
-    botao.innerText = t.btnEnviando
+    erroEnvio.hidden = true
+    textoBotaoEnviar = botaoEnviar.textContent  // "ENVIAR MENSAJE" no idioma atual
+    botaoEnviar.disabled = true
+    botaoEnviar.textContent = textoJS("contacto.enviando")
 
     fetch(formContato.action, {
         method: "POST",
@@ -320,12 +247,15 @@ if (formContato) formContato.addEventListener("submit", function(e) {
         window.location.href = "/obrigado"
     }).catch(function() {
         // sem internet, Formspree fora do ar ou envio recusado
-        var t = textos[document.documentElement.lang]
-        erro.innerText = t.erroEnvio
-        erro.hidden = false
-        botao.disabled = false
-        botao.innerText = t.btnEnviar
+        erroEnvio.textContent = textoJS("contacto.erro")
+        erroEnvio.hidden = false
+        reativarBotaoEnviar()
     })
+})
+
+// se a mensagem de erro estiver visivel e o idioma mudar, traduz a mensagem
+document.addEventListener("idioma", function() {
+    if (erroEnvio && !erroEnvio.hidden) erroEnvio.textContent = textoJS("contacto.erro")
 })
 
 // SIMBOLOS </> SUBINDO (canvas separado; os pontinhos continuam iguais)
@@ -420,12 +350,7 @@ window.addEventListener("resize", function() {
 })
 
 // se o visitante voltar da pagina /obrigado com o botao "Voltar", reativa o botao
-window.addEventListener("pageshow", function() {
-    var botao = document.getElementById("btn-enviar")
-    if (!botao) return
-    botao.disabled = false
-    botao.innerText = textos[document.documentElement.lang].btnEnviar
-})
+window.addEventListener("pageshow", reativarBotaoEnviar)
 
 window.addEventListener("resize", function() {
     var larguraAntiga = canvas.width, alturaAntiga = canvas.height

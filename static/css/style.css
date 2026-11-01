@@ -266,56 +266,7 @@ section {
 .filosofia { border-left: 1px solid #00d4ff; padding-left: 20px; margin-top: 10px; }
 .filosofia .secao-label { margin-bottom: 8px; }
 .filosofia-frase { color: #00d4ff; font-size: 17px; line-height: 1.8; text-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
-.sobre-stats {
-    display: flex;
-    gap: 50px;
-    margin-top: 40px;
-}
-.stat { text-align: center; }
-.stat-numero {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 36px;
-    color: #00d4ff;
-    text-shadow: 0 0 20px #00d4ff;
-}
-.stat-label {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 5px;
-}
-
-/* HABILIDADES */
-#habilidades { border-top: 1px solid rgba(0, 212, 255, 0.1); }
-.hab-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    max-width: 900px;
-}
-.habilidade-item label {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    letter-spacing: 2px;
-    margin-bottom: 8px;
-    color: rgba(0, 212, 255, 0.8);
-}
-.barra-fundo {
-    height: 3px;
-    background: rgba(0, 212, 255, 0.08);
-    border: 1px solid rgba(0, 212, 255, 0.15);
-}
-.barra-progresso {
-    height: 100%;
-    background: linear-gradient(90deg, #00d4ff, #0044ff);
-    box-shadow: 0 0 8px #00d4ff;
-    width: 0%;
-    transition: width 2s ease;
-}
-
-/* PROJETOS */
-#projetos { border-top: 1px solid rgba(0, 212, 255, 0.1); }
+/* CARTOES (reaproveitados nas proximas etapas) */
 .projetos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -466,10 +417,6 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     .linha-divisoria { margin-bottom: 40px; }
 
     .sobre-grid { flex-direction: column; gap: 40px; }
-    .sobre-stats { gap: 25px; justify-content: space-between; }
-    .stat-numero { font-size: 28px; }
-
-    .hab-grid { grid-template-columns: 1fr; }
 
     .projeto-card { padding: 25px; }
 

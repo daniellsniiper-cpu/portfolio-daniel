@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block titulo %}{{ MARCA }}{% endblock %}</title>
+    {# titulo_i18n: a pagina pode pedir que o titulo da aba tambem seja traduzido #}
+    <title{% block titulo_i18n %}{% endblock %}>{% block titulo %}{{ MARCA }}{% endblock %}</title>
     <meta name="description" content="{% block descricao %}{% endblock %}">
     {% block meta %}{% endblock %}
     {# fontes servidas pelo proprio site (sem Google Fonts: melhor para o RGPD) #}
@@ -22,13 +23,11 @@
     <nav>
         <div class="logo-nav">{{ MARCA_HTML }}</div>
         <div class="nav-links">
-            <a href="/#hero" id="nav-inicio">INICIO</a>
-            <a href="/#sobre" id="nav-sobre">NOSOTROS</a>
-            <a href="/#habilidades" id="nav-hab">HABILIDADES</a>
-            <a href="/#projetos" id="nav-projetos">PROYECTOS</a>
-            <a href="/#contato" id="nav-contato">CONTACTO</a>
+            <a href="/#hero" data-i18n="comum.navInicio">INICIO</a>
+            <a href="/#sobre" data-i18n="comum.navNosotros">NOSOTROS</a>
+            <a href="/#contato" data-i18n="comum.navContacto">CONTACTO</a>
         </div>
-        <div class="idiomas" role="group" id="grupo-idiomas" aria-label="Idioma">
+        <div class="idiomas" role="group" aria-label="Idioma" data-i18n-aria-label="comum.grupoIdiomas">
             <button type="button" class="idioma-btn ativo" data-idioma="es" aria-label="Español" aria-current="true">ES</button>
             <span class="idioma-barra" aria-hidden="true">/</span>
             <button type="button" class="idioma-btn" data-idioma="pt" aria-label="Português">PT</button>
@@ -43,11 +42,14 @@
     </main>
 
     <footer>
-        <p id="footer-txt">© {{ ano }} {{ MARCA }} — {{ AUTOR }}</p>
-        <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="footer-instagram" id="footer-instagram" aria-label="Instagram de {{ MARCA }}">{{ icone_instagram() }}</a>
-        <p id="footer-local">MADRID, ESPAÑA</p>
+        <p>© {{ ano }} {{ MARCA }} — {{ AUTOR }}</p>
+        <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="footer-instagram" aria-label="Instagram de {{ MARCA }}" data-i18n-aria-label="comum.instagramAria">{{ icone_instagram() }}</a>
+        <p data-i18n="comum.footerLocal">MADRID, ESPAÑA</p>
     </footer>
 
+    {# traducoes PT/EN: as comuns e as de cada pagina (carregadas ANTES do main.js) #}
+    <script src="/static/js/traducoes/comum.js"></script>
+    {% block traducoes %}{% endblock %}
     <script src="/static/js/main.js"></script>
     {# scripts proprios de cada pagina (rodam depois do main.js) #}
     {% block scripts %}{% endblock %}
