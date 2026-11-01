@@ -224,6 +224,13 @@ var botaoEnviar = document.getElementById("btn-enviar")
 var erroEnvio = document.getElementById("form-erro")
 var textoBotaoEnviar = ""
 
+// vindo de /servicios (ex.: /contacto?tipo=tienda), ja marca o "Tipo de proyecto"
+if (formContato) {
+    var tipoPedido = new URLSearchParams(location.search).get("tipo")
+    var opcaoTipo = tipoPedido && formContato.querySelector('option[data-tipo="' + tipoPedido + '"]')
+    if (opcaoTipo) opcaoTipo.selected = true
+}
+
 function reativarBotaoEnviar() {
     if (!botaoEnviar || !botaoEnviar.disabled) return
     botaoEnviar.disabled = false

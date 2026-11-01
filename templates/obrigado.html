@@ -2,7 +2,7 @@
 
 {% block titulo_i18n %} data-i18n="obrigado.aba"{% endblock %}
 {% block titulo %}Mensaje enviado — {{ MARCA }}{% endblock %}
-{% block descricao %}Tu mensaje ha sido enviado. Te responderemos en menos de 24 horas.{% endblock %}
+{% block descricao %}Tu mensaje ha sido enviado. Te responderemos en menos de 24 horas laborables.{% endblock %}
 {# pagina de confirmacao: nao precisa aparecer no Google #}
 {% block meta %}<meta name="robots" content="noindex">{% endblock %}
 
@@ -15,7 +15,7 @@
         <div class="marca-label">{{ MARCA_HTML }}</div>
         <h1 data-i18n="obrigado.titulo">¡MENSAJE ENVIADO!</h1>
         <div class="linha-divisoria"></div>
-        <p data-i18n="obrigado.texto">Gracias por tu mensaje. Te responderemos en menos de 24 horas.</p>
+        <p data-i18n="obrigado.texto">Gracias por tu mensaje. Te responderemos en menos de 24 horas laborables.</p>
         <a href="/" class="botao-jarvis filled" data-i18n="obrigado.botao">VOLVER AL INICIO</a>
     </section>
 {% endblock %}

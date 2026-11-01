@@ -2,11 +2,20 @@
 {% from "_macros.html" import icone_instagram %}
 
 {% block titulo %}Contacto y presupuesto — {{ MARCA }}{% endblock %}
-{% block descricao %}Cuéntanos tu proyecto y pide tu presupuesto. Te respondemos en menos de 24 horas.{% endblock %}
+{% block descricao %}Cuéntanos tu proyecto y pide tu presupuesto. Te respondemos en menos de 24 horas laborables.{% endblock %}
 
 {% block traducoes %}
     <script src="/static/js/traducoes/contacto.js"></script>
 {% endblock %}
+
+{# gera as <option> de uma lista. Cada item: (valor enviado em espanhol, chave da traducao ou None, codigo do ?tipo= ou None).
+   O valor enviado ao Formspree e sempre o espanhol; so o texto na tela e traduzido. #}
+{% macro opcoes(itens) %}
+                        <option value="" data-i18n="contacto.elige">Elige una opción</option>
+    {%- for valor, chave, tipo in itens %}
+                        <option value="{{ valor }}"{% if chave %} data-i18n="contacto.{{ chave }}"{% endif %}{% if tipo %} data-tipo="{{ tipo }}"{% endif %}>{{ valor }}</option>
+    {%- endfor %}
+{% endmacro %}
 
 {% block conteudo %}
     <section id="contato">
@@ -15,7 +24,7 @@
         <div class="linha-divisoria"></div>
         <div class="contato-grid">
             <div class="contato-info">
-                <p data-i18n="contacto.desc">¿Tienes un proyecto en mente? Hablemos y transformemos tu idea en realidad digital.</p>
+                <p data-i18n="contacto.desc">¿Tienes un proyecto en mente? Cuéntanos qué necesitas y te enviamos un presupuesto sin compromiso.</p>
                 <div class="contato-item">
                     <span data-i18n="contacto.labelLocal">UBICACIÓN</span>
                     <span data-i18n="contacto.local">Madrid, España</span>
@@ -29,18 +38,64 @@
                     <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="link-instagram">{{ icone_instagram() }}{{ INSTAGRAM_USUARIO }}</a>
                 </div>
             </div>
+
+            <!-- FORMULARIO DE PRESUPUESTO (enviado pelo main.js com fetch para o Formspree) -->
             <form class="form-contato" id="form-contato" action="https://formspree.io/f/xojrgolb" method="POST">
                 <!-- anti-spam: invisivel para pessoas; se vier preenchido, o Formspree descarta -->
                 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                <div class="form-campo">
-                    <input type="text" name="nome" placeholder="TU NOMBRE" aria-label="TU NOMBRE" data-i18n-placeholder="contacto.nombre" data-i18n-aria-label="contacto.nombre" required>
+                <!-- assunto do email que chega para voce -->
+                <input type="hidden" name="_subject" value="Nuevo presupuesto — {{ MARCA }}">
+
+                <div class="form-grade">
+                    <div class="form-campo">
+                        <label for="campo-tipo"><span data-i18n="contacto.lblTipo">Tipo de proyecto</span> <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <select id="campo-tipo" name="tipo_proyecto" required>
+{{ opcoes([("Web", "tipoWeb", "web"), ("Tienda online", "tipoTienda", "tienda"), ("App o sistema", "tipoApp", "app"), ("Automatización / IA", "tipoIa", "ia"), ("Carta digital", "tipoCarta", "carta"), ("Otro", "tipoOtro", None)]) }}
+                        </select>
+                    </div>
+                    <div class="form-campo">
+                        <label for="campo-sector" data-i18n="contacto.lblSector">Sector</label>
+                        <select id="campo-sector" name="sector">
+{{ opcoes([("Salón o estudio de belleza", "sectorBelleza", None), ("Restaurante / cafetería", "sectorRestaurante", None), ("Tienda", "sectorTienda", None), ("Otro", "sectorOtro", None)]) }}
+                        </select>
+                    </div>
+                    <div class="form-campo">
+                        <label for="campo-presupuesto" data-i18n="contacto.lblPresupuesto">Presupuesto aproximado</label>
+                        <select id="campo-presupuesto" name="presupuesto">
+{{ opcoes([("Aún no lo sé", "presNoSe", None), ("< 1.000 €", None, None), ("1.000–3.000 €", None, None), ("3.000–10.000 €", None, None), ("> 10.000 €", None, None)]) }}
+                        </select>
+                    </div>
+                    <div class="form-campo">
+                        <label for="campo-plazo" data-i18n="contacto.lblPlazo">Plazo</label>
+                        <select id="campo-plazo" name="plazo">
+{{ opcoes([("Urgente", "plazoUrgente", None), ("1–3 meses", "plazo13", None), ("Sin prisa", "plazoSinPrisa", None)]) }}
+                        </select>
+                    </div>
+                    <div class="form-campo">
+                        <label for="campo-nombre"><span data-i18n="contacto.lblNombre">Nombre</span> <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <input type="text" id="campo-nombre" name="nombre" autocomplete="name" required>
+                    </div>
+                    <div class="form-campo">
+                        <label for="campo-email"><span data-i18n="contacto.lblEmail">Email</span> <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <input type="email" id="campo-email" name="email" autocomplete="email" required>
+                    </div>
+                    <div class="form-campo campo-inteiro">
+                        <label for="campo-telefono" data-i18n="contacto.lblTelefono">Teléfono o WhatsApp (opcional)</label>
+                        <input type="tel" id="campo-telefono" name="telefono" autocomplete="tel">
+                    </div>
+                    <div class="form-campo campo-inteiro">
+                        <label for="campo-mensaje"><span data-i18n="contacto.lblMensaje">Mensaje</span> <span class="obrigatorio" aria-hidden="true">*</span></label>
+                        <textarea id="campo-mensaje" name="mensaje" placeholder="Cuéntanos tu idea…" data-i18n-placeholder="contacto.mensajePh" required></textarea>
+                    </div>
                 </div>
-                <div class="form-campo">
-                    <input type="email" name="email" placeholder="TU EMAIL" aria-label="TU EMAIL" data-i18n-placeholder="contacto.email" data-i18n-aria-label="contacto.email" required>
-                </div>
-                <div class="form-campo">
-                    <textarea name="mensagem" placeholder="TU MENSAJE..." aria-label="TU MENSAJE..." data-i18n-placeholder="contacto.mensaje" data-i18n-aria-label="contacto.mensaje" required></textarea>
-                </div>
+
+                <label class="form-check">
+                    <input type="checkbox" name="acepta_privacidad" value="Sí" required>
+                    <span data-i18n-html="contacto.privacidad">He leído y acepto la <a href="/privacidad" target="_blank" rel="noopener">política de privacidad</a></span>
+                    <span class="obrigatorio" aria-hidden="true">*</span>
+                </label>
+                <p class="form-nota" data-i18n="contacto.obrigatorios">* Campos obligatorios</p>
+
                 <button type="submit" class="botao-jarvis filled" id="btn-enviar" data-i18n="contacto.enviar">ENVIAR MENSAJE</button>
                 <p class="form-erro" id="form-erro" role="alert" hidden></p>
             </form>
