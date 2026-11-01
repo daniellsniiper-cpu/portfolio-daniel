@@ -24,5 +24,25 @@
         </div>
     </section>
 
-    {# "Como trabajamos" entra aqui na Etapa 7 #}
+    <!-- COMO TRABAJAMOS: 4 passos ligados por uma linha (horizontal no computador, vertical no celular) -->
+    <section class="secao-compacta">
+        <p class="secao-label" data-i18n="nosotros.procesoLabel">NUESTRO PROCESO</p>
+        <h2 class="secao-titulo" data-i18n="nosotros.procesoTitulo">CÓMO TRABAJAMOS</h2>
+        <div class="linha-divisoria"></div>
+        <ol class="processo">
+            {% for titulo, texto in [
+                ("Reunión", "Una primera reunión gratuita y sin compromiso, online o en Madrid, para entender tu negocio y lo que necesitas."),
+                ("Propuesta", "Te enviamos un presupuesto claro, con plazos y lo que incluye cada parte."),
+                ("Desarrollo", "Diseñamos y programamos tu proyecto y te mostramos los avances para que des tu opinión."),
+                ("Entrega y soporte", "Publicamos tu proyecto y te enseñamos a usarlo. Incluye 1 mes de soporte; después, plan de mantenimiento opcional.")
+            ] %}
+            <li class="passo">
+                <div class="passo-ponto" aria-hidden="true"></div>
+                <div class="passo-num">0{{ loop.index }}</div>
+                <h3 data-i18n="nosotros.passo{{ loop.index }}Titulo">{{ titulo }}</h3>
+                <p data-i18n="nosotros.passo{{ loop.index }}Texto">{{ texto }}</p>
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
 {% endblock %}

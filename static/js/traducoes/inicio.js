@@ -24,7 +24,7 @@ TRADUCOES.inicio = {
         iaTexto: "Assistentes virtuais e tarefas automáticas para economizar tempo.",
         verMas: "VER MAIS →",
         // compromissos
-        compLabel: "COMO TRABALHAMOS",
+        compLabel: "POR QUE NOS ESCOLHER",
         compTitulo: "NOSSOS COMPROMISSOS",
         comp1Titulo: "Resposta em 24 h",
         comp1Texto: "Respondemos cada mensagem em menos de 24 horas úteis.",
@@ -60,7 +60,7 @@ TRADUCOES.inicio = {
         iaTexto: "Virtual assistants and automated tasks to save you time.",
         verMas: "LEARN MORE →",
         // compromissos
-        compLabel: "HOW WE WORK",
+        compLabel: "WHY CHOOSE US",
         compTitulo: "OUR COMMITMENTS",
         comp1Titulo: "Reply within 24 h",
         comp1Texto: "We answer every message within 24 business hours.",

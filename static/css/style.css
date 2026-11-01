@@ -527,3 +527,71 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     .compromissos { gap: 30px; }
     .chamada-final .secao-titulo { font-size: 20px; }
 }
+
+/* ===== PAGINA NOSOTROS: "Como trabajamos" (linha do tempo) ===== */
+.processo {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    position: relative;
+    padding-top: 30px;
+}
+/* linha horizontal que liga os 4 pontos */
+.processo::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    height: 1px;
+    background: linear-gradient(90deg, #00d4ff, rgba(0, 212, 255, 0.15));
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+.passo { position: relative; }
+.passo-ponto {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #000;
+    border: 1px solid #00d4ff;
+    box-shadow: 0 0 12px #00d4ff;
+}
+.passo-ponto::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: #00d4ff;
+}
+.passo-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    color: rgba(0, 212, 255, 0.5);
+    letter-spacing: 3px;
+    margin: 14px 0 10px;
+}
+.passo h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+.passo p { color: rgba(255, 255, 255, 0.5); font-size: 15px; line-height: 1.8; }
+
+@media (max-width: 768px) {
+    /* no celular a linha fica vertical, com os passos um embaixo do outro */
+    .processo { grid-template-columns: 1fr; gap: 35px; padding-top: 0; padding-left: 35px; }
+    .processo::before {
+        top: 6px; bottom: 6px; left: 6px; right: auto;
+        width: 1px; height: auto;
+        background: linear-gradient(180deg, #00d4ff, rgba(0, 212, 255, 0.15));
+    }
+    .passo-ponto { top: 2px; left: -35px; }
+    .passo-num { margin-top: 0; }
+}
