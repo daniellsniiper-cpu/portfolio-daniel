@@ -90,6 +90,7 @@ var fraseAtual = 0, letraAtual = 0, apagando = false
 function digitar() {
     var frase = frases[fraseAtual]
     var el = document.getElementById("typing")
+    if (!el) return  // pagina sem o texto que se digita
     if (!apagando) {
         el.innerText = frase.substring(0, letraAtual + 1)
         letraAtual++
@@ -191,6 +192,16 @@ var textos = {
     }
 }
 
+// helpers: cada pagina tem elementos diferentes; so altera o que existir
+function definirTexto(id, valor) {
+    var el = document.getElementById(id)
+    if (el) el.innerText = valor
+}
+function definirAtributo(id, atributo, valor) {
+    var el = document.getElementById(id)
+    if (el) el.setAttribute(atributo, valor)
+}
+
 function aplicarIdioma(idioma) {
     if (!textos[idioma]) idioma = "es"  // valor estranho salvo: usa espanhol
     try { localStorage.setItem("idioma", idioma) } catch (e) {}  // modo anonimo pode bloquear
@@ -204,54 +215,54 @@ function aplicarIdioma(idioma) {
         if (ativo) botao.setAttribute("aria-current", "true")
         else botao.removeAttribute("aria-current")
     })
-    document.getElementById("grupo-idiomas").setAttribute("aria-label", t.grupoIdiomas)
+    definirAtributo("grupo-idiomas", "aria-label", t.grupoIdiomas)
 
     // troca as frases do topo e recomeca a digitacao do zero
     frases = t.frases
     fraseAtual = 0
     letraAtual = 0
     apagando = false
-    document.getElementById("typing").innerText = ""
-    document.getElementById("nav-inicio").innerText = t.navInicio
-    document.getElementById("nav-sobre").innerText = t.navSobre
-    document.getElementById("nav-hab").innerText = t.navHab
-    document.getElementById("nav-projetos").innerText = t.navProj
-    document.getElementById("nav-contato").innerText = t.navCont
-    document.getElementById("btn-projetos").innerText = t.btnProjetos
-    document.getElementById("btn-contato").innerText = t.btnContato
-    document.getElementById("sobre-titulo").innerText = t.sobreTitulo
-    document.getElementById("sobre-p1").innerText = comMarca(t.sobreP1)
-    document.getElementById("sobre-p2").innerText = comMarca(t.sobreP2)
-    document.getElementById("filosofia-label").innerText = t.filosofiaLabel
-    document.getElementById("filosofia-txt").innerText = t.filosofiaTxt
-    document.getElementById("stat1").innerText = t.stat1
-    document.getElementById("stat2").innerText = t.stat2
-    document.getElementById("stat3").innerText = t.stat3
-    document.getElementById("hab-titulo").innerText = t.habTitulo
-    document.getElementById("proj-titulo").innerText = t.projTitulo
-    document.getElementById("proj1-titulo").innerText = t.proj1Titulo
-    document.getElementById("proj1-desc").innerText = t.proj1Desc
-    document.getElementById("proj2-titulo").innerText = comMarca(t.proj2Titulo)
-    document.getElementById("proj2-desc").innerText = t.proj2Desc
-    document.getElementById("proj3-titulo").innerText = t.proj3Titulo
-    document.getElementById("proj3-desc").innerText = comMarca(t.proj3Desc)
-    document.getElementById("cont-titulo").innerText = t.contTitulo
-    document.getElementById("cont-desc").innerText = t.contDesc
-    document.getElementById("status-txt").innerText = t.statusTxt
-    document.getElementById("input-nome").placeholder = t.inputNome
-    document.getElementById("input-email").placeholder = t.inputEmail
-    document.getElementById("input-msg").placeholder = t.inputMsg
-    document.getElementById("input-nome").setAttribute("aria-label", t.inputNome)
-    document.getElementById("input-email").setAttribute("aria-label", t.inputEmail)
-    document.getElementById("input-msg").setAttribute("aria-label", t.inputMsg)
-    document.getElementById("btn-enviar").innerText = t.btnEnviar
-    document.getElementById("assinatura").innerText = comMarca(t.assinatura)
-    document.getElementById("footer-instagram").setAttribute("aria-label", comMarca(t.instagramAria))
+    definirTexto("typing", "")
+    definirTexto("nav-inicio", t.navInicio)
+    definirTexto("nav-sobre", t.navSobre)
+    definirTexto("nav-hab", t.navHab)
+    definirTexto("nav-projetos", t.navProj)
+    definirTexto("nav-contato", t.navCont)
+    definirTexto("btn-projetos", t.btnProjetos)
+    definirTexto("btn-contato", t.btnContato)
+    definirTexto("sobre-titulo", t.sobreTitulo)
+    definirTexto("sobre-p1", comMarca(t.sobreP1))
+    definirTexto("sobre-p2", comMarca(t.sobreP2))
+    definirTexto("filosofia-label", t.filosofiaLabel)
+    definirTexto("filosofia-txt", t.filosofiaTxt)
+    definirTexto("stat1", t.stat1)
+    definirTexto("stat2", t.stat2)
+    definirTexto("stat3", t.stat3)
+    definirTexto("hab-titulo", t.habTitulo)
+    definirTexto("proj-titulo", t.projTitulo)
+    definirTexto("proj1-titulo", t.proj1Titulo)
+    definirTexto("proj1-desc", t.proj1Desc)
+    definirTexto("proj2-titulo", comMarca(t.proj2Titulo))
+    definirTexto("proj2-desc", t.proj2Desc)
+    definirTexto("proj3-titulo", t.proj3Titulo)
+    definirTexto("proj3-desc", comMarca(t.proj3Desc))
+    definirTexto("cont-titulo", t.contTitulo)
+    definirTexto("cont-desc", t.contDesc)
+    definirTexto("status-txt", t.statusTxt)
+    definirAtributo("input-nome", "placeholder", t.inputNome)
+    definirAtributo("input-email", "placeholder", t.inputEmail)
+    definirAtributo("input-msg", "placeholder", t.inputMsg)
+    definirAtributo("input-nome", "aria-label", t.inputNome)
+    definirAtributo("input-email", "aria-label", t.inputEmail)
+    definirAtributo("input-msg", "aria-label", t.inputMsg)
+    definirTexto("btn-enviar", t.btnEnviar)
+    definirTexto("assinatura", comMarca(t.assinatura))
+    definirAtributo("footer-instagram", "aria-label", comMarca(t.instagramAria))
 
     // slogan: palavras com as barras "/" em azul
     var slogan = document.getElementById("slogan")
-    slogan.innerHTML = ""
-    t.slogan.forEach(function(palavra, i) {
+    if (slogan) slogan.innerHTML = ""
+    if (slogan) t.slogan.forEach(function(palavra, i) {
         if (i > 0) {
             var barra = document.createElement("span")
             barra.className = "barra"
@@ -260,18 +271,20 @@ function aplicarIdioma(idioma) {
         }
         slogan.appendChild(document.createTextNode(palavra))
     })
-    document.getElementById("sobre-label").innerText = t.secaoLabel + " — 001"
-    document.getElementById("hab-label").innerText = t.secaoLabel + " — 002"
-    document.getElementById("proj-label").innerText = t.secaoLabel + " — 003"
-    document.getElementById("cont-label").innerText = t.secaoLabel + " — 004"
-    document.getElementById("proj1-num").innerText = t.projNum + " — 001"
-    document.getElementById("proj2-num").innerText = t.projNum + " — 002"
-    document.getElementById("proj3-num").innerText = t.projNum + " — 003"
-    document.getElementById("label-local").innerText = t.labelLocal
-    document.getElementById("label-status").innerText = t.labelStatus
-    document.getElementById("local-txt").innerText = t.localTxt
-    document.getElementById("footer-local").innerText = t.footerLocal
-    document.getElementById("form-erro").innerText = t.erroEnvio
+    definirTexto("sobre-label", t.secaoLabel + " — 001")
+    definirTexto("hab-label", t.secaoLabel + " — 002")
+    definirTexto("proj-label", t.secaoLabel + " — 003")
+    definirTexto("cont-label", t.secaoLabel + " — 004")
+    definirTexto("proj1-num", t.projNum + " — 001")
+    definirTexto("proj2-num", t.projNum + " — 002")
+    definirTexto("proj3-num", t.projNum + " — 003")
+    definirTexto("label-local", t.labelLocal)
+    definirTexto("label-status", t.labelStatus)
+    definirTexto("local-txt", t.localTxt)
+    definirTexto("footer-local", t.footerLocal)
+    definirTexto("form-erro", t.erroEnvio)
+
+    document.dispatchEvent(new CustomEvent("idioma", { detail: idioma }))
 }
 
 var idiomaSalvo = "es"
@@ -288,7 +301,7 @@ document.querySelectorAll(".idioma-btn").forEach(function(botao) {
 
 // FORMULARIO: envia por fetch (sem sair do site) e vai para /obrigado
 var formContato = document.getElementById("form-contato")
-formContato.addEventListener("submit", function(e) {
+if (formContato) formContato.addEventListener("submit", function(e) {
     e.preventDefault()
     var t = textos[document.documentElement.lang]
     var botao = document.getElementById("btn-enviar")
@@ -409,6 +422,7 @@ window.addEventListener("resize", function() {
 // se o visitante voltar da pagina /obrigado com o botao "Voltar", reativa o botao
 window.addEventListener("pageshow", function() {
     var botao = document.getElementById("btn-enviar")
+    if (!botao) return
     botao.disabled = false
     botao.innerText = textos[document.documentElement.lang].btnEnviar
 })

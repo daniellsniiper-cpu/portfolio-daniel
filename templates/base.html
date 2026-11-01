@@ -1,0 +1,54 @@
+{# MOLDURA de todas as paginas: cada pagina faz {% extends "base.html" %} e preenche os blocos #}
+{% from "_macros.html" import icone_instagram %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}{{ MARCA }}{% endblock %}</title>
+    <meta name="description" content="{% block descricao %}{% endblock %}">
+    {% block meta %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body data-marca="{{ MARCA }}" data-autor="{{ AUTOR }}">
+
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas-simbolos" aria-hidden="true"></canvas>
+    <div class="scan-line"></div>
+
+    <nav>
+        <div class="logo-nav">{{ MARCA_HTML }}</div>
+        <div class="nav-links">
+            <a href="/#hero" id="nav-inicio">INICIO</a>
+            <a href="/#sobre" id="nav-sobre">NOSOTROS</a>
+            <a href="/#habilidades" id="nav-hab">HABILIDADES</a>
+            <a href="/#projetos" id="nav-projetos">PROYECTOS</a>
+            <a href="/#contato" id="nav-contato">CONTACTO</a>
+        </div>
+        <div class="idiomas" role="group" id="grupo-idiomas" aria-label="Idioma">
+            <button type="button" class="idioma-btn ativo" data-idioma="es" aria-label="Español" aria-current="true">ES</button>
+            <span class="idioma-barra" aria-hidden="true">/</span>
+            <button type="button" class="idioma-btn" data-idioma="pt" aria-label="Português">PT</button>
+            <span class="idioma-barra" aria-hidden="true">/</span>
+            <button type="button" class="idioma-btn" data-idioma="en" aria-label="English">EN</button>
+        </div>
+    </nav>
+
+    {# conteudo proprio de cada pagina #}
+    <main>
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer>
+        <p id="footer-txt">© {{ ano }} {{ MARCA }} — {{ AUTOR }}</p>
+        <a href="{{ INSTAGRAM }}" target="_blank" rel="noopener" class="footer-instagram" id="footer-instagram" aria-label="Instagram de {{ MARCA }}">{{ icone_instagram() }}</a>
+        <p id="footer-local">MADRID, ESPAÑA</p>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    {# scripts proprios de cada pagina (rodam depois do main.js) #}
+    {% block scripts %}{% endblock %}
+</body>
+</html>

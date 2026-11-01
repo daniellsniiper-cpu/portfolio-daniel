@@ -477,3 +477,26 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 
     footer { flex-direction: column; gap: 8px; padding: 20px; text-align: center; }
 }
+
+/* PAGINA /obrigado (antes o CSS ficava dentro do obrigado.html) */
+.pagina-obrigado { align-items: center; text-align: center; }
+.pagina-obrigado .marca-label { font-family: 'Orbitron', sans-serif; font-size: 14px; letter-spacing: 4px; color: #fff; margin-bottom: 16px; }
+.pagina-obrigado h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 38px;
+    color: #fff;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+.pagina-obrigado .linha-divisoria { margin: 0 auto 30px; }
+.pagina-obrigado p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 17px;
+    line-height: 2;
+    max-width: 520px;
+    margin-bottom: 50px;
+}
+@media (max-width: 768px) {
+    .pagina-obrigado h1 { font-size: 24px; letter-spacing: 3px; }
+}
