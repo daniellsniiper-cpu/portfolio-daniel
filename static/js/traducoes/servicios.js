@@ -1,7 +1,7 @@
 // TRADUCOES da pagina Servicios. O espanhol fica no HTML.
 TRADUCOES.servicios = {
     pt: {
-        label: "SISTEMA — 001",
+        label: "SISTEMA — 01",
         titulo: "SERVIÇOS",
         intro: "Quatro linhas de trabalho para fazer seu negócio crescer. Cada projeto se adapta ao que você precisa.",
         webTitulo: "SITES",
@@ -15,7 +15,7 @@ TRADUCOES.servicios = {
         botao: "Pedir orçamento"
     },
     en: {
-        label: "SYSTEM — 001",
+        label: "SYSTEM — 01",
         titulo: "SERVICES",
         intro: "Four lines of work to help your business grow. Every project is tailored to what you need.",
         webTitulo: "WEBSITES",

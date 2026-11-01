@@ -1,7 +1,7 @@
 // TRADUCOES da pagina Herramientas. O espanhol fica no HTML.
 TRADUCOES.herramientas = {
     pt: {
-        label: "SISTEMA — 002",
+        label: "SISTEMA — 02",
         titulo: "FERRAMENTAS",
         estado: "STATUS: EM DESENVOLVIMENTO",
         proximamente: "EM BREVE",
@@ -12,7 +12,7 @@ TRADUCOES.herramientas = {
         botao: "Fale conosco"
     },
     en: {
-        label: "SYSTEM — 002",
+        label: "SYSTEM — 02",
         titulo: "TOOLS",
         estado: "STATUS: IN DEVELOPMENT",
         proximamente: "COMING SOON",

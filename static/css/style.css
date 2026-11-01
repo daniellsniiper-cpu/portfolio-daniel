@@ -102,7 +102,7 @@ nav {
     padding: 4px 0 4px 3px;  /* 3px a esquerda compensa o espaco que o letter-spacing deixa no fim */
     font: inherit;
     letter-spacing: inherit;
-    color: rgba(140, 170, 190, 0.4);
+    color: #6e8796;
     cursor: pointer;
     transition: color 0.3s, text-shadow 0.3s;
 }
@@ -124,7 +124,7 @@ nav {
 .idioma-btn.ativo { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
 .idioma-btn.ativo::after { transform: scaleX(1); opacity: 1; }
 .idioma-btn:focus-visible { outline: 1px solid rgba(0, 212, 255, 0.6); outline-offset: 4px; }
-.idioma-barra { color: rgba(0, 212, 255, 0.18); }
+.idioma-barra { color: rgba(0, 212, 255, 0.35); }
 
 /* SECOES */
 section {
@@ -197,7 +197,7 @@ section {
     margin-bottom: 14px;
 }
 .slogan .barra { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; margin: 0 12px; }
-.assinatura { font-size: 14px; letter-spacing: 3px; color: rgba(0, 212, 255, 0.5); margin-bottom: 30px; }
+.assinatura { font-size: 15px; letter-spacing: 3px; color: rgba(0, 212, 255, 0.75); margin-bottom: 30px; }
 .typing-text {
     font-size: 20px;
     color: #00d4ff;
@@ -242,7 +242,7 @@ section {
 .secao-label {
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
-    color: rgba(0, 212, 255, 0.4);
+    color: rgba(0, 212, 255, 0.65);
     letter-spacing: 6px;
     margin-bottom: 12px;
     text-transform: uppercase;
@@ -264,7 +264,6 @@ section {
 }
 
 /* SOBRE */
-#sobre { border-top: 1px solid rgba(0, 212, 255, 0.1); }
 .sobre-grid {
     display: flex;
     gap: 80px;
@@ -272,7 +271,7 @@ section {
 }
 .sobre-texto { flex: 1; }
 .sobre-texto p {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 17px;
     line-height: 2;
     margin-bottom: 20px;
@@ -302,7 +301,7 @@ section {
 .projeto-numero {
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
-    color: rgba(0, 212, 255, 0.3);
+    color: rgba(0, 212, 255, 0.65);
     letter-spacing: 3px;
     margin-bottom: 20px;
 }
@@ -314,17 +313,17 @@ section {
     margin-bottom: 15px;
 }
 .projeto-card p {
-    color: rgba(255,255,255,0.4);
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 15px;
     line-height: 1.9;
     margin-bottom: 25px;
 }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag {
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    color: rgba(0, 212, 255, 0.6);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: rgba(0, 212, 255, 0.85);
     padding: 4px 12px;
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 1px;
 }
 .corner { position: absolute; width: 15px; height: 15px; }
@@ -338,7 +337,7 @@ section {
 .contato-grid { display: flex; gap: 80px; }
 .contato-info { flex: 1; }
 .contato-info p {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 16px;
     line-height: 2;
     margin-bottom: 40px;
@@ -355,7 +354,7 @@ section {
 .contato-item span:first-child {
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
-    color: rgba(0, 212, 255, 0.4);
+    color: rgba(0, 212, 255, 0.65);
     letter-spacing: 3px;
     min-width: 80px;
 }
@@ -381,7 +380,7 @@ section {
 }
 .form-campo textarea { height: 130px; resize: none; }
 .form-campo input::placeholder, .form-campo textarea::placeholder {
-    color: rgba(0, 212, 255, 0.3);
+    color: rgba(0, 212, 255, 0.65);
     font-size: 13px;
     letter-spacing: 2px;
 }
@@ -399,7 +398,7 @@ footer {
     position: relative;
     z-index: 1;
 }
-footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; }
+footer p { color: rgba(0, 212, 255, 0.65); font-size: 11px; letter-spacing: 3px; }
 .footer-instagram { display: inline-flex; color: rgba(0, 212, 255, 0.5); transition: all 0.3s; }
 .footer-instagram:hover { color: #00d4ff; filter: drop-shadow(0 0 6px #00d4ff); }
 
@@ -483,6 +482,9 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     border-top: 1px solid rgba(0, 212, 255, 0.1);
 }
 
+/* primeira secao compacta de uma pagina: espaco para o menu fixo e sem linha no topo */
+main > section.secao-compacta:first-child { padding-top: 150px; border-top: none; }
+
 /* Lo que hacemos: 4 cards clicaveis */
 .cards-servicos {
     display: grid;
@@ -495,7 +497,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     font-family: 'Orbitron', sans-serif;
     font-size: 10px;
     letter-spacing: 3px;
-    color: rgba(0, 212, 255, 0.6);
+    color: rgba(0, 212, 255, 0.8);
     transition: color 0.3s, text-shadow 0.3s;
 }
 .card-servico:hover .card-ver-mas,
@@ -524,7 +526,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     margin-bottom: 10px;
     text-transform: uppercase;
 }
-.compromisso p { color: rgba(255, 255, 255, 0.5); font-size: 15px; line-height: 1.8; }
+.compromisso p { color: rgba(255, 255, 255, 0.65); font-size: 15px; line-height: 1.8; }
 
 /* Tecnologias: faixa discreta centralizada */
 .tecnologias { align-items: center; text-align: center; padding-top: 70px; padding-bottom: 70px; }
@@ -537,6 +539,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 
 @media (max-width: 768px) {
     .secao-compacta { padding: 70px 20px; }
+    main > section.secao-compacta:first-child { padding-top: 140px; }
     .compromissos { gap: 30px; }
     .chamada-final .secao-titulo { font-size: 20px; }
 }
@@ -583,7 +586,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 .passo-num {
     font-family: 'Orbitron', sans-serif;
     font-size: 11px;
-    color: rgba(0, 212, 255, 0.5);
+    color: rgba(0, 212, 255, 0.75);
     letter-spacing: 3px;
     margin: 14px 0 10px;
 }
@@ -595,7 +598,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     margin-bottom: 12px;
     text-transform: uppercase;
 }
-.passo p { color: rgba(255, 255, 255, 0.5); font-size: 15px; line-height: 1.8; }
+.passo p { color: rgba(255, 255, 255, 0.65); font-size: 15px; line-height: 1.8; }
 
 @media (max-width: 768px) {
     /* no celular a linha fica vertical, com os passos um embaixo do outro */
@@ -610,7 +613,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 }
 
 /* ===== PAGINA SERVICIOS: as 4 linhas ===== */
-.servicios-intro { color: rgba(255, 255, 255, 0.6); font-size: 17px; line-height: 1.9; max-width: 640px; margin-bottom: 50px; }
+.servicios-intro { color: rgba(255, 255, 255, 0.75); font-size: 17px; line-height: 1.9; max-width: 640px; margin-bottom: 50px; }
 .linha-servico {
     display: grid;
     grid-template-columns: 120px 1fr;
@@ -633,7 +636,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     letter-spacing: 3px;
     margin-bottom: 14px;
 }
-.linha-servico p { color: rgba(255, 255, 255, 0.55); font-size: 16px; line-height: 1.9; max-width: 640px; margin-bottom: 25px; }
+.linha-servico p { color: rgba(255, 255, 255, 0.7); font-size: 16px; line-height: 1.9; max-width: 640px; margin-bottom: 25px; }
 .linha-servico .botao-jarvis { display: inline-block; }
 
 /* ===== PAGINA HERRAMIENTAS: painel "Proximamente" ===== */
@@ -712,7 +715,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(0, 212, 255, 0.6);
+    color: rgba(0, 212, 255, 0.8);
     margin-bottom: 8px;
 }
 .obrigatorio { color: #00d4ff; }
@@ -749,15 +752,15 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 .form-check input { width: 16px; height: 16px; margin-top: 3px; accent-color: #00d4ff; cursor: pointer; flex-shrink: 0; }
 .form-check a { color: #00d4ff; }
 .form-check a:hover { text-shadow: 0 0 10px #00d4ff; }
-.form-nota { color: rgba(255, 255, 255, 0.35); font-size: 13px; margin-top: -8px; }
+.form-nota { color: rgba(255, 255, 255, 0.6); font-size: 13px; margin-top: -8px; }
 
 @media (max-width: 768px) {
     .form-grade { grid-template-columns: 1fr; }
 }
 
 /* ===== RODAPE: links das paginas legais ===== */
-.footer-legal { display: flex; gap: 10px; align-items: center; font-size: 11px; letter-spacing: 2px; color: rgba(0, 212, 255, 0.25); }
-.footer-legal a { color: rgba(0, 212, 255, 0.45); text-decoration: none; transition: color 0.3s, text-shadow 0.3s; }
+.footer-legal { display: flex; gap: 10px; align-items: center; font-size: 11px; letter-spacing: 2px; color: rgba(0, 212, 255, 0.45); }
+.footer-legal a { color: rgba(0, 212, 255, 0.7); text-decoration: none; transition: color 0.3s, text-shadow 0.3s; }
 .footer-legal a:hover, .footer-legal a.ativo { color: #00d4ff; text-shadow: 0 0 8px #00d4ff; }
 
 /* ===== PAGINAS LEGAIS (aviso legal, privacidad, cookies) ===== */
@@ -776,7 +779,7 @@ footer p { color: rgba(0, 212, 255, 0.3); font-size: 11px; letter-spacing: 3px; 
 .texto-legal strong { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
 .texto-legal a { color: #00d4ff; }
 .texto-legal code { font-family: monospace; color: #00d4ff; }
-.legal-data { font-size: 13px; color: rgba(255, 255, 255, 0.4); }
+.legal-data { font-size: 13px; color: rgba(255, 255, 255, 0.6); }
 /* aviso "so em espanhol": escondido quando a pagina esta em espanhol */
 .aviso-idioma {
     border: 1px solid rgba(0, 212, 255, 0.3);

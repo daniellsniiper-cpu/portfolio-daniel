@@ -7,7 +7,7 @@ TRADUCOES.contacto = {
         erro: "No se pudo enviar el mensaje. Inténtalo de nuevo en unos minutos."
     },
     pt: {
-        label: "SISTEMA — 004",
+        label: "SISTEMA — 04",
         titulo: "CONTATO",
         desc: "Tem um projeto em mente? Conte o que você precisa e enviamos um orçamento sem compromisso.",
         labelLocal: "LOCAL",
@@ -48,7 +48,7 @@ TRADUCOES.contacto = {
         erro: "Não foi possível enviar a mensagem. Tente novamente em alguns minutos."
     },
     en: {
-        label: "SYSTEM — 004",
+        label: "SYSTEM — 04",
         titulo: "CONTACT",
         desc: "Have a project in mind? Tell us what you need and we'll send you a no-obligation quote.",
         labelLocal: "LOCATION",
