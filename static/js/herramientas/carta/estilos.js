@@ -12,13 +12,16 @@ CARTA.FONTES = {
     "Montserrat SemiBold": { normal: "Montserrat-SemiBold.ttf", bold: "Montserrat-Bold.ttf", italics: "Montserrat-SemiBold.ttf", bolditalics: "Montserrat-Bold.ttf" },
     "Jost":             { normal: "Jost-Regular.ttf", bold: "Jost-Medium.ttf", italics: "Jost-Regular.ttf", bolditalics: "Jost-Medium.ttf" },
     "Jost Light":       { normal: "Jost-Light.ttf", bold: "Jost-Regular.ttf", italics: "Jost-Light.ttf", bolditalics: "Jost-Regular.ttf" },
+    "Source Serif":     { normal: "SourceSerif4-Regular.ttf", bold: "SourceSerif4-SemiBold.ttf", italics: "SourceSerif4-Italic.ttf", bolditalics: "SourceSerif4-SemiBold.ttf" },
+    "Oswald":           { normal: "Oswald-Medium.ttf", bold: "Oswald-SemiBold.ttf", italics: "Oswald-Medium.ttf", bolditalics: "Oswald-SemiBold.ttf" },
     "Cormorant Garamond": { normal: "CormorantGaramond-Medium.ttf", bold: "CormorantGaramond-SemiBold.ttf", italics: "CormorantGaramond-MediumItalic.ttf", bolditalics: "CormorantGaramond-MediumItalic.ttf" }
 }
 
 // Tokens opcionais (com valor padrao quando faltam):
 //   fonteNegocio (= fonteTitulo), negocioNegrito (= true), fonteItem (= fonteTexto), fonteDescricao (= fonteTexto),
 //   categoria.italico (= false), filete: "centro" | "barra" | "linha" | "ornamento",
-//   cores.extra (= suave), extraItalico (= false), tam.extra (= descricao), moldura (= false: moldura dourada na pagina)
+//   cores.extra (= suave), extraItalico (= false), tam.extra (= descricao), moldura (= false: moldura dourada na pagina),
+//   filete "lateral" (barra de cor a esquerda do titulo da categoria), pontilhado (= false: linha de pontos do nome ate o preco)
 
 CARTA.ESTILOS = {
     // CARTA / MENU
@@ -49,9 +52,8 @@ CARTA.ESTILOS = {
         alinhamento: "left",
         fonteTitulo: "Jost",                // categorias em Jost Medium
         fonteNegocio: "Jost Light", negocioNegrito: false,
-        fonteTexto: "Jost",
-        fonteDescricao: "Jost Light",
-        cores: { texto: "#222222", suave: "#707070", acento: "#333333", linha: "#d9d9d9", icones: "#333333" },
+        fonteTexto: "Jost",                 // descricoes em Jost Regular (a Light ficava fina demais impressa)
+        cores: { texto: "#222222", suave: "#555555", acento: "#333333", linha: "#d9d9d9", icones: "#333333" },   // suave #555 = contraste 7,5:1 no branco
         tam: { negocio: 26, contato: 9, categoria: 10.5, item: 11, preco: 11, descricao: 9, legenda: 8, extra: 9.5 },
         categoria: { caixaAlta: true, espacamento: 3, negrito: true, filete: "linha" },        // linha fina de ponta a ponta
         item: { nomeNegrito: false, precoNegrito: false, precoAcento: false, descricaoItalico: false },
@@ -69,6 +71,30 @@ CARTA.ESTILOS = {
         extraItalico: true,
         moldura: true,   // moldura dupla dourada e fina (fundo continua branco)
         icone: 12.5
+    },
+
+    // LISTA DE PRECIOS
+    clasico: {
+        alinhamento: "center",
+        fonteTitulo: "Source Serif",
+        fonteTexto: "Source Serif",
+        fonteDescricao: "Lato",
+        cores: { texto: "#1f1f1f", suave: "#555555", acento: "#7a2e2e", linha: "#8c8c8c", icones: "#7a2e2e" },   // acento bordo, 9,3:1
+        tam: { negocio: 26, contato: 9, categoria: 12.5, item: 11, preco: 11, descricao: 9, legenda: 8, extra: 9.5 },
+        categoria: { caixaAlta: true, espacamento: 2, negrito: true, filete: "centro" },
+        item: { nomeNegrito: false, precoNegrito: true, precoAcento: false, descricaoItalico: false },
+        pontilhado: true,   // Camiseta .......... S–XL  15,00 €
+        icone: 12
+    },
+    destacado: {
+        alinhamento: "left",
+        fonteTitulo: "Oswald",
+        fonteTexto: "Lato",
+        cores: { texto: "#1e1e1e", suave: "#555555", acento: "#c2410c", linha: "#dddddd", icones: "#c2410c" },   // acento laranja, 5,2:1
+        tam: { negocio: 28, contato: 9, categoria: 14, item: 11, preco: 11.5, descricao: 9, legenda: 8, extra: 9 },
+        categoria: { caixaAlta: true, espacamento: 1.5, negrito: true, filete: "lateral" },   // barra de cor fina a esquerda do titulo
+        item: { nomeNegrito: true, precoNegrito: true, precoAcento: true, descricaoItalico: false },
+        icone: 12
     }
 }
 

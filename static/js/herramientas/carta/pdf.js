@@ -61,6 +61,7 @@ function filetePdf(e, largura) {
     if (tipo === "centro") return { canvas: [{ type: "line", x1: 0, y1: 0, x2: 40, y2: 0, lineWidth: 0.75, lineColor: c.linha }], margin: [(largura - 40) / 2, 5, 0, 10] }
     if (tipo === "barra") return { canvas: [{ type: "rect", x: 0, y: 0, w: 28, h: 2, color: c.acento }], margin: [0, 5, 0, 10] }
     if (tipo === "linha") return { canvas: [{ type: "line", x1: 0, y1: 0, x2: largura, y2: 0, lineWidth: 0.6, lineColor: c.linha }], margin: [0, 5, 0, 10] }
+    if (tipo === "lateral") return { text: "", margin: [0, 0, 0, 8] }   // a barra fica ao lado do proprio titulo
     // ornamento: linha + losango + linha, centralizado (76 pt de largura)
     return { canvas: [
         { type: "line", x1: 0, y1: 0, x2: 30, y2: 0, lineWidth: 0.75, lineColor: c.linha },
@@ -70,8 +71,29 @@ function filetePdf(e, largura) {
     ], margin: [(largura - 76) / 2, 7, 0, 10] }
 }
 
+// item com linha de pontos do nome ate a referencia/preco (estilo Clasico).
+// A linha de pontos vai de ponta a ponta POR BAIXO; o nome e o preco tem fundo branco e a escondem onde ha texto.
+function itemPontilhadoPdf(i, e, modo, largura, fonteDesc) {
+    var c = e.cores, t = e.tam, base = t.item * 0.95
+    var direita = []
+    if (modo.posicao === "coluna" && i.extra.trim()) direita.push({ text: "  " + i.extra + "   ", fontSize: t.extra || t.descricao, color: c.extra || c.suave, background: "#ffffff" })
+    else direita.push({ text: "  ", background: "#ffffff" })
+    direita.push({ text: i.precio, fontSize: t.preco, bold: e.item.precoNegrito, color: e.item.precoAcento ? c.acento : c.texto, background: "#ffffff" })
+    var pilha = [
+        { canvas: [{ type: "line", x1: 0, y1: base, x2: largura, y2: base, lineWidth: 0.8, lineColor: c.linha, dash: { length: 0.8, space: 2.2 } }],
+          relativePosition: { x: 0, y: 0 } },
+        { columns: [
+            { width: "*", text: [{ text: i.nombre + "  ", font: e.fonteItem || e.fonteTexto, fontSize: t.item, bold: e.item.nomeNegrito, background: "#ffffff" }], lineHeight: 1.2 },
+            { width: "auto", text: direita, lineHeight: 1.2, noWrap: true }   // referencia e preco nunca quebram linha
+          ], columnGap: 0 }
+    ]
+    if (i.descripcion.trim()) pilha.push({ text: i.descripcion, font: fonteDesc, fontSize: t.descricao, color: c.suave, lineHeight: 1.25, margin: [0, 1.5, 0, 0] })
+    return { stack: pilha, margin: [0, 0, 0, 8], unbreakable: true }
+}
+
 // monta o documento do pdfmake a partir dos mesmos dados e estilo da previa
 CARTA.montarDocumento = function (d, marca, dominio) {
+    d = CARTA.textoNFC(d)
     var e = CARTA.ESTILOS[d.estilo], c = e.cores, t = e.tam, modo = CARTA.MODOS[d.modo]
     var largura = CARTA.LARGURA_A4 - 2 * CARTA.MARGEM
     var fonteDesc = e.fonteDescricao || e.fonteTexto
@@ -88,12 +110,19 @@ CARTA.montarDocumento = function (d, marca, dominio) {
         if (!itens.length && !cat.nombre.trim()) return
         var titulo = []
         if (cat.nombre.trim()) {
-            titulo.push({ text: e.categoria.caixaAlta ? maiusculas(cat.nombre, d.idiomaCarta) : cat.nombre, font: e.fonteTitulo, fontSize: t.categoria,
-                          color: c.acento, bold: e.categoria.negrito, italics: !!e.categoria.italico, characterSpacing: e.categoria.espacamento,
-                          alignment: e.alinhamento, margin: [0, 12, 0, 0] })
+            var textoTitulo = { text: e.categoria.caixaAlta ? maiusculas(cat.nombre, d.idiomaCarta) : cat.nombre, font: e.fonteTitulo, fontSize: t.categoria,
+                                color: c.acento, bold: e.categoria.negrito, italics: !!e.categoria.italico, characterSpacing: e.categoria.espacamento,
+                                alignment: e.alinhamento, margin: [0, 12, 0, 0] }
+            if (e.categoria.filete === "lateral") {   // barra de cor fina a esquerda, da altura de uma linha do titulo
+                textoTitulo.margin = [0, 0, 0, 0]; textoTitulo.width = "*"
+                textoTitulo = { columns: [{ width: 3, canvas: [{ type: "rect", x: 0, y: 0, w: 3, h: t.categoria * 1.25, color: c.acento }] }, textoTitulo],
+                                columnGap: 8, margin: [0, 12, 0, 0] }
+            }
+            titulo.push(textoTitulo)
             titulo.push(filetePdf(e, largura))
         }
         var blocos = itens.map(function (i) {
+            if (e.pontilhado) return itemPontilhadoPdf(i, e, modo, largura, fonteDesc)
             var esq = [{ text: i.nombre, font: e.fonteItem || e.fonteTexto, fontSize: t.item, bold: e.item.nomeNegrito, lineHeight: 1.2 }]
             if (i.descripcion.trim()) esq.push({ text: i.descripcion, font: fonteDesc, fontSize: t.descricao, color: c.suave, italics: e.item.descricaoItalico, lineHeight: 1.25, margin: [0, 1.5, 0, 0] })
             if (modo.extra === "alergenos" && i.extra.length) {

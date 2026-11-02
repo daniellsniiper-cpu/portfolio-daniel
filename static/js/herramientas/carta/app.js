@@ -122,7 +122,7 @@ var CARTA = window.CARTA || {}
         if (acao === "cat-baixar") { trocar(d.categorias, p.c, p.c + 1); foco = "cat-" + (p.c + 1) }
         if (acao === "cat-remover") {
             var temConteudo = d.categorias[p.c].nombre.trim() || d.categorias[p.c].itens.some(CARTA.itemTemConteudo)
-            if (temConteudo && !confirm(CARTA.t("confirmarEliminarCategoria"))) return
+            if (temConteudo && !confirm(CARTA.t("confirmarEliminarCategoria" + CARTA.MODOS[d.modo].item))) return
             d.categorias.splice(p.c, 1); foco = "cat-" + Math.max(0, p.c - 1)
         }
         var itens = p.c > -1 ? d.categorias[p.c] && d.categorias[p.c].itens : null

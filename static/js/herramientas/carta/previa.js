@@ -35,6 +35,7 @@ function filete(e, largura) {
     if (tipo === "centro") return el("div", { width: px(40), height: "1px", background: c.linha, margin: px(5) + " auto " + px(10) })
     if (tipo === "barra") return el("div", { width: px(28), height: px(2), background: c.acento, margin: px(5) + " 0 " + px(10) })
     if (tipo === "linha") return el("div", { width: px(largura), height: "1px", background: c.linha, margin: px(5) + " 0 " + px(10) })
+    if (tipo === "lateral") return el("div", { height: px(8) })   // a barra fica no proprio titulo (borda esquerda)
     // ornamento: linha + losango + linha, centralizado
     var o = el("div", { display: "flex", alignItems: "center", justifyContent: "center", gap: px(4), margin: px(6) + " 0 " + px(10) })
     o.appendChild(el("div", { width: px(30), height: "1px", background: c.linha }))
@@ -43,11 +44,30 @@ function filete(e, largura) {
     return o
 }
 
+// item com linha de pontos do nome ate a referencia/preco (estilo Clasico); a descricao vai embaixo
+function itemPontilhado(i, e, modo) {
+    var c = e.cores, t = e.tam
+    var caixa = el("div", { marginBottom: px(8), breakInside: "avoid" })
+    var linha = el("div", { display: "flex", alignItems: "baseline", gap: px(4) })
+    linha.appendChild(el("span", { fontFamily: fonte(e.fonteItem || e.fonteTexto), fontSize: px(t.item), fontWeight: e.item.nomeNegrito ? "700" : "400",
+                                   lineHeight: "1.35", minWidth: "0", overflowWrap: "anywhere" }, i.nombre))
+    linha.appendChild(el("span", { flex: "1", minWidth: px(12), borderBottom: (0.8 * PT) + "px dotted " + c.linha, transform: "translateY(" + px(-2.5) + ")" }))
+    if (modo.posicao === "coluna" && i.extra.trim())
+        linha.appendChild(el("span", { fontSize: px(t.extra || t.descricao), color: c.extra || c.suave, whiteSpace: "nowrap", marginRight: px(6) }, i.extra))
+    linha.appendChild(el("span", { fontSize: px(t.preco), fontWeight: e.item.precoNegrito ? "700" : "400", whiteSpace: "nowrap",
+                                   color: e.item.precoAcento ? c.acento : c.texto }, i.precio))
+    caixa.appendChild(linha)
+    if (i.descripcion.trim()) caixa.appendChild(el("div", { fontFamily: fonte(e.fonteDescricao || e.fonteTexto), fontSize: px(t.descricao), color: c.suave,
+                                                            lineHeight: "1.4", marginTop: px(1.5), overflowWrap: "anywhere" }, i.descripcion))
+    return caixa
+}
+
 CARTA.textoMarcaDagua = function (idiomaCarta, marca, dominio) {
     return CARTA.TEXTOS_PDF[idiomaCarta].hechoCon + " " + marca + (dominio ? " · " + dominio : "")
 }
 
 CARTA.desenharPrevia = function (d, folha, marca, dominio) {
+    d = CARTA.textoNFC(d)
     var e = CARTA.ESTILOS[d.estilo], c = e.cores, t = e.tam, modo = CARTA.MODOS[d.modo]
     var largura = CARTA.LARGURA_A4 - 2 * CARTA.MARGEM
     folha.innerHTML = ""
@@ -84,11 +104,14 @@ CARTA.desenharPrevia = function (d, folha, marca, dominio) {
             bloco.appendChild(el("div", {
                 fontFamily: fonte(e.fonteTitulo, "serif"), fontSize: px(t.categoria), color: c.acento,
                 fontWeight: e.categoria.negrito ? "700" : "400", fontStyle: e.categoria.italico ? "italic" : "normal",
-                letterSpacing: px(e.categoria.espacamento), textTransform: e.categoria.caixaAlta ? "uppercase" : "none", textAlign: e.alinhamento
+                letterSpacing: px(e.categoria.espacamento), textTransform: e.categoria.caixaAlta ? "uppercase" : "none", textAlign: e.alinhamento,
+                borderLeft: e.categoria.filete === "lateral" ? px(3) + " solid " + c.acento : "none",
+                paddingLeft: e.categoria.filete === "lateral" ? px(8) : "0", lineHeight: "1.25"
             }, cat.nombre))
             bloco.appendChild(filete(e, largura))
         }
         itens.forEach(function (i) {
+            if (e.pontilhado) { bloco.appendChild(itemPontilhado(i, e, modo)); return }
             var linha = el("div", { display: "flex", justifyContent: "space-between", gap: px(12), marginBottom: px(8), breakInside: "avoid" })
             var esq = el("div", { flex: "1", minWidth: "0" })
             esq.appendChild(el("div", { fontFamily: fonte(e.fonteItem || e.fonteTexto), fontSize: px(t.item),

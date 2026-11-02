@@ -7,7 +7,7 @@ var CARTA = window.CARTA || {}
 CARTA.MODOS = {
     carta:     { disponivel: true,  extra: "alergenos", estilos: ["elegante", "moderno"], item: "Plato" },
     servicios: { disponivel: true,  extra: "duracion",  estilos: ["minimalista", "lujo"], rotulo: "lblDuracion", exemploCampo: "phDuracion", posicao: "coluna", item: "Servicio" },
-    precios:   { disponivel: false, extra: "referencia", estilos: [], item: "Producto" }   // Parte 3
+    precios:   { disponivel: true,  extra: "referencia", estilos: ["clasico", "destacado"], rotulo: "lblReferencia", exemploCampo: "phReferencia", posicao: "coluna", item: "Producto" }
 }
 
 // textos fixos do PDF, no idioma escolhido para a carta (nao no idioma da interface)
@@ -71,6 +71,32 @@ CARTA.exemplo = function (modo, idioma) {
                 { nombre: "Nails", itens: [
                     { nombre: "Gel manicure", descripcion: "Long-lasting polish", precio: "€20.00", extra: "45 min" },
                     { nombre: "Spa pedicure", descripcion: "", precio: "€30.00", extra: "60 min" } ] } ] }
+    }
+    exemplos.precios = {
+        es: { negocio: { nombre: "Boutique Alba", direccion: "Calle Fuencarral 30, Madrid", telefono: "" },
+              categorias: [
+                { nombre: "Camisetas", itens: [
+                    { nombre: "Camiseta básica de algodón", descripcion: "", precio: "15,00 €", extra: "S–XL" },
+                    { nombre: "Camiseta estampada", descripcion: "", precio: "19,90 €", extra: "S–XL" } ] },
+                { nombre: "Pantalones", itens: [
+                    { nombre: "Vaquero recto", descripcion: "", precio: "39,90 €", extra: "36–46" },
+                    { nombre: "Pantalón chino", descripcion: "", precio: "35,00 €", extra: "38–46" } ] } ] },
+        pt: { negocio: { nombre: "Boutique Alba", direccion: "Rua de Santa Catarina 30, Porto", telefono: "" },
+              categorias: [
+                { nombre: "T-shirts", itens: [
+                    { nombre: "T-shirt básica de algodão", descripcion: "", precio: "15,00 €", extra: "S–XL" },
+                    { nombre: "T-shirt estampada", descripcion: "", precio: "19,90 €", extra: "S–XL" } ] },
+                { nombre: "Calças", itens: [
+                    { nombre: "Calças de ganga direitas", descripcion: "", precio: "39,90 €", extra: "36–46" },
+                    { nombre: "Calças chino", descripcion: "", precio: "35,00 €", extra: "38–46" } ] } ] },
+        en: { negocio: { nombre: "Alba Boutique", direccion: "30 High Street", telefono: "" },
+              categorias: [
+                { nombre: "T-shirts", itens: [
+                    { nombre: "Basic cotton T-shirt", descripcion: "", precio: "€15.00", extra: "S–XL" },
+                    { nombre: "Printed T-shirt", descripcion: "", precio: "€19.90", extra: "S–XL" } ] },
+                { nombre: "Trousers", itens: [
+                    { nombre: "Straight-leg jeans", descripcion: "", precio: "€39.90", extra: "36–46" },
+                    { nombre: "Chinos", descripcion: "", precio: "€35.00", extra: "38–46" } ] } ] }
     }
     var conjunto = exemplos[modo] || exemplos.carta
     return JSON.parse(JSON.stringify(conjunto[idioma] || conjunto.es))

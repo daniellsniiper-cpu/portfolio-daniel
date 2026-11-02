@@ -96,7 +96,7 @@ CARTA.desenharEditor = function (d, caixa) {
         })
 
         var addItem = criar("button", { type: "button", classe: "carta-adicionar", "data-acao": "item-add" }, CARTA.t("add" + CARTA.MODOS[d.modo].item))
-        if (cat.itens.length >= CARTA.LIMITES.itens) { addItem.disabled = true; bloco.appendChild(criar("p", { classe: "carta-limite" }, CARTA.t("limiteItens"))) }
+        if (cat.itens.length >= CARTA.LIMITES.itens) { addItem.disabled = true; bloco.appendChild(criar("p", { classe: "carta-limite" }, CARTA.t("limiteItens" + CARTA.MODOS[d.modo].item))) }
         bloco.appendChild(addItem)
         caixa.appendChild(bloco)
     })

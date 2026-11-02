@@ -32,7 +32,8 @@ def carregar_traducoes():
     codigo = "var window = {};\n"
     codigo += "\n".join(open(f, encoding="utf-8").read() for f in arquivos)
     codigo += "\nprocess.stdout.write(JSON.stringify(TRADUCOES))"
-    resultado = subprocess.run(["node", "-e", codigo], capture_output=True, text=True, encoding="utf-8")
+    # o codigo vai pela entrada padrao (stdin): na linha de comando o Windows tem limite de tamanho
+    resultado = subprocess.run(["node", "-"], input=codigo, capture_output=True, text=True, encoding="utf-8")
     if resultado.returncode != 0:
         sys.exit("Erro ao ler os arquivos de traducao:\n" + resultado.stderr)
     return json.loads(resultado.stdout)

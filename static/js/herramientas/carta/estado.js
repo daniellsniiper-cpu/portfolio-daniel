@@ -82,6 +82,12 @@ CARTA.apagarRascunho = function () {
     try { localStorage.removeItem(CARTA.CHAVE_RASCUNHO) } catch (e) {}
 }
 
+// copia do documento com todo texto em forma composta (NFC): "e" + acento solto vira "è".
+// Texto colado de alguns programas (Mac, Word) vem decomposto (NFD) e o acento sai torto no PDF.
+CARTA.textoNFC = function (d) {
+    return JSON.parse(JSON.stringify(d), function (k, v) { return typeof v === "string" ? v.normalize("NFC") : v })
+}
+
 // um item so aparece no documento se tiver nome ou preco
 CARTA.itemTemConteudo = function (i) { return !!(i.nombre.trim() || i.precio.trim()) }
 
