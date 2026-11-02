@@ -821,3 +821,11 @@ html[lang="es"] .aviso-idioma { display: none; }
     .botoes-erro { flex-direction: column; align-items: stretch; width: 100%; max-width: 280px; }
     .botoes-erro .botao-jarvis { text-align: center; }
 }
+
+/* CELULAR PEQUENO (ate 380px): os 5 links do menu cabem numa linha so, nos 3 idiomas */
+@media (max-width: 380px) {
+    nav { padding: 12px 12px; }
+    .nav-links { gap: 6px 10px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.5px; }
+    .nav-links a.ativo::after { right: 0.5px; }
+}
