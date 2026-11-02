@@ -42,7 +42,18 @@ TRADUCOES.servicios = {
         iaInc3: "Automação de tarefas repetitivas (emails, formulários, relatórios)",
         iaInc4: "Conexão entre as ferramentas que você já usa",
         iaIdeal: "negócios que perdem horas toda semana em tarefas que podem ser automatizadas.",
-        iaPlazo: "depende do projeto; é definido na proposta."
+        iaPlazo: "depende do projeto; é definido na proposta.",
+        // plano de manutencao
+        mantTitulo: "PLANO DE MANUTENÇÃO",
+        mantFrase: "Seu site sempre atualizado, sem se preocupar com nada.",
+        mantLblIncluye: "Inclui",
+        mantInc1: "Hospedagem e funcionamento do site",
+        mantInc2: "Atualizações de segurança e cópias de segurança",
+        mantInc3: "Pequenas alterações de textos, fotos e preços: você pede e nós fazemos",
+        mantInc4: "Suporte por email e WhatsApp",
+        mantLblPrecio: "Preço",
+        mantPrecio: "depende do projeto; é incluído no seu orçamento.",
+        mantBotao: "Pedir informações"
     },
     en: {
         label: "SYSTEM — 01",
@@ -86,6 +97,17 @@ TRADUCOES.servicios = {
         iaInc3: "Automation of repetitive tasks (emails, forms, reports)",
         iaInc4: "Connecting the tools you already use",
         iaIdeal: "businesses that lose hours every week on tasks that could be automated.",
-        iaPlazo: "depends on the project; set out in the proposal."
+        iaPlazo: "depends on the project; set out in the proposal.",
+        // maintenance plan
+        mantTitulo: "MAINTENANCE PLAN",
+        mantFrase: "Your website always up to date, with nothing to worry about.",
+        mantLblIncluye: "Includes",
+        mantInc1: "Hosting and keeping your website running",
+        mantInc2: "Security updates and backups",
+        mantInc3: "Small changes to text, photos and prices: you ask, we do it for you",
+        mantInc4: "Support by email and WhatsApp",
+        mantLblPrecio: "Price",
+        mantPrecio: "depends on the project; included in your quote.",
+        mantBotao: "Request information"
     }
 }

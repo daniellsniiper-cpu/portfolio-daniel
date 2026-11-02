@@ -76,4 +76,30 @@
             {% endfor %}
         </div>
     </section>
+
+    <!-- PLAN DE MANTENIMIENTO: painel em destaque -->
+    <section class="secao-compacta" id="mantenimiento">
+        <div class="painel-hud painel-destaque">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+
+            <h2 class="painel-titulo" data-i18n="servicios.mantTitulo">PLAN DE MANTENIMIENTO</h2>
+            <p class="painel-texto" data-i18n="servicios.mantFrase">Tu web siempre al día, sin preocuparte de nada.</p>
+            <div class="mant-conteudo">
+                <h3 class="servico-rotulo" data-i18n="servicios.mantLblIncluye">Incluye</h3>
+                <ul class="lista-hud">
+                    {% for item in ["Alojamiento y funcionamiento de la web",
+                                    "Actualizaciones de seguridad y copias de seguridad",
+                                    "Pequeños cambios de textos, fotos y precios: tú nos lo pides y lo hacemos por ti",
+                                    "Soporte por email y WhatsApp"] %}
+                    <li data-i18n="servicios.mantInc{{ loop.index }}">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <p class="servico-info"><span class="servico-rotulo" data-i18n="servicios.mantLblPrecio">Precio</span> <span data-i18n="servicios.mantPrecio">según el proyecto, se incluye en tu presupuesto.</span></p>
+            </div>
+            <a href="/contacto" class="botao-jarvis filled" data-i18n="servicios.mantBotao">Pedir información</a>
+        </div>
+    </section>
 {% endblock %}
