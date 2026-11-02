@@ -5,7 +5,7 @@
 {% block descricao %}Cuéntanos tu proyecto y pide tu presupuesto. Te respondemos en menos de 24 horas laborables.{% endblock %}
 
 {% block traducoes %}
-    <script src="/static/js/traducoes/contacto.js"></script>
+    <script src="{{ estatico('js/traducoes/contacto.js') }}"></script>
 {% endblock %}
 
 {# gera as <option> de uma lista. Cada item: (valor enviado em espanhol, chave da traducao ou None, codigo do ?tipo= ou None).

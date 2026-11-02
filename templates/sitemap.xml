@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-{#- mapa do site para o Google: lista gerada a partir de PAGINAS_SITEMAP no meu_site.py -#}
+{# mapa do site para o Google: lista gerada a partir de PAGINAS_SITEMAP no meu_site.py -#}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for endereco in enderecos %}
   <url><loc>{{ endereco }}</loc></url>

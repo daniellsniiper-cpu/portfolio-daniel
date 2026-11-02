@@ -20,7 +20,7 @@
     <meta property="og:title" content="{{ self.titulo()|striptags }}">
     <meta property="og:description" content="{{ self.descricao()|striptags }}">
     <meta property="og:url" content="{{ URL_SITE }}{{ request.path }}">
-    <meta property="og:image" content="{{ URL_SITE }}/static/img/og-image.png">
+    <meta property="og:image" content="{{ URL_SITE }}{{ estatico('img/og-image.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="{{ MARCA }} — Ideas / Código / Resultados">
@@ -30,13 +30,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ self.titulo()|striptags }}">
     <meta name="twitter:description" content="{{ self.descricao()|striptags }}">
-    <meta name="twitter:image" content="{{ URL_SITE }}/static/img/og-image.png">
+    <meta name="twitter:image" content="{{ URL_SITE }}{{ estatico('img/og-image.png') }}">
     <meta name="twitter:image:alt" content="{{ MARCA }} — Ideas / Código / Resultados">
 
     {# fontes servidas pelo proprio site (sem Google Fonts: melhor para o RGPD) #}
-    <link rel="stylesheet" href="/static/css/fonts.css">
-    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="{{ estatico('css/fonts.css') }}">
+    <link rel="icon" href="{{ estatico('favicon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="{{ estatico('css/style.css') }}">
 </head>
 <body data-marca="{{ MARCA }}" data-autor="{{ AUTOR }}">
 
@@ -84,9 +84,9 @@
     </footer>
 
     {# traducoes PT/EN: as comuns e as de cada pagina (carregadas ANTES do main.js) #}
-    <script src="/static/js/traducoes/comum.js"></script>
+    <script src="{{ estatico('js/traducoes/comum.js') }}"></script>
     {% block traducoes %}{% endblock %}
-    <script src="/static/js/main.js"></script>
+    <script src="{{ estatico('js/main.js') }}"></script>
     {# scripts proprios de cada pagina (rodam depois do main.js) #}
     {% block scripts %}{% endblock %}
 </body>

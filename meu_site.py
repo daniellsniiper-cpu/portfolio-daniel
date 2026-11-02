@@ -1,6 +1,7 @@
 # meu primeiro site
 # criado por Daniel Mota
 
+import hashlib
 import mimetypes
 import os
 from datetime import date
@@ -52,12 +53,48 @@ def dados_da_marca():
         "INSTAGRAM_USUARIO": "@" + INSTAGRAM.rstrip("/").split("/")[-1],
         "ano": date.today().year,
         "URL_SITE": url_do_site(),
+        "estatico": estatico,
     }
 
 
 def url_do_site():
     """endereco base do site, sem barra no final: o SITE_URL ou, se vazio, o de onde o site esta sendo servido"""
     return (SITE_URL or request.url_root).rstrip("/")
+
+
+# ===== VERSAO AUTOMATICA DOS ARQUIVOS ESTATICOS (cache) =====
+# Nos templates use {{ estatico('css/style.css') }} em vez de "/static/css/style.css".
+# O endereco ganha "?v=" + uma impressao digital do conteudo: muda sozinha quando o arquivo muda,
+# entao o navegador pode guardar o arquivo por 1 ano sem nunca ficar com versao velha.
+
+_impressoes = {}  # caminho -> (data de modificacao, impressao digital)
+
+def impressao_digital(caminho):
+    arquivo = os.path.join(app.static_folder, caminho)
+    modificado = os.path.getmtime(arquivo)
+    guardado = _impressoes.get(caminho)
+    if guardado and guardado[0] == modificado:  # arquivo nao mudou: reaproveita a conta
+        return guardado[1]
+    with open(arquivo, "rb") as f:
+        impressao = hashlib.md5(f.read()).hexdigest()[:8]
+    _impressoes[caminho] = (modificado, impressao)
+    return impressao
+
+def estatico(caminho):
+    return url_for("static", filename=caminho) + "?v=" + impressao_digital(caminho)
+
+
+@app.after_request
+def regras_de_cache(resposta):
+    # So quem foi pedido COM versao (?v=) pode ficar 1 ano no navegador, alem das fontes .woff2
+    # (chamadas por dentro do fonts.css e praticamente nunca mudam). Todo o resto e revalidado:
+    # o navegador pergunta "mudou?" e, se nao mudou, o servidor responde "304" sem reenviar o arquivo.
+    if request.path.startswith("/static/"):
+        if request.args.get("v") or request.path.endswith(".woff2"):
+            resposta.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        else:
+            resposta.headers["Cache-Control"] = "no-cache"
+    return resposta
 
 
 # ===== PAGINAS =====
