@@ -50,20 +50,27 @@ CARTA.desenharEditor = function (d, caixa) {
         cat.itens.forEach(function (it, ii) {
             var id = "it-" + ci + "-" + ii
             var item = criar("div", { classe: "carta-item", "data-i": ii })
-            var linha = criar("div", { classe: "carta-item-linha" })
+            var modo = CARTA.MODOS[d.modo], extraTexto = modo.extra !== "alergenos"
+            var linha = criar("div", { classe: "carta-item-linha" + (extraTexto ? " com-extra" : "") })
             var n = criar("input", { type: "text", id: id + "-nome", classe: "carta-input", "data-campo": "nombre", maxlength: CARTA.MAX.itemNombre })
             n.value = it.nombre
             var p = criar("input", { type: "text", id: id + "-preco", classe: "carta-input carta-input-preco", "data-campo": "precio",
                                      maxlength: CARTA.MAX.precio, placeholder: CARTA.t("phPrecio"), inputmode: "decimal" })
             p.value = it.precio
             linha.appendChild(campo(CARTA.t("lblNombre"), id + "-nome", n))
+            if (extraTexto) {   // ex.: duracao ("60 min") na Lista de servicios
+                var x = criar("input", { type: "text", id: id + "-extra", classe: "carta-input", "data-campo": "extra",
+                                         maxlength: CARTA.MAX.extraTexto, placeholder: CARTA.t(modo.exemploCampo) })
+                x.value = it.extra
+                linha.appendChild(campo(CARTA.t(modo.rotulo), id + "-extra", x))
+            }
             linha.appendChild(campo(CARTA.t("lblPrecio"), id + "-preco", p))
             item.appendChild(linha)
             var desc = criar("textarea", { id: id + "-desc", classe: "carta-input carta-input-desc", "data-campo": "descripcion", maxlength: CARTA.MAX.descripcion, rows: "2" })
             desc.value = it.descripcion
             item.appendChild(campo(CARTA.t("lblDescripcion"), id + "-desc", desc))
 
-            if (CARTA.MODOS[d.modo].extra === "alergenos") {
+            if (!extraTexto) {   // alergenos (modo Carta)
                 var det = criar("details", { classe: "carta-alergenos" })
                 det.appendChild(criar("summary", null, CARTA.t("lblAlergenos") + (it.extra.length ? " (" + it.extra.length + ")" : "")))
                 var grade = criar("div", { classe: "carta-alergenos-grade" })

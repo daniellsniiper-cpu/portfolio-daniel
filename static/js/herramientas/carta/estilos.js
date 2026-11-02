@@ -9,8 +9,16 @@ CARTA.FONTES = {
     "Playfair Display": { normal: "PlayfairDisplay-Regular.ttf", bold: "PlayfairDisplay-Bold.ttf", italics: "PlayfairDisplay-Italic.ttf", bolditalics: "PlayfairDisplay-Bold.ttf" },
     "Lato":             { normal: "Lato-Regular.ttf", bold: "Lato-Bold.ttf", italics: "Lato-Italic.ttf", bolditalics: "Lato-Bold.ttf" },
     "Montserrat":       { normal: "Montserrat-Regular.ttf", bold: "Montserrat-Bold.ttf", italics: "Montserrat-Regular.ttf", bolditalics: "Montserrat-Bold.ttf" },
-    "Montserrat SemiBold": { normal: "Montserrat-SemiBold.ttf", bold: "Montserrat-Bold.ttf", italics: "Montserrat-SemiBold.ttf", bolditalics: "Montserrat-Bold.ttf" }
+    "Montserrat SemiBold": { normal: "Montserrat-SemiBold.ttf", bold: "Montserrat-Bold.ttf", italics: "Montserrat-SemiBold.ttf", bolditalics: "Montserrat-Bold.ttf" },
+    "Jost":             { normal: "Jost-Regular.ttf", bold: "Jost-Medium.ttf", italics: "Jost-Regular.ttf", bolditalics: "Jost-Medium.ttf" },
+    "Jost Light":       { normal: "Jost-Light.ttf", bold: "Jost-Regular.ttf", italics: "Jost-Light.ttf", bolditalics: "Jost-Regular.ttf" },
+    "Cormorant Garamond": { normal: "CormorantGaramond-Medium.ttf", bold: "CormorantGaramond-SemiBold.ttf", italics: "CormorantGaramond-MediumItalic.ttf", bolditalics: "CormorantGaramond-MediumItalic.ttf" }
 }
+
+// Tokens opcionais (com valor padrao quando faltam):
+//   fonteNegocio (= fonteTitulo), negocioNegrito (= true), fonteItem (= fonteTexto), fonteDescricao (= fonteTexto),
+//   categoria.italico (= false), filete: "centro" | "barra" | "linha" | "ornamento",
+//   cores.extra (= suave), extraItalico (= false), tam.extra (= descricao), moldura (= false: moldura dourada na pagina)
 
 CARTA.ESTILOS = {
     // CARTA / MENU
@@ -34,12 +42,39 @@ CARTA.ESTILOS = {
         categoria: { caixaAlta: true, espacamento: 1.5, negrito: true, filete: "barra" },     // barra de cor curta embaixo, a esquerda
         item: { nomeNegrito: false, precoNegrito: true, precoAcento: true, descricaoItalico: false },
         icone: 9.5
+    },
+
+    // LISTA DE SERVICIOS
+    minimalista: {
+        alinhamento: "left",
+        fonteTitulo: "Jost",                // categorias em Jost Medium
+        fonteNegocio: "Jost Light", negocioNegrito: false,
+        fonteTexto: "Jost",
+        fonteDescricao: "Jost Light",
+        cores: { texto: "#222222", suave: "#707070", acento: "#333333", linha: "#d9d9d9", icones: "#333333" },
+        tam: { negocio: 26, contato: 9, categoria: 10.5, item: 11, preco: 11, descricao: 9, legenda: 8, extra: 9.5 },
+        categoria: { caixaAlta: true, espacamento: 3, negrito: true, filete: "linha" },        // linha fina de ponta a ponta
+        item: { nomeNegrito: false, precoNegrito: false, precoAcento: false, descricaoItalico: false },
+        icone: 9.5
+    },
+    lujo: {
+        alinhamento: "center",
+        fonteTitulo: "Cormorant Garamond",
+        fonteTexto: "Cormorant Garamond",
+        fonteDescricao: "Jost Light",
+        cores: { texto: "#2b2620", suave: "#6f665a", acento: "#9a7b3f", linha: "#cdb88a", icones: "#9a7b3f", extra: "#9a7b3f", moldura: "#b89a5e" },
+        tam: { negocio: 30, contato: 9, categoria: 17, item: 13, preco: 13, descricao: 8.5, legenda: 8, extra: 11 },
+        categoria: { caixaAlta: false, italico: true, espacamento: 0.5, negrito: false, filete: "ornamento" },  // linha + losango + linha
+        item: { nomeNegrito: true, precoNegrito: true, precoAcento: false, descricaoItalico: false },
+        extraItalico: true,
+        moldura: true,   // moldura dupla dourada e fina (fundo continua branco)
+        icone: 10
     }
 }
 
 // fontes que um estilo usa (para carregar so o necessario no PDF)
 CARTA.fontesDoEstilo = function (estilo) {
     var e = CARTA.ESTILOS[estilo], lista = [e.fonteTitulo, e.fonteTexto]
-    if (e.fonteItem) lista.push(e.fonteItem)
+    ;[e.fonteItem, e.fonteNegocio, e.fonteDescricao].forEach(function (f) { if (f) lista.push(f) })
     return lista.filter(function (f, i) { return lista.indexOf(f) === i })
 }

@@ -10,6 +10,13 @@
 @font-face { font-family: 'Lato'; font-weight: 400; font-style: italic; font-display: swap; src: url(../fonts/carta/Lato-Italic.ttf) format('truetype'); }
 @font-face { font-family: 'Montserrat'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/Montserrat-Regular.ttf) format('truetype'); }
 @font-face { font-family: 'Montserrat'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/Montserrat-Bold.ttf) format('truetype'); }
+@font-face { font-family: 'Jost'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Regular.ttf) format('truetype'); }
+@font-face { font-family: 'Jost'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Medium.ttf) format('truetype'); }
+@font-face { font-family: 'Jost Light'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Light.ttf) format('truetype'); }
+@font-face { font-family: 'Jost Light'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Regular.ttf) format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/CormorantGaramond-Medium.ttf) format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/CormorantGaramond-SemiBold.ttf) format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: italic; font-display: swap; src: url(../fonts/carta/CormorantGaramond-MediumItalic.ttf) format('truetype'); }
 @font-face { font-family: 'Montserrat SemiBold'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/Montserrat-SemiBold.ttf) format('truetype'); }
 
 .ferramenta-carta { max-width: 1400px; margin: 0 auto; width: 100%; }
@@ -80,6 +87,7 @@ textarea.carta-input { resize: vertical; min-height: 58px; line-height: 1.4; }
 .carta-input-categoria { font-weight: 600; font-size: 17px; }
 .carta-item { border-top: 1px dashed rgba(0, 212, 255, 0.2); margin-top: 16px; padding-top: 16px; }
 .carta-item-linha { display: grid; grid-template-columns: minmax(0, 1fr) 130px; gap: 10px; }
+.carta-item-linha.com-extra { grid-template-columns: minmax(0, 1fr) 100px 120px; }   /* nome | duracao | preco */
 .carta-item-acoes { justify-content: flex-end; }
 .carta-mini-grupo { display: flex; gap: 6px; }
 .carta-mini {
@@ -159,6 +167,8 @@ textarea.carta-input { resize: vertical; min-height: 58px; line-height: 1.4; }
 @media (max-width: 480px) {
     .carta-categoria { padding: 14px 12px; }
     .carta-item-linha { grid-template-columns: minmax(0, 1fr) 100px; }
+    .carta-item-linha.com-extra { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .carta-item-linha.com-extra .carta-campo:first-child { grid-column: 1 / -1; }   /* nome em cima; duracao e preco lado a lado */
     .carta-alergenos-grade { grid-template-columns: minmax(0, 1fr); }
     .carta-acoes .botao-jarvis { width: 100%; text-align: center; }
 }

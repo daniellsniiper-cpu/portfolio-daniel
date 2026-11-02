@@ -55,15 +55,31 @@ function iconesPdf(ids, e) {
     return { columns: colunas, columnGap: 2.5, margin: [0, 3, 0, 0] }
 }
 
+// filete embaixo do titulo da categoria (mesmos desenhos da previa)
+function filetePdf(e, largura) {
+    var c = e.cores, tipo = e.categoria.filete
+    if (tipo === "centro") return { canvas: [{ type: "line", x1: 0, y1: 0, x2: 40, y2: 0, lineWidth: 0.75, lineColor: c.linha }], margin: [(largura - 40) / 2, 5, 0, 10] }
+    if (tipo === "barra") return { canvas: [{ type: "rect", x: 0, y: 0, w: 28, h: 2, color: c.acento }], margin: [0, 5, 0, 10] }
+    if (tipo === "linha") return { canvas: [{ type: "line", x1: 0, y1: 0, x2: largura, y2: 0, lineWidth: 0.6, lineColor: c.linha }], margin: [0, 5, 0, 10] }
+    // ornamento: linha + losango + linha, centralizado (76 pt de largura)
+    return { canvas: [
+        { type: "line", x1: 0, y1: 0, x2: 30, y2: 0, lineWidth: 0.75, lineColor: c.linha },
+        { type: "polyline", closePath: true, color: c.acento, lineColor: c.acento, lineWidth: 0.5,
+          points: [{ x: 38, y: -3 }, { x: 41, y: 0 }, { x: 38, y: 3 }, { x: 35, y: 0 }] },
+        { type: "line", x1: 46, y1: 0, x2: 76, y2: 0, lineWidth: 0.75, lineColor: c.linha }
+    ], margin: [(largura - 76) / 2, 7, 0, 10] }
+}
+
 // monta o documento do pdfmake a partir dos mesmos dados e estilo da previa
 CARTA.montarDocumento = function (d, marca, dominio) {
-    var e = CARTA.ESTILOS[d.estilo], c = e.cores, t = e.tam
+    var e = CARTA.ESTILOS[d.estilo], c = e.cores, t = e.tam, modo = CARTA.MODOS[d.modo]
     var largura = CARTA.LARGURA_A4 - 2 * CARTA.MARGEM
+    var fonteDesc = e.fonteDescricao || e.fonteTexto
     var conteudo = []
 
-    conteudo.push({ text: d.negocio.nombre, font: e.fonteTitulo, bold: true, fontSize: t.negocio, alignment: e.alinhamento, lineHeight: 1.1 })
+    conteudo.push({ text: d.negocio.nombre, font: e.fonteNegocio || e.fonteTitulo, bold: e.negocioNegrito !== false, fontSize: t.negocio, alignment: e.alinhamento, lineHeight: 1.1 })
     var contato = [d.negocio.direccion, d.negocio.telefono].filter(function (x) { return x.trim() }).join("  ·  ")
-    if (contato) conteudo.push({ text: contato, fontSize: t.contato, color: c.suave, alignment: e.alinhamento, margin: [0, 5, 0, 0], characterSpacing: 0.4 })
+    if (contato) conteudo.push({ text: contato, font: fonteDesc, fontSize: t.contato, color: c.suave, alignment: e.alinhamento, margin: [0, 5, 0, 0], characterSpacing: 0.4 })
     conteudo.push({ canvas: [{ type: "line", x1: 0, y1: 0, x2: largura, y2: 0, lineWidth: 0.75, lineColor: c.linha }], margin: [0, 10, 0, 12] })
 
     var usados = []
@@ -73,33 +89,39 @@ CARTA.montarDocumento = function (d, marca, dominio) {
         var titulo = []
         if (cat.nombre.trim()) {
             titulo.push({ text: e.categoria.caixaAlta ? maiusculas(cat.nombre, d.idiomaCarta) : cat.nombre, font: e.fonteTitulo, fontSize: t.categoria,
-                          color: c.acento, bold: e.categoria.negrito, characterSpacing: e.categoria.espacamento, alignment: e.alinhamento, margin: [0, 12, 0, 0] })
-            titulo.push(e.categoria.filete === "centro"
-                ? { canvas: [{ type: "line", x1: 0, y1: 0, x2: 40, y2: 0, lineWidth: 0.75, lineColor: c.linha }], margin: [(largura - 40) / 2, 5, 0, 10] }
-                : { canvas: [{ type: "rect", x: 0, y: 0, w: 28, h: 2, color: c.acento }], margin: [0, 5, 0, 10] })
+                          color: c.acento, bold: e.categoria.negrito, italics: !!e.categoria.italico, characterSpacing: e.categoria.espacamento,
+                          alignment: e.alinhamento, margin: [0, 12, 0, 0] })
+            titulo.push(filetePdf(e, largura))
         }
         var blocos = itens.map(function (i) {
             var esq = [{ text: i.nombre, font: e.fonteItem || e.fonteTexto, fontSize: t.item, bold: e.item.nomeNegrito, lineHeight: 1.2 }]
-            if (i.descripcion.trim()) esq.push({ text: i.descripcion, fontSize: t.descricao, color: c.suave, italics: e.item.descricaoItalico, lineHeight: 1.25, margin: [0, 1.5, 0, 0] })
-            if (Array.isArray(i.extra) && i.extra.length) {
+            if (i.descripcion.trim()) esq.push({ text: i.descripcion, font: fonteDesc, fontSize: t.descricao, color: c.suave, italics: e.item.descricaoItalico, lineHeight: 1.25, margin: [0, 1.5, 0, 0] })
+            if (modo.extra === "alergenos" && i.extra.length) {
                 esq.push(iconesPdf(i.extra, e))
                 i.extra.forEach(function (id) { if (usados.indexOf(id) === -1) usados.push(id) })
             }
-            return { columns: [{ width: "*", stack: esq },
-                               { width: "auto", text: i.precio, fontSize: t.preco, bold: e.item.precoNegrito, color: e.item.precoAcento ? c.acento : c.texto, lineHeight: 1.2 }],
-                     columnGap: 12, margin: [0, 0, 0, 8], unbreakable: true }
+            var colunas = [{ width: "*", stack: esq }]
+            // texto extra (ex.: duracao) numa coluna antes do preco
+            if (modo.extra !== "alergenos" && modo.posicao === "coluna" && i.extra.trim()) {
+                var tx = t.extra || t.descricao
+                colunas.push({ width: "auto", text: i.extra, fontSize: tx, color: c.extra || c.suave, italics: !!e.extraItalico, lineHeight: 1.2,
+                               margin: [0, Math.max(0, (t.item - tx) / 2), 0, 0] })
+            }
+            colunas.push({ width: "auto", text: i.precio, fontSize: t.preco, bold: e.item.precoNegrito, color: e.item.precoAcento ? c.acento : c.texto, lineHeight: 1.2 })
+            return { columns: colunas, columnGap: 12, margin: [0, 0, 0, 8], unbreakable: true }
         })
         // o titulo da categoria nunca fica sozinho no fim da pagina: vai junto com o primeiro item
         conteudo.push({ stack: titulo.concat(blocos.slice(0, 1)), unbreakable: true })
         blocos.slice(1).forEach(function (b) { conteudo.push(b) })
     })
 
+    // legenda dos alergenos usados (so no modo Carta)
     if (usados.length) {
         var nomes = CARTA.NOMES_ALERGENOS[d.idiomaCarta], celulas = []
         CARTA.ALERGENOS.forEach(function (a) {
             if (usados.indexOf(a.id) === -1) return
             celulas.push({ columns: [{ svg: CARTA.svgAlergeno(a.id, c.icones), width: e.icone, height: e.icone },
-                                     { text: nomes[a.id], fontSize: t.legenda, color: c.suave, margin: [4, 1, 0, 0] }], columnGap: 0 })
+                                     { text: nomes[a.id], font: fonteDesc, fontSize: t.legenda, color: c.suave, margin: [4, 1, 0, 0] }], columnGap: 0 })
         })
         while (celulas.length % 3) celulas.push({ text: "" })
         var linhas = []
@@ -113,18 +135,31 @@ CARTA.montarDocumento = function (d, marca, dominio) {
     }
 
     var marcaDagua = CARTA.textoMarcaDagua(d.idiomaCarta, marca, dominio)
-    return {
+    // com moldura (Lujo) a marca d'agua sobe para ficar ACIMA da linha de dentro da moldura (a 26pt da borda),
+    // e a margem de baixo cresce junto para o conteudo nao encostar nela
+    var topoRodape = e.moldura ? 43 : 32          // distancia da borda de baixo ate o topo do texto do rodape
+    var margemBaixo = e.moldura ? CARTA.MARGEM + 22 : CARTA.MARGEM
+    var doc = {
         pageSize: "A4",
-        pageMargins: [CARTA.MARGEM, CARTA.MARGEM, CARTA.MARGEM, CARTA.MARGEM],
+        pageMargins: [CARTA.MARGEM, CARTA.MARGEM, CARTA.MARGEM, margemBaixo],
         info: { title: d.negocio.nombre || "Carta", creator: marca, producer: marca },
         defaultStyle: { font: e.fonteTexto, color: c.texto, fontSize: t.item },
         content: conteudo,
         // marca d'agua discreta no rodape de TODAS as paginas (+ numero da pagina se houver mais de uma)
         footer: function (pagina, total) {
-            return { text: marcaDagua + (total > 1 ? "   ·   " + pagina + "/" + total : ""), alignment: "center", fontSize: 7.5,
-                     color: "#9a9a9a", margin: [CARTA.MARGEM, 18, CARTA.MARGEM, 0] }
+            return { text: marcaDagua + (total > 1 ? "   ·   " + pagina + "/" + total : ""), alignment: "center", fontSize: 7.5, font: fonteDesc,
+                     color: "#9a9a9a", margin: [CARTA.MARGEM, margemBaixo - topoRodape, CARTA.MARGEM, 0] }
         }
     }
+    // moldura dupla dourada em todas as paginas (Lujo): so linhas finas, o fundo continua branco
+    if (e.moldura) doc.background = function (pagina, tamanho) {
+        var m = CARTA.MOLDURA, w = tamanho.width, h = tamanho.height
+        return { canvas: [
+            { type: "rect", x: m, y: m, w: w - 2 * m, h: h - 2 * m, lineWidth: 0.8, lineColor: c.moldura },
+            { type: "rect", x: m + 4, y: m + 4, w: w - 2 * m - 8, h: h - 2 * m - 8, lineWidth: 0.4, lineColor: c.moldura }
+        ] }
+    }
+    return doc
 }
 
 CARTA.nomeArquivo = function (d) {

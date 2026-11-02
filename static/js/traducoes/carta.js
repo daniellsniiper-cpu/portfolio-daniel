@@ -3,7 +3,8 @@
 // O conteudo da carta e o que a pessoa escrever; os textos fixos do PDF ficam em modos.js (TEXTOS_PDF).
 TRADUCOES.carta = {
     es: {
-        estilo_elegante: "Elegante", estilo_moderno: "Moderno",
+        estilo_elegante: "Elegante", estilo_moderno: "Moderno", estilo_minimalista: "Minimalista", estilo_lujo: "Lujo",
+        lblDuracion: "Duración", phDuracion: "60 min",
         lblCategoria: "Categoría", phCategoria: "Ej.: Entrantes",
         lblNombre: "Nombre", lblPrecio: "Precio", phPrecio: "12,50 €", lblDescripcion: "Descripción (opcional)", lblAlergenos: "Alérgenos",
         subir: "Subir", bajar: "Bajar", eliminarCategoria: "Eliminar categoría", eliminarProducto: "Eliminar producto",
@@ -28,7 +29,8 @@ TRADUCOES.carta = {
         painelTitulo: "Quer o seu cardápio online com QR, que você atualiza pelo celular?", painelTexto: "Nós fazemos para você.",
         painelBotao: "Quero meu cardápio online", painelFechar: "Fechar",
         // textos do editor
-        estilo_elegante: "Elegante", estilo_moderno: "Moderno",
+        estilo_elegante: "Elegante", estilo_moderno: "Moderno", estilo_minimalista: "Minimalista", estilo_lujo: "Luxo",
+        lblDuracion: "Duração", phDuracion: "60 min",
         lblCategoria: "Categoria", phCategoria: "Ex.: Entradas",
         lblNombre: "Nome", lblPrecio: "Preço", phPrecio: "12,50 €", lblDescripcion: "Descrição (opcional)", lblAlergenos: "Alérgenos",
         subir: "Subir", bajar: "Descer", eliminarCategoria: "Excluir categoria", eliminarProducto: "Excluir produto",
@@ -53,7 +55,8 @@ TRADUCOES.carta = {
         painelTitulo: "Want your menu online with a QR code you can update from your phone?", painelTexto: "We'll build it for you.",
         painelBotao: "I want my menu online", painelFechar: "Close",
         // editor texts
-        estilo_elegante: "Elegant", estilo_moderno: "Modern",
+        estilo_elegante: "Elegant", estilo_moderno: "Modern", estilo_minimalista: "Minimalist", estilo_lujo: "Luxury",
+        lblDuracion: "Duration", phDuracion: "60 min",
         lblCategoria: "Category", phCategoria: "E.g.: Starters",
         lblNombre: "Name", lblPrecio: "Price", phPrecio: "€12.50", lblDescripcion: "Description (optional)", lblAlergenos: "Allergens",
         subir: "Move up", bajar: "Move down", eliminarCategoria: "Delete category", eliminarProducto: "Delete item",

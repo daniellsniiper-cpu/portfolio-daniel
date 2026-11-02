@@ -35,7 +35,7 @@
                     <p class="carta-rotulo" data-i18n="carta.lblModo">Tipo</p>
                     <div class="carta-opcoes">
                         <button type="button" class="carta-opcao ativo" data-modo="carta" aria-pressed="true" data-i18n="carta.modoCarta">Carta / Menú</button>
-                        <button type="button" class="carta-opcao" data-modo="servicios" disabled><span data-i18n="carta.modoServicios">Lista de servicios</span> <small data-i18n="carta.proximamente">Próximamente</small></button>
+                        <button type="button" class="carta-opcao" data-modo="servicios" aria-pressed="false" data-i18n="carta.modoServicios">Lista de servicios</button>
                         <button type="button" class="carta-opcao" data-modo="precios" disabled><span data-i18n="carta.modoPrecios">Lista de precios</span> <small data-i18n="carta.proximamente">Próximamente</small></button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
 
                 <div class="carta-grupo">
                     <h2 class="carta-rotulo" data-i18n="carta.secContenido">Contenido</h2>
-                    <p class="carta-aviso" data-i18n="carta.avisoAlergenos">Revisa la información de alérgenos: es responsabilidad del establecimiento.</p>
+                    <p class="carta-aviso" id="carta-aviso-alergenos" data-i18n="carta.avisoAlergenos">Revisa la información de alérgenos: es responsabilidad del establecimiento.</p>
                     <div id="carta-editor-conteudo"></div>
                 </div>
             </div>

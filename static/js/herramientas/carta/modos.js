@@ -2,9 +2,11 @@
 // cada modo com um campo extra e os seus estilos.
 var CARTA = window.CARTA || {}
 
+// extra: "alergenos" (lista de icones) ou um texto curto; rotulo/exemplo = chaves de traducoes/carta.js;
+// posicao do texto extra no documento: "coluna" (antes do preco)
 CARTA.MODOS = {
     carta:     { disponivel: true,  extra: "alergenos", estilos: ["elegante", "moderno"] },
-    servicios: { disponivel: false, extra: "duracion",  estilos: [] },   // Parte 2
+    servicios: { disponivel: true,  extra: "duracion",  estilos: ["minimalista", "lujo"], rotulo: "lblDuracion", exemploCampo: "phDuracion", posicao: "coluna" },
     precios:   { disponivel: false, extra: "referencia", estilos: [] }   // Parte 3
 }
 
@@ -17,7 +19,8 @@ CARTA.TEXTOS_PDF = {
 
 // conteudo de exemplo (primeira visita), no idioma da interface — para a previa nao comecar vazia
 CARTA.exemplo = function (modo, idioma) {
-    var ex = {
+    var exemplos = {}
+    exemplos.carta = {
         es: { negocio: { nombre: "Café Aurora", direccion: "Calle Mayor 12, Madrid", telefono: "910 000 000" },
               categorias: [
                 { nombre: "Desayunos", itens: [
@@ -43,5 +46,32 @@ CARTA.exemplo = function (modo, idioma) {
                     { nombre: "Latte", descripcion: "", precio: "€1.60", extra: ["lacteos"] },
                     { nombre: "Fresh orange juice", descripcion: "", precio: "€3.20", extra: [] } ] } ] }
     }
-    return JSON.parse(JSON.stringify(ex[idioma] || ex.es))
+    exemplos.servicios = {
+        es: { negocio: { nombre: "Estudio Bella", direccion: "Calle Serrano 20, Madrid", telefono: "910 000 000" },
+              categorias: [
+                { nombre: "Peluquería", itens: [
+                    { nombre: "Corte y peinado", descripcion: "Lavado, corte y secado", precio: "35,00 €", extra: "60 min" },
+                    { nombre: "Color completo", descripcion: "Tinte de raíz a puntas y peinado", precio: "55,00 €", extra: "90 min" } ] },
+                { nombre: "Manicura y pedicura", itens: [
+                    { nombre: "Manicura semipermanente", descripcion: "Esmaltado de larga duración", precio: "20,00 €", extra: "45 min" },
+                    { nombre: "Pedicura spa", descripcion: "", precio: "30,00 €", extra: "60 min" } ] } ] },
+        pt: { negocio: { nombre: "Estúdio Bella", direccion: "Avenida da Liberdade 20, Lisboa", telefono: "210 000 000" },
+              categorias: [
+                { nombre: "Cabeleireiro", itens: [
+                    { nombre: "Corte e penteado", descripcion: "Lavagem, corte e secagem", precio: "35,00 €", extra: "60 min" },
+                    { nombre: "Coloração completa", descripcion: "Coloração da raiz às pontas e penteado", precio: "55,00 €", extra: "90 min" } ] },
+                { nombre: "Manicure e pedicure", itens: [
+                    { nombre: "Manicure gel", descripcion: "Verniz de longa duração", precio: "20,00 €", extra: "45 min" },
+                    { nombre: "Pedicure spa", descripcion: "", precio: "30,00 €", extra: "60 min" } ] } ] },
+        en: { negocio: { nombre: "Bella Studio", direccion: "20 High Street", telefono: "910 000 000" },
+              categorias: [
+                { nombre: "Hair", itens: [
+                    { nombre: "Cut and style", descripcion: "Wash, cut and blow-dry", precio: "€35.00", extra: "60 min" },
+                    { nombre: "Full colour", descripcion: "Root-to-tip colour and styling", precio: "€55.00", extra: "90 min" } ] },
+                { nombre: "Nails", itens: [
+                    { nombre: "Gel manicure", descripcion: "Long-lasting polish", precio: "€20.00", extra: "45 min" },
+                    { nombre: "Spa pedicure", descripcion: "", precio: "€30.00", extra: "60 min" } ] } ] }
+    }
+    var conjunto = exemplos[modo] || exemplos.carta
+    return JSON.parse(JSON.stringify(conjunto[idioma] || conjunto.es))
 }

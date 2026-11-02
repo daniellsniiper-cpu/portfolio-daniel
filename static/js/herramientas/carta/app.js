@@ -12,7 +12,9 @@ var CARTA = window.CARTA || {}
     }
     var $ = function (id) { return document.getElementById(id) }
     var editor = $("carta-editor-conteudo"), folha = $("carta-folha"), moldura = $("carta-moldura")
-    var d = CARTA.carregarRascunho() || CARTA.estadoNovo(document.documentElement.lang, true)
+    // estado = { modo, docs: { carta: {...}, servicios: {...} } }; d = documento do modo atual
+    var estado = CARTA.carregarRascunho() || CARTA.estadoNovo(document.documentElement.lang)
+    var d = estado.docs[estado.modo]
 
     // ----- previa (folha A4 reduzida para caber na coluna) -----
     function ajustarEscala() {
@@ -26,7 +28,7 @@ var CARTA = window.CARTA || {}
         CARTA.desenharPrevia(d, folha, opcoes.marca, opcoes.dominio)
         ajustarEscala()
     }
-    function mudou() { atualizarPrevia(); CARTA.salvarRascunho(d) }
+    function mudou() { atualizarPrevia(); CARTA.salvarRascunho(estado) }
 
     // ----- controles fixos (estilo, idioma da carta, negocio) -----
     function desenharEstilos() {
@@ -46,12 +48,25 @@ var CARTA = window.CARTA || {}
             b.classList.toggle("ativo", ativo); b.setAttribute("aria-pressed", ativo ? "true" : "false")
         })
         desenharEstilos()
+        $("carta-aviso-alergenos").hidden = CARTA.MODOS[d.modo].extra !== "alergenos"   // aviso so faz sentido no modo Carta
         $("carta-idioma").value = d.idiomaCarta
         $("carta-negocio-nombre").value = d.negocio.nombre
         $("carta-negocio-direccion").value = d.negocio.direccion
         $("carta-negocio-telefono").value = d.negocio.telefono
     }
     function desenharTudo() { preencherControles(); CARTA.desenharEditor(d, editor); atualizarPrevia() }
+
+    // trocar de modo: mostra o documento daquele modo (o dos outros modos continua guardado)
+    document.querySelectorAll("[data-modo]").forEach(function (b) {
+        b.addEventListener("click", function () {
+            var m = b.dataset.modo
+            if (b.disabled || m === estado.modo) return
+            if (!estado.docs[m]) estado.docs[m] = CARTA.documentoNovo(m, document.documentElement.lang, true)
+            estado.modo = m; d = estado.docs[m]
+            $("carta-painel").hidden = true
+            desenharTudo(); CARTA.salvarRascunho(estado)
+        })
+    })
 
     $("carta-estilos").addEventListener("click", function (ev) {
         var b = ev.target.closest("[data-estilo]"); if (!b) return
@@ -72,6 +87,7 @@ var CARTA = window.CARTA || {}
         if (!campo || p.c < 0) return
         if (campo === "categoria") d.categorias[p.c].nombre = a.value
         else if (campo === "alergeno") return
+        else if (campo === "extra") d.categorias[p.c].itens[p.i].extra = a.value
         else d.categorias[p.c].itens[p.i][campo] = a.value
         mudou()
     })
@@ -85,12 +101,13 @@ var CARTA = window.CARTA || {}
         resumo.textContent = CARTA.t("lblAlergenos") + (lista.length ? " (" + lista.length + ")" : "")
         mudou()
     })
-    // sugestao de euro: "12,5" vira "12,50 €" ao sair do campo
+    // sugestoes ao sair do campo: "12,5" vira "12,50 €" e, na duracao, "45" vira "45 min"
     editor.addEventListener("focusout", function (ev) {
-        var a = ev.target, p = posicao(a)
-        if (a.dataset.campo !== "precio") return
-        var novo = CARTA.sugerirPreco(a.value, d.idiomaCarta)
-        if (novo !== a.value) { a.value = novo; d.categorias[p.c].itens[p.i].precio = novo; mudou() }
+        var a = ev.target, p = posicao(a), campo = a.dataset.campo, novo = a.value
+        if (campo === "precio") novo = CARTA.sugerirPreco(a.value, d.idiomaCarta)
+        else if (campo === "extra" && CARTA.MODOS[d.modo].extra === "duracion") novo = CARTA.sugerirDuracao(a.value)
+        else return
+        if (novo !== a.value) { a.value = novo; d.categorias[p.c].itens[p.i][campo] = novo; mudou() }
     })
 
     // ----- editor: adicionar, mover e remover (redesenha e devolve o foco) -----
@@ -98,7 +115,7 @@ var CARTA = window.CARTA || {}
     editor.addEventListener("click", function (ev) {
         var b = ev.target.closest("[data-acao]"); if (!b || b.disabled) return
         var p = posicao(b), acao = b.dataset.acao, foco = null
-        if (acao === "cat-add") { d.categorias.push(CARTA.categoriaVazia()); foco = "cat-" + (d.categorias.length - 1) }
+        if (acao === "cat-add") { d.categorias.push(CARTA.categoriaVazia(d.modo)); foco = "cat-" + (d.categorias.length - 1) }
         if (acao === "cat-subir") { trocar(d.categorias, p.c, p.c - 1); foco = "cat-" + (p.c - 1) }
         if (acao === "cat-baixar") { trocar(d.categorias, p.c, p.c + 1); foco = "cat-" + (p.c + 1) }
         if (acao === "cat-remover") {
@@ -107,7 +124,7 @@ var CARTA = window.CARTA || {}
             d.categorias.splice(p.c, 1); foco = "cat-" + Math.max(0, p.c - 1)
         }
         var itens = p.c > -1 ? d.categorias[p.c] && d.categorias[p.c].itens : null
-        if (acao === "item-add") { itens.push(CARTA.itemVazio()); foco = "it-" + p.c + "-" + (itens.length - 1) + "-nome" }
+        if (acao === "item-add") { itens.push(CARTA.itemVazio(d.modo)); foco = "it-" + p.c + "-" + (itens.length - 1) + "-nome" }
         if (acao === "item-subir") { trocar(itens, p.i, p.i - 1); foco = "it-" + p.c + "-" + (p.i - 1) + "-nome" }
         if (acao === "item-baixar") { trocar(itens, p.i, p.i + 1); foco = "it-" + p.c + "-" + (p.i + 1) + "-nome" }
         if (acao === "item-remover") { itens.splice(p.i, 1); foco = "it-" + p.c + "-" + Math.max(0, p.i - 1) + "-nome" }
@@ -143,17 +160,18 @@ var CARTA = window.CARTA || {}
     // ----- empezar de nuevo -----
     $("carta-reiniciar").addEventListener("click", function () {
         if (!confirm(CARTA.t("confirmarReiniciar"))) return
-        CARTA.apagarRascunho()
-        var estilo = d.estilo, idioma = d.idiomaCarta
-        d = CARTA.estadoNovo(document.documentElement.lang, false)
-        d.estilo = estilo; d.idiomaCarta = idioma
+        // limpa so o documento do modo atual (os outros modos continuam guardados)
+        var novo = CARTA.documentoNovo(estado.modo, document.documentElement.lang, false)
+        novo.estilo = d.estilo; novo.idiomaCarta = d.idiomaCarta
+        estado.docs[estado.modo] = d = novo
         painel.hidden = true
-        desenharTudo()
+        desenharTudo(); CARTA.salvarRascunho(estado)
     })
 
     // ao trocar o idioma do SITE, os rotulos do editor mudam (a carta continua no idioma escolhido para ela)
     document.addEventListener("idioma", function () { desenharEstilos(); CARTA.desenharEditor(d, editor) })
 
     desenharTudo()
-    CARTA._estado = function () { return d }   // usado pelos testes
+    CARTA._estado = function () { return d }          // usados pelos testes
+    CARTA._estadoCompleto = function () { return estado }
 })()
