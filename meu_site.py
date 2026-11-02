@@ -5,18 +5,29 @@ import mimetypes
 import os
 from datetime import date
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from markupsafe import Markup, escape
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # ===== MARCA: para trocar o nome do site, mude só estas linhas =====
 MARCA = "dev_mot4"
 AUTOR = "Daniel Mota"
 INSTAGRAM = "https://instagram.com/dev_mot4"
 
+# ===== ENDERECO DO SITE (usado no Open Graph, robots.txt e sitemap.xml) =====
+# Vazio = usa o endereco de onde o site esta sendo servido (local ou Render).
+# Quando tiver o dominio: SITE_URL = "https://www.seudominio.com"  (sem barra no final)
+SITE_URL = ""
+
 # tipo correto das fontes (o Windows nao conhece .woff2 por padrao)
 mimetypes.add_type("font/woff2", ".woff2")
 
 app = Flask(__name__)
+
+# O Render recebe a visita em https e repassa ao Flask por dentro em http, avisando o original
+# no cabecalho X-Forwarded-Proto. O ProxyFix faz o Flask acreditar nesse aviso (1 proxy na frente),
+# para os enderecos completos sairem com https:// e o IP do visitante ser o real.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 
 
 def marca_colorida(nome):
@@ -40,7 +51,13 @@ def dados_da_marca():
         "INSTAGRAM": INSTAGRAM,
         "INSTAGRAM_USUARIO": "@" + INSTAGRAM.rstrip("/").split("/")[-1],
         "ano": date.today().year,
+        "URL_SITE": url_do_site(),
     }
+
+
+def url_do_site():
+    """endereco base do site, sem barra no final: o SITE_URL ou, se vazio, o de onde o site esta sendo servido"""
+    return (SITE_URL or request.url_root).rstrip("/")
 
 
 # ===== PAGINAS =====

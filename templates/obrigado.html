@@ -5,6 +5,8 @@
 {% block descricao %}Tu mensaje ha sido enviado. Te responderemos en menos de 24 horas laborables.{% endblock %}
 {# pagina de confirmacao: nao precisa aparecer no Google #}
 {% block meta %}<meta name="robots" content="noindex">{% endblock %}
+{# pagina sem endereco oficial (nao vai para o Google) #}
+{% block canonical %}{% endblock %}
 
 {% block traducoes %}
     <script src="/static/js/traducoes/obrigado.js"></script>

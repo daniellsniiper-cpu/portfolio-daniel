@@ -9,6 +9,30 @@
     <title{% block titulo_i18n %}{% endblock %}>{% block titulo %}{{ MARCA }}{% endblock %}</title>
     <meta name="description" content="{% block descricao %}{% endblock %}">
     {% block meta %}{% endblock %}
+
+    {# endereco "oficial" da pagina (evita paginas repetidas no Google); paginas de erro/obrigado anulam o bloco #}
+    {% block canonical %}<link rel="canonical" href="{{ URL_SITE }}{{ request.path }}">{% endblock %}
+
+    {# PREVIA AO COMPARTILHAR (WhatsApp, LinkedIn, Facebook...) e no X/Twitter:
+       titulo e descricao reaproveitam os blocos acima com self.titulo() / self.descricao() #}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ MARCA }}">
+    <meta property="og:title" content="{{ self.titulo()|striptags }}">
+    <meta property="og:description" content="{{ self.descricao()|striptags }}">
+    <meta property="og:url" content="{{ URL_SITE }}{{ request.path }}">
+    <meta property="og:image" content="{{ URL_SITE }}/static/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ MARCA }} — Ideas / Código / Resultados">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale:alternate" content="pt_BR">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ self.titulo()|striptags }}">
+    <meta name="twitter:description" content="{{ self.descricao()|striptags }}">
+    <meta name="twitter:image" content="{{ URL_SITE }}/static/img/og-image.png">
+    <meta name="twitter:image:alt" content="{{ MARCA }} — Ideas / Código / Resultados">
+
     {# fontes servidas pelo proprio site (sem Google Fonts: melhor para o RGPD) #}
     <link rel="stylesheet" href="/static/css/fonts.css">
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">

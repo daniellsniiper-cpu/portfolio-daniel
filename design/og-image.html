@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+  RECEITA DA IMAGEM DE COMPARTILHAMENTO (static/img/og-image.png, 1200x630)
+
+  Esta pagina NAO faz parte do site: e so o "molde" da imagem que aparece quando
+  alguem compartilha um link do site (WhatsApp, LinkedIn, Facebook, X...).
+  Usa as mesmas fontes e cores do site.
+
+  Para gerar a imagem de novo (por exemplo, se mudar a marca ou o slogan):
+    1. Edite os textos abaixo (marca e slogan estao escritos a mao aqui).
+    2. No terminal, na pasta do projeto, rode (Microsoft Edge):
+       "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files --window-size=1200,630 --screenshot="static\img\og-image.png" "file:///%CD%\design\og-image.html"
+    3. Reduza o arquivo para 256 cores (fica abaixo de 300 KB, limite recomendado pelo WhatsApp).
+       Precisa do Pillow no venv (so ferramenta, nao vai para o requirements.txt): venv\Scripts\pip install pillow
+       venv\Scripts\python -c "from PIL import Image; Image.open('static/img/og-image.png').convert('RGB').quantize(256, dither=Image.Dither.FLOYDSTEINBERG).save('static/img/og-image.png', optimize=True)"
+    4. Confira a imagem: deve ter 1200x630 e menos de 300 KB.
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../static/css/fonts.css">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    body {
+        background:
+            radial-gradient(ellipse at 50% 42%, rgba(0, 212, 255, 0.10), transparent 60%),
+            radial-gradient(ellipse at 50% 50%, #04121c, #000 75%);
+        font-family: 'Rajdhani', sans-serif;
+        position: relative;
+    }
+    /* grade HUD bem sutil */
+    .grade {
+        position: absolute; inset: 0;
+        background-image:
+            linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+    /* cantos HUD */
+    .canto { position: absolute; width: 46px; height: 46px; border-color: rgba(0, 212, 255, 0.6); border-style: solid; }
+    .tl { top: 30px; left: 30px; border-width: 2px 0 0 2px; }
+    .tr { top: 30px; right: 30px; border-width: 2px 2px 0 0; }
+    .bl { bottom: 30px; left: 30px; border-width: 0 0 2px 2px; }
+    .br { bottom: 30px; right: 30px; border-width: 0 2px 2px 0; }
+
+    .centro { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+    /* aneis como os do topo do site */
+    .aneis { position: relative; width: 210px; height: 210px; margin-bottom: 34px; }
+    .anel { position: absolute; border-radius: 50%; border: 2px solid rgba(0, 212, 255, 0.45); }
+    .a1 { inset: 0; }
+    .a2 { inset: 24px; border-color: rgba(0, 212, 255, 0.22); }
+    .a3 { inset: 48px; border-color: rgba(0, 212, 255, 0.7); }
+    .ponto { position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #00d4ff; box-shadow: 0 0 14px #00d4ff; }
+    .p1 { top: 12px; left: 158px; }
+    .p2 { top: 52px; left: 132px; }
+    .simbolo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .simbolo svg { width: 78px; height: 78px; filter: drop-shadow(0 0 10px #00d4ff) drop-shadow(0 0 24px rgba(0, 212, 255, 0.6)); }
+
+    .marca {
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 96px;
+        letter-spacing: 8px;
+        color: #fff;
+        text-shadow: 0 0 40px rgba(0, 212, 255, 0.7);
+        line-height: 1;
+        margin-bottom: 26px;
+    }
+    .destaque { color: #00d4ff; text-shadow: 0 0 18px #00d4ff, 0 0 6px #00d4ff; }
+    .slogan {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 24px;
+        letter-spacing: 10px;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    .slogan .barra { color: #00d4ff; text-shadow: 0 0 12px #00d4ff; margin: 0 18px; }
+</style>
+</head>
+<body>
+    <div class="grade"></div>
+    <div class="canto tl"></div><div class="canto tr"></div><div class="canto bl"></div><div class="canto br"></div>
+    <div class="centro">
+        <div class="aneis">
+            <div class="anel a1"></div><div class="anel a2"></div><div class="anel a3"></div>
+            <div class="ponto p1"></div><div class="ponto p2"></div>
+            <div class="simbolo"><svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,20 10,32 22,44"/><polyline points="42,20 54,32 42,44"/><line x1="36" y1="16" x2="28" y2="48"/></svg></div>
+        </div>
+        <div class="marca">dev<span class="destaque">_</span>mot<span class="destaque">4</span></div>
+        <div class="slogan">IDEAS<span class="barra">/</span>CÓDIGO<span class="barra">/</span>RESULTADOS</div>
+    </div>
+</body>
+</html>

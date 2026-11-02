@@ -39,6 +39,10 @@ def main():
             if nome not in pendencias[texto]:
                 pendencias[texto].append(nome)
 
+    # o endereco do site (Open Graph, robots.txt, sitemap.xml) precisa do dominio antes do deploy
+    if not meu_site.SITE_URL:
+        pendencias["SITE_URL vazia: preencha com o dominio (ex.: https://www.seudominio.com)"].append("meu_site.py")
+
     if not pendencias:
         print("OK: nenhuma pendencia. O site pode ir ao ar.")
         return

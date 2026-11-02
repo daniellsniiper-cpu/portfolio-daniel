@@ -5,6 +5,8 @@
 {% block descricao %}La página que buscas no existe o ha cambiado de dirección.{% endblock %}
 {# pagina de erro: nao deve aparecer no Google #}
 {% block meta %}<meta name="robots" content="noindex">{% endblock %}
+{# pagina sem endereco oficial (nao vai para o Google) #}
+{% block canonical %}{% endblock %}
 
 {% block traducoes %}
     <script src="/static/js/traducoes/erros.js"></script>
