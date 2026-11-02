@@ -5,7 +5,7 @@ import mimetypes
 import os
 from datetime import date
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, Response, render_template, redirect, request, url_for
 from markupsafe import Markup, escape
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -99,6 +99,26 @@ def privacidad():
 @app.route("/cookies")
 def cookies():
     return render_template("legal/cookies.html")
+
+
+# ===== PARA OS ROBOS DE BUSCA (Google, Bing...) =====
+
+# paginas que entram no mapa do site (nome da funcao da rota). Legais, /obrigado e erros ficam de fora.
+# Ao criar uma pagina nova que deve aparecer no Google, acrescente o nome dela aqui.
+PAGINAS_SITEMAP = ["inicio", "servicios", "herramientas", "nosotros", "contacto"]
+
+@app.route("/robots.txt")
+def robots_txt():
+    # nao bloqueamos /obrigado aqui: ele ja tem "noindex", e o robo precisa entrar para ler esse aviso
+    texto = f"User-agent: *\nAllow: /\n\nSitemap: {url_do_site()}/sitemap.xml\n"
+    return Response(texto, mimetype="text/plain")
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    # sem <lastmod>: no Render a data dos arquivos vira a data do deploy, e o Google passaria a ignora-la
+    enderecos = [url_do_site() + url_for(pagina) for pagina in PAGINAS_SITEMAP]
+    xml = render_template("sitemap.xml", enderecos=enderecos)
+    return Response(xml, mimetype="application/xml")
 
 
 # ===== PAGINAS DE ERRO =====
