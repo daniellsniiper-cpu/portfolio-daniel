@@ -15,20 +15,62 @@
         <p class="servicios-intro" data-i18n="servicios.intro">Cuatro líneas de trabajo para hacer crecer tu negocio. Cada proyecto se adapta a lo que necesitas.</p>
 
         <div class="linhas-servico">
-            {# ancora (para os cards da Inicio), chave da traducao, tipo pre-selecionado no formulario #}
-            {% for ancora, chave, tipo, titulo, texto in [
-                ("webs", "web", "web", "WEBS", "Webs corporativas, páginas para profesionales y landing pages. Diseño a medida, adaptado a móviles y preparado para crecer."),
-                ("tiendas", "tienda", "tienda", "TIENDAS ONLINE", "Catálogo de productos, carrito, pago online con tarjeta y gestión de pedidos, fácil de administrar para ti."),
-                ("apps", "apps", "app", "APPS Y SISTEMAS", "Sistemas de reservas, áreas de clientes y herramientas internas que se adaptan a cómo trabaja tu negocio."),
-                ("ia", "ia", "ia", "AUTOMATIZACIÓN E IA", "Asistentes virtuales, respuestas automáticas y tareas repetitivas que dejan de hacerse a mano.")
+            {# cada linha: ancora (cards da Inicio), chave da traducao, tipo pre-selecionado no formulario,
+               titulo, frase, lista "Que incluye", "Ideal para" e "Plazo orientativo" #}
+            {% for linha in [
+                {"ancora": "webs", "chave": "web", "tipo": "web", "titulo": "WEBS",
+                 "texto": "Webs corporativas, páginas para profesionales y landing pages. Diseño a medida, adaptado a móviles y preparado para crecer.",
+                 "inclui": ["Diseño a medida, adaptado a móviles y tablets",
+                            "Formulario de contacto y botón de WhatsApp",
+                            "Optimización básica para Google (títulos, descripciones, velocidad)",
+                            "Preparada para el RGPD: formulario con consentimiento y sin cookies innecesarias",
+                            "Versión multilingüe opcional (español, inglés y portugués)"],
+                 "ideal": "profesionales, pequeños negocios y empresas que necesitan una presencia online seria.",
+                 "plazo": "3–4 semanas."},
+                {"ancora": "tiendas", "chave": "tienda", "tipo": "tienda", "titulo": "TIENDAS ONLINE",
+                 "texto": "Catálogo de productos, carrito, pago online con tarjeta y gestión de pedidos, fácil de administrar para ti.",
+                 "inclui": ["Catálogo de productos con fotos, precios y categorías",
+                            "Carrito y pago online con tarjeta",
+                            "Gestión de pedidos y emails de confirmación al cliente",
+                            "Diseño a medida, adaptado a móviles"],
+                 "ideal": "tiendas físicas que quieren vender también por internet y marcas que empiezan online.",
+                 "plazo": "6–8 semanas."},
+                {"ancora": "apps", "chave": "apps", "tipo": "app", "titulo": "APPS Y SISTEMAS",
+                 "texto": "Sistemas de reservas, áreas de clientes y herramientas internas que se adaptan a cómo trabaja tu negocio.",
+                 "inclui": ["Sistemas de reservas y citas online",
+                            "Áreas privadas para clientes",
+                            "Paneles de gestión e informes",
+                            "Herramientas internas a medida",
+                            "Aplicaciones web que funcionan en el móvil, sin descargar nada"],
+                 "ideal": "negocios que quieren dejar el papel y las hojas de cálculo y trabajar de forma más organizada.",
+                 "plazo": "según el proyecto, se define en la propuesta."},
+                {"ancora": "ia", "chave": "ia", "tipo": "ia", "titulo": "AUTOMATIZACIÓN E IA",
+                 "texto": "Asistentes virtuales, respuestas automáticas y tareas repetitivas que dejan de hacerse a mano.",
+                 "inclui": ["Asistentes virtuales para tu web",
+                            "Respuestas automáticas a preguntas frecuentes",
+                            "Automatización de tareas repetitivas (emails, formularios, informes)",
+                            "Conexión entre las herramientas que ya usas"],
+                 "ideal": "negocios que pierden horas cada semana en tareas que se pueden automatizar.",
+                 "plazo": "según el proyecto, se define en la propuesta."}
             ] %}
-            <article class="linha-servico" id="{{ ancora }}">
+            <article class="linha-servico" id="{{ linha.ancora }}">
                 <div class="linha-servico-num">0{{ loop.index }}</div>
                 <div class="linha-servico-conteudo">
-                    <h2 data-i18n="servicios.{{ chave }}Titulo">{{ titulo }}</h2>
-                    <p data-i18n="servicios.{{ chave }}Texto">{{ texto }}</p>
-                    {# FASE 2: detalhes desta linha (o que inclui, exemplos, perguntas frequentes) #}
-                    <a href="/contacto?tipo={{ tipo }}" class="botao-jarvis" data-i18n="servicios.botao">Pedir presupuesto</a>
+                    <h2 data-i18n="servicios.{{ linha.chave }}Titulo">{{ linha.titulo }}</h2>
+                    <p data-i18n="servicios.{{ linha.chave }}Texto">{{ linha.texto }}</p>
+
+                    <div class="servico-detalhes">
+                        <h3 class="servico-rotulo" data-i18n="servicios.lblIncluye">Qué incluye</h3>
+                        <ul class="lista-hud">
+                            {% for item in linha.inclui %}
+                            <li data-i18n="servicios.{{ linha.chave }}Inc{{ loop.index }}">{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                        <p class="servico-info"><span class="servico-rotulo" data-i18n="servicios.lblIdeal">Ideal para</span> <span data-i18n="servicios.{{ linha.chave }}Ideal">{{ linha.ideal }}</span></p>
+                        <p class="servico-info"><span class="servico-rotulo" data-i18n="servicios.lblPlazo">Plazo orientativo</span> <span data-i18n="servicios.{{ linha.chave }}Plazo">{{ linha.plazo }}</span></p>
+                    </div>
+
+                    <a href="/contacto?tipo={{ linha.tipo }}" class="botao-jarvis" data-i18n="servicios.botao">Pedir presupuesto</a>
                 </div>
             </article>
             {% endfor %}

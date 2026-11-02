@@ -829,3 +829,37 @@ html[lang="es"] .aviso-idioma { display: none; }
     .nav-links a { font-size: 10px; letter-spacing: 0.5px; }
     .nav-links a.ativo::after { right: 0.5px; }
 }
+
+/* ===== SERVICIOS: detalhes de cada linha (o que inclui, ideal para, prazo) ===== */
+.servico-detalhes { margin: 6px 0 28px; max-width: 680px; }
+.servico-rotulo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(0, 212, 255, 0.85);
+}
+h3.servico-rotulo { margin-bottom: 12px; }
+.lista-hud { list-style: none; margin-bottom: 18px; }
+.lista-hud li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 16px;
+    line-height: 1.6;
+}
+.lista-hud li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #00d4ff;
+    text-shadow: 0 0 8px #00d4ff;
+}
+.linha-servico p.servico-info { margin-bottom: 8px; font-size: 15px; line-height: 1.7; }
+.servico-info .servico-rotulo { margin-right: 6px; }
+
+@media (max-width: 768px) {
+    .lista-hud li { font-size: 15px; }
+}
