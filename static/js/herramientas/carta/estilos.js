@@ -14,7 +14,7 @@ CARTA.FONTES = {
     "Jost Light":       { normal: "Jost-Light.ttf", bold: "Jost-Regular.ttf", italics: "Jost-Light.ttf", bolditalics: "Jost-Regular.ttf" },
     "Source Serif":     { normal: "SourceSerif4-Regular.ttf", bold: "SourceSerif4-SemiBold.ttf", italics: "SourceSerif4-Italic.ttf", bolditalics: "SourceSerif4-SemiBold.ttf" },
     "Oswald":           { normal: "Oswald-Medium.ttf", bold: "Oswald-SemiBold.ttf", italics: "Oswald-Medium.ttf", bolditalics: "Oswald-SemiBold.ttf" },
-    "Cormorant Garamond": { normal: "CormorantGaramond-Medium.ttf", bold: "CormorantGaramond-SemiBold.ttf", italics: "CormorantGaramond-MediumItalic.ttf", bolditalics: "CormorantGaramond-MediumItalic.ttf" }
+    "EB Garamond":      { normal: "EBGaramond-Medium.ttf", bold: "EBGaramond-SemiBold.ttf", italics: "EBGaramond-MediumItalic.ttf", bolditalics: "EBGaramond-MediumItalic.ttf" }
 }
 
 // Tokens opcionais (com valor padrao quando faltam):
@@ -61,8 +61,8 @@ CARTA.ESTILOS = {
     },
     lujo: {
         alinhamento: "center",
-        fonteTitulo: "Cormorant Garamond",
-        fonteTexto: "Cormorant Garamond",
+        fonteTitulo: "EB Garamond",          // EB Garamond: a Cormorant desenhava alguns acentos tortos (è, û)
+        fonteTexto: "EB Garamond",
         fonteDescricao: "Jost Light",
         cores: { texto: "#2b2620", suave: "#6f665a", acento: "#9a7b3f", linha: "#cdb88a", icones: "#9a7b3f", extra: "#9a7b3f", moldura: "#b89a5e" },
         tam: { negocio: 30, contato: 9, categoria: 17, item: 13, preco: 13, descricao: 8.5, legenda: 8, extra: 11 },

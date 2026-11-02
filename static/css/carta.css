@@ -14,9 +14,9 @@
 @font-face { font-family: 'Jost'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Medium.ttf) format('truetype'); }
 @font-face { font-family: 'Jost Light'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Light.ttf) format('truetype'); }
 @font-face { font-family: 'Jost Light'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/Jost-Regular.ttf) format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/CormorantGaramond-Medium.ttf) format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/CormorantGaramond-SemiBold.ttf) format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-weight: 400; font-style: italic; font-display: swap; src: url(../fonts/carta/CormorantGaramond-MediumItalic.ttf) format('truetype'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/EBGaramond-Medium.ttf) format('truetype'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/EBGaramond-SemiBold.ttf) format('truetype'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 400; font-style: italic; font-display: swap; src: url(../fonts/carta/EBGaramond-MediumItalic.ttf) format('truetype'); }
 @font-face { font-family: 'Source Serif'; font-weight: 400; font-style: normal; font-display: swap; src: url(../fonts/carta/SourceSerif4-Regular.ttf) format('truetype'); }
 @font-face { font-family: 'Source Serif'; font-weight: 700; font-style: normal; font-display: swap; src: url(../fonts/carta/SourceSerif4-SemiBold.ttf) format('truetype'); }
 @font-face { font-family: 'Source Serif'; font-weight: 400; font-style: italic; font-display: swap; src: url(../fonts/carta/SourceSerif4-Italic.ttf) format('truetype'); }

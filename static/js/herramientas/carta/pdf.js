@@ -85,7 +85,7 @@ function itemPontilhadoPdf(i, e, modo, largura, fonteDesc) {
         { columns: [
             { width: "*", text: [{ text: i.nombre + "  ", font: e.fonteItem || e.fonteTexto, fontSize: t.item, bold: e.item.nomeNegrito, background: "#ffffff" }], lineHeight: 1.2 },
             { width: "auto", text: direita, lineHeight: 1.2, noWrap: true }   // referencia e preco nunca quebram linha
-          ], columnGap: 0 }
+          ], columnGap: 8 }   // folga minima de 8pt entre o nome e a referencia/preco, mesmo quando o nome quebra a linha
     ]
     if (i.descripcion.trim()) pilha.push({ text: i.descripcion, font: fonteDesc, fontSize: t.descricao, color: c.suave, lineHeight: 1.25, margin: [0, 1.5, 0, 0] })
     return { stack: pilha, margin: [0, 0, 0, 8], unbreakable: true }
