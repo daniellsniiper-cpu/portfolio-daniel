@@ -12,27 +12,29 @@
         <p class="secao-label" data-i18n="herramientas.label">SISTEMA — 02</p>
         <h1 class="secao-titulo" data-i18n="herramientas.titulo">HERRAMIENTAS</h1>
         <div class="linha-divisoria"></div>
+        <p class="servicios-intro" data-i18n="herramientas.intro">Herramientas digitales gratuitas para negocios y comercios. Sin registro: funcionan en tu navegador.</p>
 
-        <!-- painel "Proximamente" estilo HUD -->
-        <div class="painel-hud">
-            <div class="corner corner-tl"></div>
-            <div class="corner corner-tr"></div>
-            <div class="corner corner-bl"></div>
-            <div class="corner corner-br"></div>
-
-            <div class="painel-simbolo" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,20 10,32 22,44"/><polyline points="42,20 54,32 42,44"/><line x1="36" y1="16" x2="28" y2="48"/></svg></div>
-            <p class="painel-estado"><span class="ponto-piscando" aria-hidden="true"></span><span data-i18n="herramientas.estado">ESTADO: EN DESARROLLO</span></p>
-            <div class="barra-carregando" aria-hidden="true"><div></div></div>
-
-            <h2 class="painel-titulo" data-i18n="herramientas.proximamente">PRÓXIMAMENTE</h2>
-            <p class="painel-texto" data-i18n="herramientas.texto">Estamos preparando herramientas digitales gratuitas para negocios y comercios.</p>
-            <div class="tags">
-                <span class="tag">WhatsApp</span>
-                <span class="tag" data-i18n="herramientas.tagPrecios">Precios</span>
-                <span class="tag" data-i18n="herramientas.tagDiagnostico">Diagnóstico</span>
-                <span class="tag" data-i18n="herramientas.tagCarta">Carta digital</span>
+        <div class="cards-ferramentas">
+            <!-- disponivel -->
+            <a href="/herramientas/carta" class="projeto-card card-ferramenta">
+                <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                <p class="estado-ferramenta disponivel"><span class="ponto-estado" aria-hidden="true"></span><span data-i18n="herramientas.disponible">DISPONIBLE</span></p>
+                <h2 data-i18n="herramientas.cartaTitulo">Creador de cartas y listas de precios</h2>
+                <p data-i18n="herramientas.cartaTexto">Crea la carta de tu restaurante, la lista de servicios de tu salón o los precios de tu tienda y descárgala en PDF.</p>
+                <span class="card-ver-mas" data-i18n="herramientas.abrir">ABRIR HERRAMIENTA →</span>
+            </a>
+            <!-- proximamente -->
+            {% for chave, titulo, texto in [
+                ("whatsapp", "Enlace de WhatsApp", "Crea un enlace y un código QR para que tus clientes te escriban por WhatsApp con un clic."),
+                ("diagnostico", "Diagnóstico digital", "Descubre en pocos minutos qué puede mejorar en la presencia online de tu negocio.")
+            ] %}
+            <div class="projeto-card card-ferramenta em-breve">
+                <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                <p class="estado-ferramenta"><span class="ponto-estado" aria-hidden="true"></span><span data-i18n="herramientas.proximamente">PRÓXIMAMENTE</span></p>
+                <h2 data-i18n="herramientas.{{ chave }}Titulo">{{ titulo }}</h2>
+                <p data-i18n="herramientas.{{ chave }}Texto">{{ texto }}</p>
             </div>
-            <a href="/contacto" class="botao-jarvis filled" data-i18n="herramientas.botao">Contáctanos</a>
+            {% endfor %}
         </div>
     </section>
 {% endblock %}

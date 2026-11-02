@@ -913,3 +913,22 @@ h3.servico-rotulo { margin-bottom: 12px; }
     .faq-item summary { font-size: 13px; padding-right: 36px; }
     .faq-item p { font-size: 15px; padding-right: 0; }
 }
+
+/* ===== PAGINA HERRAMIENTAS: cards das ferramentas ===== */
+.cards-ferramentas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+.card-ferramenta { display: flex; flex-direction: column; color: inherit; text-decoration: none; }
+.card-ferramenta h2 { font-family: 'Orbitron', sans-serif; font-size: 15px; color: #fff; letter-spacing: 1.5px; line-height: 1.5; margin-bottom: 14px; }
+.card-ferramenta p { flex: 1; }
+a.card-ferramenta:hover .card-ver-mas, a.card-ferramenta:focus-visible .card-ver-mas { color: #00d4ff; text-shadow: 0 0 10px #00d4ff; }
+a.card-ferramenta:focus-visible { outline: 1px solid rgba(0, 212, 255, 0.6); outline-offset: 4px; }
+.card-ferramenta.em-breve { opacity: 0.75; }
+.card-ferramenta.em-breve:hover { transform: none; box-shadow: none; }
+.estado-ferramenta {
+    flex: 0 0 auto !important;
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Orbitron', sans-serif; font-size: 10px; letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7) !important; margin-bottom: 16px !important;
+}
+.ponto-estado { width: 7px; height: 7px; border-radius: 50%; background: rgba(0, 212, 255, 0.6); }
+.estado-ferramenta.disponivel { color: #00ff88 !important; }
+.estado-ferramenta.disponivel .ponto-estado { background: #00ff88; box-shadow: 0 0 8px #00ff88; }

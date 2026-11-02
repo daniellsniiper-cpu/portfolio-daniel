@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="{{ estatico('css/fonts.css') }}">
     <link rel="icon" href="{{ estatico('favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ estatico('css/style.css') }}">
+    {# CSS proprio de uma pagina (ex.: a ferramenta de cartas) #}
+    {% block estilos %}{% endblock %}
 </head>
 <body data-marca="{{ MARCA }}" data-autor="{{ AUTOR }}">
 
@@ -51,7 +53,7 @@
         <div class="nav-links">
             <a href="/" data-i18n="comum.navInicio"{% if atual == "inicio" %} class="ativo" aria-current="page"{% endif %}>INICIO</a>
             <a href="/servicios" data-i18n="comum.navServicios"{% if atual == "servicios" %} class="ativo" aria-current="page"{% endif %}>SERVICIOS</a>
-            <a href="/herramientas" data-i18n="comum.navHerramientas"{% if atual == "herramientas" %} class="ativo" aria-current="page"{% endif %}>HERRAMIENTAS</a>
+            <a href="/herramientas" data-i18n="comum.navHerramientas"{% if atual and atual.startswith("herramienta") %} class="ativo"{% if atual == "herramientas" %} aria-current="page"{% endif %}{% endif %}>HERRAMIENTAS</a>
             <a href="/nosotros" data-i18n="comum.navNosotros"{% if atual == "nosotros" %} class="ativo" aria-current="page"{% endif %}>NOSOTROS</a>
             <a href="/contacto" data-i18n="comum.navContacto"{% if atual == "contacto" %} class="ativo" aria-current="page"{% endif %}>CONTACTO</a>
         </div>

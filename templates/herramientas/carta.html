@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block titulo %}Creador de cartas y listas de precios gratis — {{ MARCA }}{% endblock %}
+{% block descricao %}Crea gratis la carta de tu restaurante o tu lista de precios y descárgala en PDF. Sin registro: todo funciona en tu navegador.{% endblock %}
+
+{% block estilos %}
+    <link rel="stylesheet" href="{{ estatico('css/carta.css') }}">
+{% endblock %}
+
+{% block traducoes %}
+    <script src="{{ estatico('js/traducoes/carta.js') }}"></script>
+{% endblock %}
+
+{% block conteudo %}
+    {# data-*: endereco do pdfmake (so baixado no clique), pasta das fontes e dominio da marca d'agua (so da SITE_URL) #}
+    <section class="secao-compacta ferramenta-carta" id="ferramenta-carta" data-aba-ativa="editar"
+             data-pdfmake="{{ estatico('vendor/pdfmake/pdfmake.min.js') }}"
+             data-fontes="{{ url_for('static', filename='fonts/carta/') }}"
+             data-dominio="{{ DOMINIO_MARCA }}">
+        <p class="secao-label" data-i18n="carta.label">HERRAMIENTA GRATUITA</p>
+        <h1 class="secao-titulo" data-i18n="carta.titulo">CREADOR DE CARTAS Y LISTAS DE PRECIOS</h1>
+        <div class="linha-divisoria"></div>
+        <p class="carta-intro" data-i18n="carta.intro">Crea tu carta o lista de precios, mira el resultado al momento y descárgala en PDF. Gratis y sin registro: todo funciona en tu navegador y tus datos no salen de tu dispositivo.</p>
+
+        <!-- abas: so aparecem no celular -->
+        <div class="carta-abas" role="tablist">
+            <button type="button" role="tab" data-aba="editar" aria-selected="true" data-i18n="carta.abaEditar">Editar</button>
+            <button type="button" role="tab" data-aba="previa" aria-selected="false" data-i18n="carta.abaPrevia">Vista previa</button>
+        </div>
+
+        <div class="carta-layout">
+            <!-- COLUNA DO EDITOR -->
+            <div class="carta-coluna-editor">
+                <div class="carta-grupo">
+                    <p class="carta-rotulo" data-i18n="carta.lblModo">Tipo</p>
+                    <div class="carta-opcoes">
+                        <button type="button" class="carta-opcao ativo" data-modo="carta" aria-pressed="true" data-i18n="carta.modoCarta">Carta / Menú</button>
+                        <button type="button" class="carta-opcao" data-modo="servicios" disabled><span data-i18n="carta.modoServicios">Lista de servicios</span> <small data-i18n="carta.proximamente">Próximamente</small></button>
+                        <button type="button" class="carta-opcao" data-modo="precios" disabled><span data-i18n="carta.modoPrecios">Lista de precios</span> <small data-i18n="carta.proximamente">Próximamente</small></button>
+                    </div>
+                </div>
+                <div class="carta-grupo">
+                    <p class="carta-rotulo" data-i18n="carta.lblEstilo">Estilo</p>
+                    <div class="carta-opcoes" id="carta-estilos"></div>
+                </div>
+                <div class="carta-grupo carta-campo">
+                    <label for="carta-idioma" data-i18n="carta.lblIdiomaCarta">Idioma de la carta</label>
+                    <select id="carta-idioma" class="carta-input">
+                        <option value="es">Español</option>
+                        <option value="pt">Português</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+
+                <fieldset class="carta-grupo carta-negocio">
+                    <legend class="carta-rotulo" data-i18n="carta.secNegocio">Tu negocio</legend>
+                    <div class="carta-campo"><label for="carta-negocio-nombre" data-i18n="carta.lblNegocioNombre">Nombre del negocio</label>
+                        <input type="text" id="carta-negocio-nombre" class="carta-input" maxlength="60"></div>
+                    <div class="carta-campo"><label for="carta-negocio-direccion" data-i18n="carta.lblNegocioDireccion">Dirección (opcional)</label>
+                        <input type="text" id="carta-negocio-direccion" class="carta-input" maxlength="120"></div>
+                    <div class="carta-campo"><label for="carta-negocio-telefono" data-i18n="carta.lblNegocioTelefono">Teléfono (opcional)</label>
+                        <input type="text" id="carta-negocio-telefono" class="carta-input" maxlength="40" inputmode="tel"></div>
+                </fieldset>
+
+                <div class="carta-grupo">
+                    <h2 class="carta-rotulo" data-i18n="carta.secContenido">Contenido</h2>
+                    <p class="carta-aviso" data-i18n="carta.avisoAlergenos">Revisa la información de alérgenos: es responsabilidad del establecimiento.</p>
+                    <div id="carta-editor-conteudo"></div>
+                </div>
+            </div>
+
+            <!-- COLUNA DA PREVIA -->
+            <div class="carta-coluna-previa">
+                <p class="carta-rotulo" data-i18n="carta.previa">Vista previa</p>
+                <div class="carta-moldura" id="carta-moldura"><div class="carta-folha" id="carta-folha"></div></div>
+            </div>
+        </div>
+
+        <!-- ACOES (visiveis nas duas abas) -->
+        <div class="carta-acoes">
+            <button type="button" class="botao-jarvis filled" id="carta-baixar" data-i18n="carta.btnDescargar">Descargar PDF</button>
+            <button type="button" class="botao-jarvis" id="carta-reiniciar" data-i18n="carta.btnReiniciar">Empezar de nuevo</button>
+            <p class="carta-info" data-i18n="carta.rascunhoInfo">El borrador se guarda automáticamente solo en este navegador.</p>
+            <p class="form-erro" id="carta-erro" role="alert" hidden></p>
+        </div>
+
+        <!-- PAINEL DEPOIS DO DOWNLOAD -->
+        <div class="painel-hud painel-destaque carta-painel" id="carta-painel" hidden>
+            <div class="corner corner-tl"></div><div class="corner corner-tr"></div><div class="corner corner-bl"></div><div class="corner corner-br"></div>
+            <h2 class="painel-titulo" data-i18n="carta.painelTitulo">¿Quieres tu carta online con QR que actualizas desde el móvil?</h2>
+            <p class="painel-texto" data-i18n="carta.painelTexto">Te la hacemos.</p>
+            <div class="botoes-erro">
+                <a href="/contacto?tipo=carta" class="botao-jarvis filled" data-i18n="carta.painelBotao">Quiero mi carta online</a>
+                <button type="button" class="botao-jarvis" id="carta-painel-fechar" data-i18n="carta.painelFechar">Cerrar</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {% for arquivo in ["alergenos", "estilos", "modos", "estado", "previa", "editor", "pdf", "app"] %}
+    <script src="{{ estatico('js/herramientas/carta/' ~ arquivo ~ '.js') }}"></script>
+    {% endfor %}
+{% endblock %}

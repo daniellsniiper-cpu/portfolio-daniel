@@ -3,7 +3,9 @@
 Monta cada pagina com o Flask (como o navegador recebe) e confere:
   1. cada etiqueta data-i18n (texto, html, placeholder, aria-label) tem traducao em PT e EN;
   2. a pagina carrega o arquivo de traducao do grupo usado (ex.: traducoes/nosotros.js);
-  3. os textos que so existem no JavaScript tem os 3 idiomas (ES, PT e EN);
+  3. os textos que so existem no JavaScript tem os 3 idiomas (ES, PT e EN).
+     Regra: toda chave que tem versao "es" no arquivo de traducao e um texto do JavaScript
+     (o espanhol dos textos do HTML fica no proprio HTML, entao so o JS precisa do "es");
   4. nao ha traducoes sobrando (chaves que nenhum template usa).
 
 Como rodar (na pasta do projeto, com o venv):
@@ -23,13 +25,10 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # pasta do p
 PASTA_TEMPLATES = os.path.join(RAIZ, "templates")
 PASTA_TRADUCOES = os.path.join(RAIZ, "static", "js", "traducoes")
 
-# textos que so aparecem pelo JavaScript (nao estao no HTML): precisam de ES, PT e EN
-SO_JAVASCRIPT = {"inicio.frases", "contacto.enviando", "contacto.erro"}
-
-
 def carregar_traducoes():
     """executa os arquivos de traducao no Node e devolve o objeto TRADUCOES"""
-    arquivos = sorted(glob.glob(os.path.join(PASTA_TRADUCOES, "*.js")))
+    # comum.js primeiro (e ele que cria o objeto TRADUCOES), como no base.html
+    arquivos = sorted(glob.glob(os.path.join(PASTA_TRADUCOES, "*.js")), key=lambda f: (os.path.basename(f) != "comum.js", f))
     codigo = "var window = {};\n"
     codigo += "\n".join(open(f, encoding="utf-8").read() for f in arquivos)
     codigo += "\nprocess.stdout.write(JSON.stringify(TRADUCOES))"
@@ -76,12 +75,15 @@ def main():
                 if k not in traducoes[grupo].get(idioma, {}):
                     problemas.append(f"{nome}: falta '{chave}' em {idioma.upper()}")
 
-    for chave in sorted(SO_JAVASCRIPT):
+    # textos do JavaScript: reconhecidos automaticamente por terem versao "es"
+    so_js = sorted(f"{g}.{k}" for g, idiomas in traducoes.items() for k in idiomas.get("es", {}))
+    for chave in so_js:
         usadas.add(chave)
         grupo, _, k = chave.partition(".")
-        for idioma in ("es", "pt", "en"):
-            if k not in traducoes.get(grupo, {}).get(idioma, {}):
-                problemas.append(f"texto so do JavaScript '{chave}' falta em {idioma.upper()}")
+        for idioma in ("pt", "en"):
+            if k not in traducoes[grupo].get(idioma, {}):
+                problemas.append(f"texto do JavaScript '{chave}' falta em {idioma.upper()}")
+    print(f"\ntextos do JavaScript (com ES, PT e EN): {len(so_js)}")
 
     sobrando = sorted({f"{g}.{k}" for g, idiomas in traducoes.items()
                        for idioma in ("pt", "en") for k in idiomas.get(idioma, {})} - usadas)

@@ -22,6 +22,7 @@ SITE_URL = ""
 
 # tipo correto das fontes (o Windows nao conhece .woff2 por padrao)
 mimetypes.add_type("font/woff2", ".woff2")
+mimetypes.add_type("font/ttf", ".ttf")
 
 app = Flask(__name__)
 
@@ -53,6 +54,8 @@ def dados_da_marca():
         "INSTAGRAM_USUARIO": "@" + INSTAGRAM.rstrip("/").split("/")[-1],
         "ano": date.today().year,
         "URL_SITE": url_do_site(),
+        # dominio para a marca d'agua dos PDFs: SO vem da SITE_URL (nunca 127.0.0.1 nem onrender.com)
+        "DOMINIO_MARCA": SITE_URL.split("//")[-1].strip("/"),
         "estatico": estatico,
     }
 
@@ -86,11 +89,11 @@ def estatico(caminho):
 
 @app.after_request
 def regras_de_cache(resposta):
-    # So quem foi pedido COM versao (?v=) pode ficar 1 ano no navegador, alem das fontes .woff2
-    # (chamadas por dentro do fonts.css e praticamente nunca mudam). Todo o resto e revalidado:
+    # So quem foi pedido COM versao (?v=) pode ficar 1 ano no navegador, alem das fontes de static/fonts/
+    # (chamadas por dentro do CSS ou pela ferramenta e praticamente nunca mudam). Todo o resto e revalidado:
     # o navegador pergunta "mudou?" e, se nao mudou, o servidor responde "304" sem reenviar o arquivo.
     if request.path.startswith("/static/"):
-        if request.args.get("v") or request.path.endswith(".woff2"):
+        if request.args.get("v") or request.path.startswith("/static/fonts/"):
             resposta.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         else:
             resposta.headers["Cache-Control"] = "no-cache"
@@ -111,6 +114,11 @@ def servicios():
 @app.route("/herramientas")
 def herramientas():
     return render_template("herramientas.html")
+
+# ferramentas gratuitas (rodam no navegador: nenhum dado e enviado ao servidor)
+@app.route("/herramientas/carta")
+def herramienta_carta():
+    return render_template("herramientas/carta.html")
 
 @app.route("/nosotros")
 def nosotros():
@@ -142,7 +150,7 @@ def cookies():
 
 # paginas que entram no mapa do site (nome da funcao da rota). Legais, /obrigado e erros ficam de fora.
 # Ao criar uma pagina nova que deve aparecer no Google, acrescente o nome dela aqui.
-PAGINAS_SITEMAP = ["inicio", "servicios", "herramientas", "nosotros", "contacto"]
+PAGINAS_SITEMAP = ["inicio", "servicios", "herramientas", "herramienta_carta", "nosotros", "contacto"]
 
 @app.route("/robots.txt")
 def robots_txt():
