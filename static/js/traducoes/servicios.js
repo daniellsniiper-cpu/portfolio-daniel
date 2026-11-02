@@ -53,7 +53,25 @@ TRADUCOES.servicios = {
         mantInc4: "Suporte por email e WhatsApp",
         mantLblPrecio: "Preço",
         mantPrecio: "depende do projeto; é incluído no seu orçamento.",
-        mantBotao: "Pedir informações"
+        mantBotao: "Pedir informações",
+        // perguntas frequentes
+        faqTitulo: "PERGUNTAS FREQUENTES",
+        faq1P: "Quanto custa um site?",
+        faq1R: "Depende do que você precisa. Depois de uma primeira reunião gratuita, enviamos um orçamento fechado, sem surpresas.",
+        faq2P: "Como é o pagamento?",
+        faq2R: "50% no início e 50% na entrega.",
+        faq3P: "Quanto tempo demora?",
+        faq3R: "Depende do projeto. Planejamos com margem para cumprir a data combinada.",
+        faq4P: "O site é meu?",
+        faq4R: "Sim. O domínio fica no seu nome e o código é seu ao final do projeto.",
+        faq5P: "Posso fazer alterações depois?",
+        faq5R: "Sim. Com o plano de manutenção, você nos pede a alteração e nós fazemos.",
+        faq6P: "O que acontece depois da entrega?",
+        faq6R: "Incluímos 1 mês de suporte. Depois, você pode contratar o plano de manutenção.",
+        faq7P: "Vocês trabalham só em Madrid?",
+        faq7R: "Estamos em Madrid e trabalhamos online com clientes de toda a Espanha e de Portugal.",
+        faq8P: "Em quais idiomas vocês atendem?",
+        faq8R: "Em espanhol e português."
     },
     en: {
         label: "SYSTEM — 01",
@@ -108,6 +126,24 @@ TRADUCOES.servicios = {
         mantInc4: "Support by email and WhatsApp",
         mantLblPrecio: "Price",
         mantPrecio: "depends on the project; included in your quote.",
-        mantBotao: "Request information"
+        mantBotao: "Request information",
+        // frequently asked questions
+        faqTitulo: "FREQUENTLY ASKED QUESTIONS",
+        faq1P: "How much does a website cost?",
+        faq1R: "It depends on what you need. After a free first meeting, we send you a fixed quote, with no surprises.",
+        faq2P: "How do I pay?",
+        faq2R: "50% upfront and 50% on delivery.",
+        faq3P: "How long does it take?",
+        faq3R: "It depends on the project. We plan with a margin to meet the agreed date.",
+        faq4P: "Is the website mine?",
+        faq4R: "Yes. The domain is in your name and the code is yours when the project is complete.",
+        faq5P: "Can I make changes later?",
+        faq5R: "Yes. With the maintenance plan, you ask us for the change and we do it for you.",
+        faq6P: "What happens after delivery?",
+        faq6R: "We include 1 month of support. After that, you can sign up for the maintenance plan.",
+        faq7P: "Do you only work in Madrid?",
+        faq7R: "We're based in Madrid and work online with clients all over Spain and Portugal.",
+        faq8P: "Which languages do you work in?",
+        faq8R: "Spanish and Portuguese."
     }
 }

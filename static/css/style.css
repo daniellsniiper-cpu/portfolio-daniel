@@ -877,3 +877,39 @@ h3.servico-rotulo { margin-bottom: 12px; }
 @media (max-width: 768px) {
     .painel-hud .botao-jarvis { padding: 14px 18px; letter-spacing: 2px; }  /* botoes dos paineis cabem numa linha no celular */
 }
+
+/* ===== SERVICIOS: perguntas frequentes (acordeao <details>/<summary>) ===== */
+.faq { max-width: 820px; }
+.faq-item { border-top: 1px solid rgba(0, 212, 255, 0.15); }
+.faq-item:last-child { border-bottom: 1px solid rgba(0, 212, 255, 0.15); }
+.faq-item summary {
+    list-style: none;  /* tira o triangulo padrao do navegador */
+    cursor: pointer;
+    position: relative;
+    padding: 20px 44px 20px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #fff;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {  /* "+" que vira "-" quando a pergunta esta aberta */
+    content: "+";
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #00d4ff;
+    text-shadow: 0 0 10px #00d4ff;
+}
+.faq-item[open] summary::after { content: "−"; }
+.faq-item summary:hover, .faq-item[open] summary { color: #00d4ff; text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); }
+.faq-item summary:focus-visible { outline: 1px solid rgba(0, 212, 255, 0.6); outline-offset: 4px; }
+.faq-item p { color: rgba(255, 255, 255, 0.75); font-size: 16px; line-height: 1.8; padding: 0 44px 22px 0; }
+
+@media (max-width: 768px) {
+    .faq-item summary { font-size: 13px; padding-right: 36px; }
+    .faq-item p { font-size: 15px; padding-right: 0; }
+}

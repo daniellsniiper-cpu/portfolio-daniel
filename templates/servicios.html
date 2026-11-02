@@ -5,6 +5,8 @@
 
 {% block traducoes %}
     <script src="{{ estatico('js/traducoes/servicios.js') }}"></script>
+    {# a chamada final reaproveita os textos da pagina Inicio #}
+    <script src="{{ estatico('js/traducoes/inicio.js') }}"></script>
 {% endblock %}
 
 {% block conteudo %}
@@ -101,5 +103,43 @@
             </div>
             <a href="/contacto" class="botao-jarvis filled" data-i18n="servicios.mantBotao">Pedir información</a>
         </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES: acordeao nativo (<details>/<summary>) — abre e fecha sem JavaScript, com teclado e leitor de tela -->
+    {% set faqs = [
+        ("¿Cuánto cuesta una web?", "Depende de lo que necesites. Tras una primera reunión gratuita te enviamos un presupuesto cerrado, sin sorpresas."),
+        ("¿Cómo se paga?", "50% al empezar y 50% en la entrega."),
+        ("¿Cuánto tarda?", "Depende del proyecto. Planificamos con margen para cumplir la fecha acordada."),
+        ("¿La web es mía?", "Sí. El dominio queda a tu nombre y el código es tuyo al finalizar el proyecto."),
+        ("¿Puedo hacer cambios después?", "Sí. Con el plan de mantenimiento, nos pides el cambio y lo hacemos por ti."),
+        ("¿Qué pasa después de la entrega?", "Incluimos 1 mes de soporte. Después puedes contratar el plan de mantenimiento."),
+        ("¿Trabajáis solo en Madrid?", "Estamos en Madrid y trabajamos online con clientes de toda España y Portugal."),
+        ("¿En qué idiomas atendéis?", "En español y portugués.")
+    ] %}
+    <section class="secao-compacta" id="preguntas">
+        <h2 class="secao-titulo" data-i18n="servicios.faqTitulo">PREGUNTAS FRECUENTES</h2>
+        <div class="linha-divisoria"></div>
+        <div class="faq">
+            {% for pergunta, resposta in faqs %}
+            <details class="faq-item">
+                <summary><span data-i18n="servicios.faq{{ loop.index }}P">{{ pergunta }}</span></summary>
+                <p data-i18n="servicios.faq{{ loop.index }}R">{{ resposta }}</p>
+            </details>
+            {% endfor %}
+        </div>
+
+        {# dados estruturados para o Google (FAQPage), com o mesmo texto em espanhol que aparece na pagina #}
+        {% set ns = namespace(perguntas=[]) %}
+        {% for pergunta, resposta in faqs %}
+            {% set ns.perguntas = ns.perguntas + [{"@type": "Question", "name": pergunta, "acceptedAnswer": {"@type": "Answer", "text": resposta}}] %}
+        {% endfor %}
+        <script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": ns.perguntas}|tojson }}</script>
+    </section>
+
+    <!-- CHAMADA FINAL (a mesma da pagina Inicio, com as mesmas traducoes) -->
+    <section class="secao-compacta chamada-final">
+        <h2 class="secao-titulo" data-i18n="inicio.ctaTitulo">¿TIENES UN PROYECTO EN MENTE?</h2>
+        <p data-i18n="inicio.ctaTexto">Cuéntanos tu idea y te respondemos en menos de 24 horas laborables.</p>
+        <a href="/contacto" class="botao-jarvis filled" data-i18n="inicio.ctaBotao">Pide tu presupuesto</a>
     </section>
 {% endblock %}
