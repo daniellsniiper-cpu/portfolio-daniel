@@ -115,13 +115,17 @@ CARTA.montarDocumento = function (d, marca, dominio) {
         blocos.slice(1).forEach(function (b) { conteudo.push(b) })
     })
 
+    // aviso "Precios con IVA incluido" no fim do conteudo (opcao ligada por padrao)
+    if (d.ivaIncluido) conteudo.push({ text: CARTA.TEXTOS_PDF[d.idiomaCarta].ivaIncluido, font: fonteDesc, fontSize: t.legenda, color: c.suave,
+                                       alignment: e.alinhamento, margin: [0, 14, 0, 0] })
+
     // legenda dos alergenos usados (so no modo Carta)
     if (usados.length) {
         var nomes = CARTA.NOMES_ALERGENOS[d.idiomaCarta], celulas = []
         CARTA.ALERGENOS.forEach(function (a) {
             if (usados.indexOf(a.id) === -1) return
             celulas.push({ columns: [{ svg: CARTA.svgAlergeno(a.id, c.icones), width: e.icone, height: e.icone },
-                                     { text: nomes[a.id], font: fonteDesc, fontSize: t.legenda, color: c.suave, margin: [4, 1, 0, 0] }], columnGap: 0 })
+                                     { text: nomes[a.id], font: fonteDesc, fontSize: t.legenda, color: c.suave, margin: [4, 2, 0, 0] }], columnGap: 0 })
         })
         while (celulas.length % 3) celulas.push({ text: "" })
         var linhas = []

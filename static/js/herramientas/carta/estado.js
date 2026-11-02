@@ -16,7 +16,7 @@ CARTA.documentoNovo = function (modo, idiomaInterface, comExemplo) {
     var idioma = ["es", "pt", "en"].indexOf(idiomaInterface) > -1 ? idiomaInterface : "es"
     var base = comExemplo ? CARTA.exemplo(modo, idioma)
                           : { negocio: { nombre: "", direccion: "", telefono: "" }, categorias: [CARTA.categoriaVazia(modo)] }
-    return { modo: modo, estilo: CARTA.MODOS[modo].estilos[0], idiomaCarta: idioma, negocio: base.negocio, categorias: base.categorias }
+    return { modo: modo, estilo: CARTA.MODOS[modo].estilos[0], idiomaCarta: idioma, ivaIncluido: true, negocio: base.negocio, categorias: base.categorias }
 }
 
 CARTA.estadoNovo = function (idiomaInterface) {
@@ -36,6 +36,7 @@ CARTA.normalizarDocumento = function (d, modo) {
         modo: modo,
         estilo: estilos.indexOf(d.estilo) > -1 ? d.estilo : estilos[0],
         idiomaCarta: ["es", "pt", "en"].indexOf(d.idiomaCarta) > -1 ? d.idiomaCarta : "es",
+        ivaIncluido: d.ivaIncluido !== false,   // rascunho antigo (sem o campo) fica ligado
         negocio: { nombre: txt(n.nombre, CARTA.MAX.negocioNombre), direccion: txt(n.direccion, CARTA.MAX.direccion), telefono: txt(n.telefono, CARTA.MAX.telefono) },
         categorias: cats.map(function (c) {
             var itens = Array.isArray(c && c.itens) ? c.itens.slice(0, CARTA.LIMITES.itens) : []

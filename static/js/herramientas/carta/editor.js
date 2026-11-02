@@ -90,12 +90,12 @@ CARTA.desenharEditor = function (d, caixa) {
             var acoes = criar("div", { classe: "carta-mini-grupo carta-item-acoes" })
             acoes.appendChild(botaoMini("item-subir", CARTA.t("subir"), "↑", ii === 0))
             acoes.appendChild(botaoMini("item-baixar", CARTA.t("bajar"), "↓", ii === cat.itens.length - 1))
-            acoes.appendChild(botaoMini("item-remover", CARTA.t("eliminarProducto"), "✕", cat.itens.length === 1))
+            acoes.appendChild(botaoMini("item-remover", CARTA.t("eliminar" + CARTA.MODOS[d.modo].item), "✕", cat.itens.length === 1))
             item.appendChild(acoes)
             bloco.appendChild(item)
         })
 
-        var addItem = criar("button", { type: "button", classe: "carta-adicionar", "data-acao": "item-add" }, CARTA.t("addProducto"))
+        var addItem = criar("button", { type: "button", classe: "carta-adicionar", "data-acao": "item-add" }, CARTA.t("add" + CARTA.MODOS[d.modo].item))
         if (cat.itens.length >= CARTA.LIMITES.itens) { addItem.disabled = true; bloco.appendChild(criar("p", { classe: "carta-limite" }, CARTA.t("limiteItens"))) }
         bloco.appendChild(addItem)
         caixa.appendChild(bloco)

@@ -30,7 +30,7 @@ CARTA.ESTILOS = {
         tam: { negocio: 26, contato: 9.5, categoria: 14, item: 11, preco: 11, descricao: 9.5, legenda: 8.5 },
         categoria: { caixaAlta: true, espacamento: 2.5, negrito: false, filete: "centro" },   // filete dourado curto embaixo
         item: { nomeNegrito: true, precoNegrito: true, precoAcento: false, descricaoItalico: true },
-        icone: 10   // tamanho dos icones de alergenos (pt)
+        icone: 12.5   // tamanho dos icones de alergenos (pt)
     },
     moderno: {
         alinhamento: "left",
@@ -41,7 +41,7 @@ CARTA.ESTILOS = {
         tam: { negocio: 24, contato: 9, categoria: 11.5, item: 10.5, preco: 10.5, descricao: 9, legenda: 8 },
         categoria: { caixaAlta: true, espacamento: 1.5, negrito: true, filete: "barra" },     // barra de cor curta embaixo, a esquerda
         item: { nomeNegrito: false, precoNegrito: true, precoAcento: true, descricaoItalico: false },
-        icone: 9.5
+        icone: 12
     },
 
     // LISTA DE SERVICIOS
@@ -55,7 +55,7 @@ CARTA.ESTILOS = {
         tam: { negocio: 26, contato: 9, categoria: 10.5, item: 11, preco: 11, descricao: 9, legenda: 8, extra: 9.5 },
         categoria: { caixaAlta: true, espacamento: 3, negrito: true, filete: "linha" },        // linha fina de ponta a ponta
         item: { nomeNegrito: false, precoNegrito: false, precoAcento: false, descricaoItalico: false },
-        icone: 9.5
+        icone: 12
     },
     lujo: {
         alinhamento: "center",
@@ -68,7 +68,7 @@ CARTA.ESTILOS = {
         item: { nomeNegrito: true, precoNegrito: true, precoAcento: false, descricaoItalico: false },
         extraItalico: true,
         moldura: true,   // moldura dupla dourada e fina (fundo continua branco)
-        icone: 10
+        icone: 12.5
     }
 }
 

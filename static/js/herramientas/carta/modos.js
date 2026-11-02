@@ -3,18 +3,18 @@
 var CARTA = window.CARTA || {}
 
 // extra: "alergenos" (lista de icones) ou um texto curto; rotulo/exemplo = chaves de traducoes/carta.js;
-// posicao do texto extra no documento: "coluna" (antes do preco)
+// posicao do texto extra no documento: "coluna" (antes do preco); item = palavra dos botoes ("+ Añadir plato")
 CARTA.MODOS = {
-    carta:     { disponivel: true,  extra: "alergenos", estilos: ["elegante", "moderno"] },
-    servicios: { disponivel: true,  extra: "duracion",  estilos: ["minimalista", "lujo"], rotulo: "lblDuracion", exemploCampo: "phDuracion", posicao: "coluna" },
-    precios:   { disponivel: false, extra: "referencia", estilos: [] }   // Parte 3
+    carta:     { disponivel: true,  extra: "alergenos", estilos: ["elegante", "moderno"], item: "Plato" },
+    servicios: { disponivel: true,  extra: "duracion",  estilos: ["minimalista", "lujo"], rotulo: "lblDuracion", exemploCampo: "phDuracion", posicao: "coluna", item: "Servicio" },
+    precios:   { disponivel: false, extra: "referencia", estilos: [], item: "Producto" }   // Parte 3
 }
 
 // textos fixos do PDF, no idioma escolhido para a carta (nao no idioma da interface)
 CARTA.TEXTOS_PDF = {
-    es: { alergenos: "Alérgenos", hechoCon: "Hecho con" },
-    pt: { alergenos: "Alergénios", hechoCon: "Feito com" },
-    en: { alergenos: "Allergens", hechoCon: "Made with" }
+    es: { alergenos: "Alérgenos", hechoCon: "Hecho con", ivaIncluido: "Precios con IVA incluido" },
+    pt: { alergenos: "Alergénios", hechoCon: "Feito com", ivaIncluido: "Preços com IVA incluído" },
+    en: { alergenos: "Allergens", hechoCon: "Made with", ivaIncluido: "Prices include VAT" }
 }
 
 // conteudo de exemplo (primeira visita), no idioma da interface — para a previa nao comecar vazia

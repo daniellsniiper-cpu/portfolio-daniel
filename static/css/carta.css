@@ -78,6 +78,10 @@ textarea.carta-input { resize: vertical; min-height: 58px; line-height: 1.4; }
 .carta-opcao small { display: block; font-size: 9px; letter-spacing: 1px; margin-top: 3px; color: rgba(255, 255, 255, 0.7); }
 .carta-opcao:focus-visible, .carta-mini:focus-visible, .carta-adicionar:focus-visible, .carta-abas button:focus-visible { outline: 1px solid #00d4ff; outline-offset: 3px; }
 
+.carta-marcar { display: inline-flex; align-items: center; gap: 10px; color: rgba(255, 255, 255, 0.85); font-size: 16px; cursor: pointer; }
+.carta-marcar input { accent-color: #00d4ff; width: 18px; height: 18px; flex-shrink: 0; margin: 0; }
+.carta-marcar input:focus-visible { outline: 1px solid #00d4ff; outline-offset: 3px; }
+
 .carta-aviso { color: rgba(255, 255, 255, 0.7); font-size: 14px; line-height: 1.6; margin-bottom: 16px; border-left: 2px solid rgba(0, 212, 255, 0.6); padding-left: 12px; }
 
 /* categorias e itens */

@@ -50,6 +50,7 @@ var CARTA = window.CARTA || {}
         desenharEstilos()
         $("carta-aviso-alergenos").hidden = CARTA.MODOS[d.modo].extra !== "alergenos"   // aviso so faz sentido no modo Carta
         $("carta-idioma").value = d.idiomaCarta
+        $("carta-iva").checked = d.ivaIncluido
         $("carta-negocio-nombre").value = d.negocio.nombre
         $("carta-negocio-direccion").value = d.negocio.direccion
         $("carta-negocio-telefono").value = d.negocio.telefono
@@ -73,6 +74,7 @@ var CARTA = window.CARTA || {}
         d.estilo = b.dataset.estilo; desenharEstilos(); mudou()
     })
     $("carta-idioma").addEventListener("change", function () { d.idiomaCarta = this.value; mudou() })
+    $("carta-iva").addEventListener("change", function () { d.ivaIncluido = this.checked; mudou() })
     ;[["carta-negocio-nombre", "nombre"], ["carta-negocio-direccion", "direccion"], ["carta-negocio-telefono", "telefono"]].forEach(function (x) {
         $(x[0]).addEventListener("input", function () { d.negocio[x[1]] = this.value; mudou() })
     })
@@ -162,7 +164,7 @@ var CARTA = window.CARTA || {}
         if (!confirm(CARTA.t("confirmarReiniciar"))) return
         // limpa so o documento do modo atual (os outros modos continuam guardados)
         var novo = CARTA.documentoNovo(estado.modo, document.documentElement.lang, false)
-        novo.estilo = d.estilo; novo.idiomaCarta = d.idiomaCarta
+        novo.estilo = d.estilo; novo.idiomaCarta = d.idiomaCarta; novo.ivaIncluido = d.ivaIncluido
         estado.docs[estado.modo] = d = novo
         painel.hidden = true
         desenharTudo(); CARTA.salvarRascunho(estado)

@@ -113,6 +113,10 @@ CARTA.desenharPrevia = function (d, folha, marca, dominio) {
         folha.appendChild(bloco)
     })
 
+    // aviso "Precios con IVA incluido" no fim do conteudo (opcao ligada por padrao)
+    if (d.ivaIncluido) folha.appendChild(el("div", { marginTop: px(14), fontSize: px(t.legenda), color: c.suave, textAlign: e.alinhamento,
+                                                     fontFamily: fonte(e.fonteDescricao || e.fonteTexto) }, CARTA.TEXTOS_PDF[d.idiomaCarta].ivaIncluido))
+
     // legenda dos alergenos usados (na ordem oficial) — so no modo Carta
     if (usados.length) {
         var nomes = CARTA.NOMES_ALERGENOS[d.idiomaCarta]
