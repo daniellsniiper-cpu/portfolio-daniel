@@ -63,8 +63,8 @@ CARTA.ESTILOS = {
         alinhamento: "center",
         fonteTitulo: "EB Garamond",          // EB Garamond: a Cormorant desenhava alguns acentos tortos (è, û)
         fonteTexto: "EB Garamond",
-        fonteDescricao: "Jost Light",
-        cores: { texto: "#2b2620", suave: "#6f665a", acento: "#9a7b3f", linha: "#cdb88a", icones: "#9a7b3f", extra: "#9a7b3f", moldura: "#b89a5e" },
+        fonteDescricao: "Jost",             // descricoes em Jost Regular (a Light ficava fina demais impressa)
+        cores: { texto: "#2b2620", suave: "#555555", acento: "#9a7b3f", linha: "#cdb88a", icones: "#9a7b3f", extra: "#9a7b3f", moldura: "#b89a5e" },
         tam: { negocio: 30, contato: 9, categoria: 17, item: 13, preco: 13, descricao: 8.5, legenda: 8, extra: 11 },
         categoria: { caixaAlta: false, italico: true, espacamento: 0.5, negrito: false, filete: "ornamento" },  // linha + losango + linha
         item: { nomeNegrito: true, precoNegrito: true, precoAcento: false, descricaoItalico: false },
