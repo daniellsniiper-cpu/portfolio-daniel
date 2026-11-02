@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block titulo_i18n %} data-i18n="erros.aba404"{% endblock %}
+{% block titulo %}Error 404 — Página no encontrada — {{ MARCA }}{% endblock %}
+{% block descricao %}La página que buscas no existe o ha cambiado de dirección.{% endblock %}
+{# pagina de erro: nao deve aparecer no Google #}
+{% block meta %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block traducoes %}
+    <script src="/static/js/traducoes/erros.js"></script>
+{% endblock %}
+
+{% block conteudo %}
+    <section class="pagina-erro">
+        <div class="painel-hud">
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+
+            <div class="painel-simbolo" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,20 10,32 22,44"/><polyline points="42,20 54,32 42,44"/><line x1="36" y1="16" x2="28" y2="48"/></svg></div>
+            <p class="secao-label" data-i18n="erros.rotulo404">ERROR 404</p>
+            <h1 class="painel-titulo" data-i18n="erros.titulo404">PÁGINA NO ENCONTRADA</h1>
+            <p class="painel-texto" data-i18n="erros.texto404">La página que buscas no existe o ha cambiado de dirección.</p>
+            <div class="botoes-erro">
+                <a href="/" class="botao-jarvis filled" data-i18n="erros.botaoInicio">Volver al inicio</a>
+                <a href="/servicios" class="botao-jarvis" data-i18n="erros.botaoServicios">Ver servicios</a>
+                <a href="/contacto" class="botao-jarvis" data-i18n="erros.botaoContacto">Contacto</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

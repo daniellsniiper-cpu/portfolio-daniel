@@ -84,6 +84,18 @@ def cookies():
     return render_template("legal/cookies.html")
 
 
+# ===== PAGINAS DE ERRO =====
+# o ", 404" / ", 500" no final mantem o codigo de erro: o Google entende que a pagina nao existe
+
+@app.errorhandler(404)
+def pagina_nao_encontrada(erro):
+    return render_template("erros/404.html"), 404
+
+@app.errorhandler(500)
+def erro_no_servidor(erro):
+    return render_template("erros/500.html"), 500
+
+
 # ===== ENDERECOS ANTIGOS: redirecionam (301 = mudou para sempre) =====
 
 @app.route("/sobre")
